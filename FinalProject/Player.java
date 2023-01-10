@@ -30,7 +30,7 @@ public class Player extends SmoothMover
     {
         movement();
         attack();
-        if(attackTimer.getTimeInMilliseconds() > 20){
+        if(attackTimer.getTimeInPreciseSeconds() >= 2){
             attacked = false;
             attackTimer.resetTimer(); 
             System.out.println("Timer reset"); 
@@ -68,12 +68,11 @@ public class Player extends SmoothMover
                     RangedProjectile rp = new RangedProjectile(2, direction);
                     GameWorld gw = (GameWorld)getWorld();
                     gw.addObject(rp, this.getX(), this.getY()); 
-
+                    attacked = true;
                 }
                 else{
                     //melee attack
                 }
-                attacked = true; 
                 attackTimer.resetTimer(); 
                 System.out.println("Timer started"); 
                 attackTimer.startTimer(); 
