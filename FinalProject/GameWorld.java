@@ -8,6 +8,10 @@ import java.lang.Math.*;
  */
 public class GameWorld extends World
 {
+    private static int BLOCK_SIZE = 100;
+    private static int X_OFFSET = 50;
+    private static int Y_OFFSET = 50;
+    
     private int floorDepth = 0;
     //formula for room amount is: 3 * floorDepth + 5;
     private int totalRoomAmount = 10;
@@ -27,7 +31,7 @@ public class GameWorld extends World
      */
     public GameWorld()
     {    
-        super(1200, 700, 1); 
+        super(1300, 700, 1); 
     }
 
     public void act()
@@ -38,26 +42,49 @@ public class GameWorld extends World
 
     public void spawnRoom()
     {
-        addObject(new Player(), 600, 350);
+        //Adding in Player
+        addObject(new Player(), getXCoordinate(6), getYCoordinate(3));
+        //Adding in walls
+        for(int i = 0; i <= 6; i++) //Left Wall
+        {
+            Wall wall = new Wall();
+            addObject(new Wall(), getXCoordinate(0), getYCoordinate(i));
+        }
+        for(int i = 0; i <= 6; i++) //Right Wall
+        {
+            Wall wall = new Wall();
+            addObject(new Wall(), getXCoordinate(12), getYCoordinate(i));
+        }
+        for(int i = 1; i <= 11; i++) //Top Wall
+        {
+            Wall wall = new Wall();
+            addObject(new Wall(), getXCoordinate(i), getYCoordinate(0));
+        }
+        for(int i = 1; i <= 11; i++) //Bottom Wall
+        {
+            Wall wall = new Wall();
+            addObject(new Wall(), getXCoordinate(i), getYCoordinate(6));
+        }
+        //Adding in doors
         if(hasNeighborUp(dungeonFloor, currentLocationX, currentLocationY))
         {
             Door doorUp = new Door();
-            addObject(doorUp, 600, 0);
+            addObject(doorUp, getXCoordinate(6), getYCoordinate(0));
         }
         if(hasNeighborDown(dungeonFloor, currentLocationX, currentLocationY))
         {
             Door doorDown = new Door();
-            addObject(doorDown, 600, 700);
+            addObject(doorDown, getXCoordinate(6), getYCoordinate(6));
         }
         if(hasNeighborRight(dungeonFloor, currentLocationX, currentLocationY))
         {
             Door doorRight = new Door();
-            addObject(doorRight, 1200, 350);
+            addObject(doorRight, getXCoordinate(12), getYCoordinate(3));
         }
         if(hasNeighborLeft(dungeonFloor, currentLocationX, currentLocationY))
         {
             Door doorLeft = new Door();
-            addObject(doorLeft, 0, 350);
+            addObject(doorLeft, getXCoordinate(0), getYCoordinate(3));
         }
         doneSpawning = true;
     }
@@ -176,5 +203,24 @@ public class GameWorld extends World
         return dungeonFloor;
     }
 
-    
+    public static int getXCoordinate (int cellNumber){
+        return (cellNumber * BLOCK_SIZE) + X_OFFSET;
+    }
+
+    public static int getXCell(int coordinate){
+        return (coordinate - X_OFFSET) % BLOCK_SIZE;
+    }
+
+    public static int getYCoordinate (int cellNumber){
+        return (cellNumber * BLOCK_SIZE) + Y_OFFSET;
+    }
+
+    public static int getYCell(int coordinate){
+        return (coordinate - Y_OFFSET) % BLOCK_SIZE;
+    }
+
+    public static int getBlockSize()
+    {
+        return BLOCK_SIZE;
+    }
 }

@@ -1,28 +1,26 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Door here.
+ * Write a description of class Wall here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Door extends Structures
+public class Wall extends Structures
 {
-    private boolean isOpen = true;
-    private String type;
-    
-    public Door(/*String t*/)
+    public Wall()
     {
-        //type = t;
-        setImage("bluerock.jpg");
         GreenfootImage image = getImage();
         int sideLength = GameWorld.getBlockSize();
         image.scale(sideLength, sideLength);
         setImage(image);
     }
-    
+    /**
+     * Act - do whatever the Wall wants to do. This method is called whenever
+     * the 'Act' or 'Run' button gets pressed in the environment.
+     */
     public void act()
     {
-        //if intersects player and isOpen, then move to other room
+        // Add your action code here.
     }
 }
