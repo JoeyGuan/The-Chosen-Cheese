@@ -25,6 +25,10 @@ public class GameWorld extends World
     //The room player is currently in (starting location is dungeonFloor[3][3])
     private int currentRoomX = 3;
     private int currentRoomY = 3;
+    
+    //The cell numbers that player spawns at
+    private int playerX = 6;
+    private int playerY = 3;
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -40,11 +44,11 @@ public class GameWorld extends World
         if(dungeonGenerated && !doneSpawning) spawnRoom();
         
     }
-
+    
     public void spawnRoom()
     {
         //Adding in Player
-        addObject(new Player(), getXCoordinate(6), getYCoordinate(3));
+        addObject(new Player(), getXCoordinate(playerX), getYCoordinate(playerY));
         //Adding in walls
         for(int i = 0; i <= 6; i++) //Left Wall
         {
@@ -190,6 +194,15 @@ public class GameWorld extends World
     public void setDoneSpawning(boolean b)
     {
         doneSpawning = b;
+    }
+    
+    public void setPlayerX(int x)
+    {
+        playerX = x;
+    }
+    public void setPlayerY(int y)
+    {
+        playerY = y;
     }
     
     public boolean hasNeighborUp(int[][] floor, int x, int y)
