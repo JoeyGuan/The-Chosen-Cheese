@@ -1,15 +1,15 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Enemies here.
+ * Write a description of class Cheeses here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Enemies extends Actor
+public class Cheeses extends Actor
 {
     /**
-     * Act - do whatever the Enemies wants to do. This method is called whenever
+     * Act - do whatever the Cheeses wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()

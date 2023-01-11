@@ -38,6 +38,7 @@ public class GameWorld extends World
     {
         if(!dungeonGenerated) generateDungeonFloor();
         if(dungeonGenerated && !doneSpawning) spawnRoom();
+        
     }
 
     public void spawnRoom()
