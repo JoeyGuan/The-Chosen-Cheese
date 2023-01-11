@@ -3,19 +3,27 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class Player here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author (Harishan Ganeshanathan) 
+ * @version (January 10th)
  */
 public class Player extends SmoothMover
 {
-    private int speed = 10;
-    private double arrowSpeed = 2;
-    private int direction = 2; 
+    private int direction = 2; //1 = left, 2 = right, 3 = up, 4 = down
+    //flag variables
     private boolean ranged = true;
     private boolean attacked;
     private boolean attackSwitched = false;
     private int attackSwitchTimer; 
     private int attackTimer; 
+    
+    //upgradable stats
+    private double speed = 10;
+    private int meleeRadius = 10; 
+    private double projectileSpeed = 2;
+    private int attackSpeed = 240; //attack resets every 4 seconds
+    private double attackPower = 10; 
+    private double durability = 0; //damage reduction variable
+    private double health = 20; 
     public Player()
     {
         setImage("wombat.png");
@@ -33,16 +41,19 @@ public class Player extends SmoothMover
         movement();
         attack();
         switchAttack();
+        //timer for attacks
         if(attacked){
             attackTimer++;
         }
-        if(attackTimer>=120){
+        if(attackTimer>=attackSpeed){
             attacked = false;
             attackTimer = 0; 
         }
+        //switch/flag for attack type switching
         if(attackSwitched){
             attackSwitchTimer++;
-        }if(attackSwitchTimer>=150){
+        }
+        if(attackSwitchTimer>=150){
             attackSwitched = false;
             attackSwitchTimer = 0;
         }
@@ -77,15 +88,14 @@ public class Player extends SmoothMover
             GameWorld gw = (GameWorld)getWorld();
             if(!attacked){
                 if(ranged){
-                    RangedProjectile rp = new RangedProjectile(2, direction);
+                    RangedProjectile rp = new RangedProjectile(projectileSpeed, direction);
                     gw.addObject(rp, this.getX(), this.getY()); 
-                    attacked = true;
                 }
                 else{
-                    MeleeAttack ma = new MeleeAttack(10); 
+                    MeleeAttack ma = new MeleeAttack(meleeRadius); 
                     gw.addObject(ma, this.getX(), this.getY()); 
-                    attacked = true; 
                 }
+                attacked = true; 
             }
         }
     }
@@ -95,14 +105,37 @@ public class Player extends SmoothMover
                 if(ranged){
                     ranged = false;
                     System.out.println("melee");
-                    attackSwitched = true;
                 }
                 else if(!ranged){
                     ranged = true; 
                     System.out.println("Ranged");
-                    attackSwitched = true;
                 }
+                attackSwitched = true;
             }
         }
+    }
+    public double getSpeed(){
+        return speed; 
+    }
+    public void setSpeed(double spd){
+        this.speed = spd; 
+    }
+    public double getAttackPower(){
+        return attackPower;
+    }
+    public void setAttackPower(double attackPwr){
+        this.attackPower = attackPwr; 
+    }
+    public double getDurability(){
+        return durability;
+    }
+    public void setDurability(double dura){
+        this.durability = dura; 
+    }
+    public double getHealth(){
+        return health; 
+    }
+    public void setHealth(double health){
+        this.health = health; 
     }
 }

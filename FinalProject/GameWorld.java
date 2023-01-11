@@ -28,12 +28,15 @@ public class GameWorld extends World
     public GameWorld()
     {    
         super(1200, 700, 1); 
+        addObject(new HealCheese(), 400, 400);
+        addObject(new HealCheese(), 200, 200); 
     }
 
     public void act()
     {
         if(!dungeonGenerated) generateDungeonFloor();
         if(dungeonGenerated && !doneSpawning) spawnRoom();
+        
     }
 
     public void spawnRoom()
