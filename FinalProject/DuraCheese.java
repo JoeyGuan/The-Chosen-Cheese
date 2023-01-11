@@ -8,6 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class DuraCheese extends Cheeses
 {
+    public DuraCheese(){
+        setImage("hamburger.png");
+    }
     /**
      * Act - do whatever the DuraCheese wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.

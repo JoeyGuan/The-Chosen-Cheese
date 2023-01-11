@@ -16,6 +16,7 @@ public class RangedProjectile extends SmoothMover
     private int direction = 0; 
     public RangedProjectile(double speed, int facing){
         this.getImage().scale(25,25);
+        this.setImage("button-blue.png");
         this.speed = speed;
         //1 is left, 2 is right, 3 is up, 4 is down
         this.direction = facing; 

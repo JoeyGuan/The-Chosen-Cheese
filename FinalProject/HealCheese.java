@@ -8,6 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class HealCheese extends Cheeses
 {
+    public HealCheese(){
+        setImage("muffin.png"); 
+    }
     /**
      * Act - do whatever the HealCheese wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.

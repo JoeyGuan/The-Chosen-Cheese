@@ -8,6 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class SpeedCheese extends Cheeses
 {
+    public SpeedCheese(){
+        setImage("apple1.png");
+    }
     /**
      * Act - do whatever the SpeedCheese wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.

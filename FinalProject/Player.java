@@ -111,7 +111,16 @@ public class Player extends SmoothMover
                 }
                 else{
                     MeleeAttack ma = new MeleeAttack(meleeRadius); 
-                    gw.addObject(ma, this.getX(), this.getY()); 
+                    if(direction == 1){
+                        gw.addObject(ma, this.getX()-20, this.getY()); 
+                    } else if(direction == 2){
+                        gw.addObject(ma, this.getX()+20, this.getY()); 
+                    } else if(direction == 3){
+                        gw.addObject(ma, this.getX(), this.getY()-20); 
+                    }else if(direction == 4){
+                        gw.addObject(ma, this.getX(), this.getY()+20); 
+                    }
+                    
                 }
                 attacked = true; 
             }

@@ -15,6 +15,7 @@ public class MeleeAttack extends Actor
     private int attackRange;
     public MeleeAttack(int attackRange){
         this.attackRange = attackRange; 
+        this.setImage("button-green.png");
     }
     public void act()
     {
