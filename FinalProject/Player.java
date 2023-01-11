@@ -13,13 +13,15 @@ public class Player extends SmoothMover
     private int direction = 2; 
     private boolean ranged = true;
     private boolean attacked;
-    private boolean timerStarted;
-    private Timer attackTimer; 
+    private boolean attackSwitched = false;
+    private int attackSwitchTimer; 
+    private int attackTimer; 
     public Player()
     {
         setImage("wombat.png");
         attacked = false;
-        attackTimer = new Timer();
+        attackTimer = 0; 
+        attackSwitchTimer = 0;
     }
 
     /**
@@ -30,10 +32,19 @@ public class Player extends SmoothMover
     {
         movement();
         attack();
-        if(attackTimer.getTimeInPreciseSeconds() >= 2){
+        switchAttack();
+        if(attacked){
+            attackTimer++;
+        }
+        if(attackTimer>=120){
             attacked = false;
-            attackTimer.resetTimer(); 
-            System.out.println("Timer reset"); 
+            attackTimer = 0; 
+        }
+        if(attackSwitched){
+            attackSwitchTimer++;
+        }if(attackSwitchTimer>=150){
+            attackSwitched = false;
+            attackSwitchTimer = 0;
         }
     }
 
@@ -63,19 +74,34 @@ public class Player extends SmoothMover
     public void attack(){
         if(Greenfoot.isKeyDown("E"))//attack
         {
+            GameWorld gw = (GameWorld)getWorld();
             if(!attacked){
                 if(ranged){
                     RangedProjectile rp = new RangedProjectile(2, direction);
-                    GameWorld gw = (GameWorld)getWorld();
                     gw.addObject(rp, this.getX(), this.getY()); 
                     attacked = true;
                 }
                 else{
-                    //melee attack
+                    MeleeAttack ma = new MeleeAttack(10); 
+                    gw.addObject(ma, this.getX(), this.getY()); 
+                    attacked = true; 
                 }
-                attackTimer.resetTimer(); 
-                System.out.println("Timer started"); 
-                attackTimer.startTimer(); 
+            }
+        }
+    }
+    public void switchAttack(){
+        if(!attackSwitched){
+            if(Greenfoot.isKeyDown("X")){
+                if(ranged){
+                    ranged = false;
+                    System.out.println("melee");
+                    attackSwitched = true;
+                }
+                else if(!ranged){
+                    ranged = true; 
+                    System.out.println("Ranged");
+                    attackSwitched = true;
+                }
             }
         }
     }
