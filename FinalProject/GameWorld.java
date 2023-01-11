@@ -11,7 +11,7 @@ public class GameWorld extends World
     private static int BLOCK_SIZE = 100;
     private static int X_OFFSET = 50;
     private static int Y_OFFSET = 50;
-    
+
     private int floorDepth = 0;
     //formula for room amount is: 3 * floorDepth + 5;
     private int totalRoomAmount = 10;
@@ -21,10 +21,10 @@ public class GameWorld extends World
 
     private boolean dungeonGenerated = false;
     private boolean doneSpawning = false;
-    
+
     //The room player is currently in (starting location is dungeonFloor[3][3])
-    private int currentLocationX = 3;
-    private int currentLocationY = 3;
+    private int currentRoomX = 3;
+    private int currentRoomY = 3;
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -67,22 +67,22 @@ public class GameWorld extends World
             addObject(new Wall(), getXCoordinate(i), getYCoordinate(6));
         }
         //Adding in doors
-        if(hasNeighborUp(dungeonFloor, currentLocationX, currentLocationY))
+        if(hasNeighborUp(dungeonFloor, currentRoomX, currentRoomY))
         {
             Door doorUp = new Door();
             addObject(doorUp, getXCoordinate(6), getYCoordinate(0));
         }
-        if(hasNeighborDown(dungeonFloor, currentLocationX, currentLocationY))
+        if(hasNeighborDown(dungeonFloor, currentRoomX, currentRoomY))
         {
             Door doorDown = new Door();
             addObject(doorDown, getXCoordinate(6), getYCoordinate(6));
         }
-        if(hasNeighborRight(dungeonFloor, currentLocationX, currentLocationY))
+        if(hasNeighborRight(dungeonFloor, currentRoomX, currentRoomY))
         {
             Door doorRight = new Door();
             addObject(doorRight, getXCoordinate(12), getYCoordinate(3));
         }
-        if(hasNeighborLeft(dungeonFloor, currentLocationX, currentLocationY))
+        if(hasNeighborLeft(dungeonFloor, currentRoomX, currentRoomY))
         {
             Door doorLeft = new Door();
             addObject(doorLeft, getXCoordinate(0), getYCoordinate(3));
@@ -150,7 +150,7 @@ public class GameWorld extends World
             }
         }
         dungeonFloor[farthestY][farthestX] = 2;
-        
+
         //Prints out floor for testing purposes
         for(int i = 0; i < dungeonFloor.length; i++)
         {
@@ -163,6 +163,35 @@ public class GameWorld extends World
         System.out.println();
     }
 
+    public void moveRooms(int direction)
+    {
+        switch (direction){
+            case 0: //up
+                /*
+                if(currentRoomY != 0 && dungeonFloor[currentRoomY-1][currentRoomX] != 0)
+                {
+                    
+                }
+                */
+                currentRoomY--;
+                break;
+            case 1: //right
+                currentRoomX++;
+                break;
+            case 2: //down
+                currentRoomY++;
+                break;
+            case 3: //left
+                currentRoomX--;
+                break;
+        }
+    }
+
+    public void setDoneSpawning(boolean b)
+    {
+        doneSpawning = b;
+    }
+    
     public boolean hasNeighborUp(int[][] floor, int x, int y)
     {
         if(y > 0 && floor[y-1][x] != 0)
@@ -171,7 +200,7 @@ public class GameWorld extends World
         }
         return false;
     }
-    
+
     public boolean hasNeighborDown(int[][] floor, int x, int y)
     {
         if(y < 6 && floor[y+1][x] != 0)
@@ -180,7 +209,7 @@ public class GameWorld extends World
         }
         return false;
     }
-    
+
     public boolean hasNeighborRight(int[][] floor, int x, int y)
     {
         if(x < 6 && floor[y][x+1] != 0)
@@ -189,7 +218,7 @@ public class GameWorld extends World
         }
         return false;
     }
-    
+
     public boolean hasNeighborLeft(int[][] floor, int x, int y)
     {
         if(x > 0 && floor[y][x-1] != 0)
@@ -198,7 +227,7 @@ public class GameWorld extends World
         }
         return false;
     }
-    
+
     public int[][] getDungeonFloor()
     {
         return dungeonFloor;
@@ -224,4 +253,5 @@ public class GameWorld extends World
     {
         return BLOCK_SIZE;
     }
+
 }

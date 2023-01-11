@@ -23,6 +23,27 @@ public class Door extends Structures
     
     public void act()
     {
-        //if intersects player and isOpen, then move to other room
+        GameWorld w = (GameWorld) getWorld();
+        if(isOpen && !getIntersectingObjects(Player.class).isEmpty())
+        {
+            if(getX() == 650 && getY() == 50)//up
+            {
+                w.moveRooms(0);
+            }
+            if(getX() == 650 && getY() == 650)//down
+            {
+                w.moveRooms(2);
+            }
+            if(getX() == 1250 && getY() == 350)//right
+            {
+                w.moveRooms(1);
+            }
+            if(getX() == 50 && getY() == 350)//left
+            {
+                w.moveRooms(3);
+            }
+            w.removeObjects(w.getObjects(Actor.class));
+            w.setDoneSpawning(false);
+        }
     }
 }
