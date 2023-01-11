@@ -32,6 +32,7 @@ public class GameWorld extends World
     public GameWorld()
     {    
         super(1300, 700, 1); 
+        setPaintOrder(Player.class, Cheeses.class, MeleeAttack.class, RangedProjectile.class, Structures.class);
     }
 
     public void act()

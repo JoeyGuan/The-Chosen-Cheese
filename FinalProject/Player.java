@@ -44,6 +44,7 @@ public class Player extends SmoothMover
         movement();
         attack();
         switchAttack();
+        //checkWall();
         //timer for attacks
         if(attacked){
             if(ranged){
@@ -112,13 +113,13 @@ public class Player extends SmoothMover
                 else{
                     MeleeAttack ma = new MeleeAttack(meleeRadius); 
                     if(direction == 1){
-                        gw.addObject(ma, this.getX()-20, this.getY()); 
+                        gw.addObject(ma, this.getX()-10, this.getY()); 
                     } else if(direction == 2){
-                        gw.addObject(ma, this.getX()+20, this.getY()); 
+                        gw.addObject(ma, this.getX()+10, this.getY()); 
                     } else if(direction == 3){
-                        gw.addObject(ma, this.getX(), this.getY()-20); 
+                        gw.addObject(ma, this.getX(), this.getY()-10); 
                     }else if(direction == 4){
-                        gw.addObject(ma, this.getX(), this.getY()+20); 
+                        gw.addObject(ma, this.getX(), this.getY()+10); 
                     }
                     
                 }
@@ -138,6 +139,19 @@ public class Player extends SmoothMover
                     System.out.println("Ranged");
                 }
                 attackSwitched = true;
+            }
+        }
+    }
+    public void checkWall(){
+        if(this.isTouching(Wall.class)){
+            if(direction == 1){
+                setLocation(this.getX()+20, this.getY()); 
+            }else if(direction == 2){
+                setLocation(this.getX()-20, this.getY()); 
+            }else if(direction == 3){
+                setLocation(this.getX(), this.getY()+20); 
+            }else if(direction == 4){
+                setLocation(this.getX(), this.getY()-20); 
             }
         }
     }

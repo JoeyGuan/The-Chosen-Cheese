@@ -23,6 +23,6 @@ public class MeleeAttack extends Actor
             //e.decreaseHealth(player.getAttackPower()); 
         }
         */
-       getWorld().removeObject(this); 
+       //getWorld().removeObject(this); 
     }
 }
