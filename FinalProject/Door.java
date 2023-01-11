@@ -24,6 +24,9 @@ public class Door extends Structures
     public void act()
     {
         GameWorld w = (GameWorld) getWorld();
+        
+        w.removeObject(getOneIntersectingObject(Wall.class));
+        
         if(isOpen && !getIntersectingObjects(Player.class).isEmpty())
         {
             if(getX() == 650 && getY() == 50)//up
