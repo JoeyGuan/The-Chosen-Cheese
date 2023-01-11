@@ -14,13 +14,15 @@ public class Player extends SmoothMover
     private boolean attacked;
     private boolean attackSwitched = false;
     private int attackSwitchTimer; 
-    private int attackTimer; 
+    private int rangeTimer; 
+    private int meleeTimer; 
     
     //upgradable stats
     private double speed = 10;
     private int meleeRadius = 10; 
     private double projectileSpeed = 2;
-    private int attackSpeed = 240; //attack resets every 4 seconds
+    private int meleeSpeed = 90; //attack resets every 4 seconds
+    private int rangeSpeed = 180; 
     private double attackPower = 10; 
     private double durability = 0; //damage reduction variable
     private double health = 20; 
@@ -28,7 +30,8 @@ public class Player extends SmoothMover
     {
         setImage("wombat.png");
         attacked = false;
-        attackTimer = 0; 
+        rangeTimer = 0;
+        meleeTimer = 0; 
         attackSwitchTimer = 0;
     }
 
@@ -43,11 +46,26 @@ public class Player extends SmoothMover
         switchAttack();
         //timer for attacks
         if(attacked){
-            attackTimer++;
+            if(ranged){
+                rangeTimer++;
+            }
+            else{
+                meleeTimer++;
+            }
         }
-        if(attackTimer>=attackSpeed){
-            attacked = false;
-            attackTimer = 0; 
+        if(ranged){
+            if(rangeTimer>=rangeSpeed){
+                attacked = false; 
+                System.out.println("ranged ready");
+                rangeTimer = 0; 
+            }
+        }
+        if(!ranged){
+            if(meleeTimer>=meleeSpeed){
+                attacked = false;
+                System.out.println("melee ready");
+                meleeTimer = 0;
+            }
         }
         //switch/flag for attack type switching
         if(attackSwitched){

@@ -19,9 +19,9 @@ public class MeleeAttack extends Actor
     public void act()
     {
         /*for(Enemy e : getObjectsInRange(attackRange, Enemy.class){
-            //e.decreaseHealth(player.getAttackPower); 
+            //e.decreaseHealth(player.getAttackPower()); 
         }
         */
-       //getWorld().removeObject(this); 
+       getWorld().removeObject(this); 
     }
 }
