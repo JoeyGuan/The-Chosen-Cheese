@@ -13,15 +13,29 @@ public class MeleeAttack extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     private int attackRange;
+    private int animationOffset; 
+    private boolean animated; 
     public MeleeAttack(int attackRange){
         this.attackRange = attackRange; 
+        animationOffset = 0; 
+        animated = false;
     }
     public void act()
     {
-        /*for(Enemy e : getObjectsInRange(attackRange, Enemy.class){
+       if(!animated){
+           //animation
+           System.out.println("animated");
+           animated = true; 
+       }
+       animationOffset++;
+       if(animationOffset>=30){
+           System.out.println("attacked");
+           getWorld().removeObject(this);
+       }
+           /*for(Enemy e : getObjectsInRange(attackRange, Enemy.class){
             //e.decreaseHealth(player.getAttackPower()); 
-        }
-        */
-       getWorld().removeObject(this); 
+            }
+            */
+        
     }
 }
