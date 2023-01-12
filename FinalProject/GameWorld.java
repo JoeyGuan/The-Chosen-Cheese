@@ -13,14 +13,15 @@ public class GameWorld extends World
     private static int Y_OFFSET = 50;
 
     private int floorDepth = 0;
-    //formula for room amount is: 3 * floorDepth + 5;
-    private int totalRoomAmount = 10;
+    private int maxFloorDepth = 5;
+    private int totalRoomAmount = 5 + (3 * floorDepth);
 
     //0 is empty, 1 is a room, 2 is boss room, 9 for starting room?
     private int[][] dungeonFloor;
 
     private boolean dungeonGenerated = false;
     private boolean doneSpawning = false;
+    private boolean goingToNextFloor = false;
 
     //The room player is currently in (starting location is dungeonFloor[3][3])
     private int currentRoomX = 3;
@@ -41,12 +42,36 @@ public class GameWorld extends World
     public void act()
     {
         if(!dungeonGenerated) generateDungeonFloor();
-        if(dungeonGenerated && !doneSpawning) spawnRoom();
-        
+        if(goingToNextFloor)
+        {
+            if(floorDepth != maxFloorDepth)
+            {
+                floorDepth++;
+                totalRoomAmount = 5 + (3 * floorDepth);
+            
+                generateDungeonFloor(); 
+                currentRoomX = 3;
+                currentRoomY = 3;
+                playerX = 6;
+                playerY = 3;
+            }
+            else
+            {
+                //reaching below maxFloorDepth is win condition
+                //Send to end screen with win
+            }
+            goingToNextFloor = false;
+        }
+        if(dungeonGenerated && !doneSpawning) 
+        {
+            spawnRoom();
+        }
     }
     
     public void spawnRoom()
     {
+        //Clear Screen
+        removeObjects(getObjects(Actor.class));
         //Adding in Player
         addObject(new Player(), getXCoordinate(playerX), getYCoordinate(playerY));
         //Adding in walls
@@ -91,6 +116,12 @@ public class GameWorld extends World
             Door doorLeft = new Door();
             addObject(doorLeft, getXCoordinate(0), getYCoordinate(3));
         }
+        
+        //spawn trapdoor at boss room
+        if(dungeonFloor[currentRoomY][currentRoomX] == 2)
+        {
+            addObject(new Trapdoor(), getXCoordinate(6), getYCoordinate(3));
+        }
         doneSpawning = true;
     }
     
@@ -131,7 +162,6 @@ public class GameWorld extends World
                 roomAmount++;
             }
         }
-        dungeonGenerated = true;
 
         //Look for room farthest away to set as boss room to progress to next floor
         int farthestX = 3;
@@ -155,6 +185,8 @@ public class GameWorld extends World
         }
         dungeonFloor[farthestY][farthestX] = 2;
 
+        dungeonGenerated = true;
+        
         //Prints out floor for testing purposes
         for(int i = 0; i < dungeonFloor.length; i++)
         {
@@ -171,12 +203,6 @@ public class GameWorld extends World
     {
         switch (direction){
             case 0: //up
-                /*
-                if(currentRoomY != 0 && dungeonFloor[currentRoomY-1][currentRoomX] != 0)
-                {
-                    
-                }
-                */
                 currentRoomY--;
                 break;
             case 1: //right
@@ -194,6 +220,11 @@ public class GameWorld extends World
     public void setDoneSpawning(boolean b)
     {
         doneSpawning = b;
+    }
+    
+    public void setGoingToNextFloor(boolean b)
+    {
+        goingToNextFloor = b;
     }
     
     public void setPlayerX(int x)

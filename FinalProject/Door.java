@@ -53,7 +53,6 @@ public class Door extends Structures
                 w.setPlayerX(11);
                 w.setPlayerY(3);
             }
-            w.removeObjects(w.getObjects(Actor.class));
             w.setDoneSpawning(false);
         }
     }
