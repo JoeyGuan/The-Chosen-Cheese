@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class DuraCheese extends Cheeses
+public class ArmourCheese extends Cheeses
 {
     /**
      * Act - do whatever the DuraCheese wants to do. This method is called whenever
@@ -16,7 +16,7 @@ public class DuraCheese extends Cheeses
     {
         if(this.isTouching(Player.class)){
             for(Player p: getIntersectingObjects(Player.class)){
-                  p.setDurability(p.getDurability()+2); 
+                  p.setArmour(p.getArmour()+2); 
             }
             getWorld().removeObject(this); 
         }

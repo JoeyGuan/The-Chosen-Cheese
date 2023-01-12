@@ -9,8 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class MeleeEnemy extends Enemies
 {
     
-    public MeleeEnemy(int hp, int spd){
-        super(hp, spd);
+    public MeleeEnemy(int hp, int spd, double atkDmg){
+        super(hp, spd, atkDmg);
     }
     
     /**

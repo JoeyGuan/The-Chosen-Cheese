@@ -24,15 +24,15 @@ public class Player extends SmoothMover
     private int meleeReset = 90; //attack resets every 4 seconds
     private int rangeReset = 180; 
     private double attackPower = 10; 
-    private double durability = 0; //damage reduction variable
+    private double armour = 0; //damage reduction variable
     private double health = 20; 
-    public Player(boolean ranged, double speed, int meleeRadius, double projectileSpeed, int meleeSpeed, int rangeSpeed, double attackPower, double durability, double health)
+    public Player(boolean ranged, double speed, int meleeRadius, double projectileSpeed, int meleeSpeed, int rangeSpeed, double attackPower, double armour, double health)
     {
         setImage("wombat.png");
         this.ranged = ranged; this.speed = speed; 
         this.meleeRadius = meleeRadius; this.projectileSpeed = projectileSpeed; 
         this.meleeReset = meleeSpeed; this.rangeReset = rangeSpeed;
-        this.attackPower = attackPower; this.durability = durability;this.health = health; 
+        this.attackPower = attackPower; this.armour = armour;this.health = health; 
         attacked = false;
         rangeTimer = 0;
         meleeTimer = 0; 
@@ -142,6 +142,19 @@ public class Player extends SmoothMover
             }
         }
     }
+    public void takeDamage(double atkDmg){
+        if(health-(atkDmg-armour)>0){
+            if(armour<atkDmg){
+                this.health = (health-(atkDmg-armour)); 
+            }
+        }
+        else{
+            death();
+        }
+    }
+    public void death(){
+        Greenfoot.setWorld(new EndScreen()); 
+    }
     public double getSpeed(){
         return speed; 
     }
@@ -154,11 +167,11 @@ public class Player extends SmoothMover
     public void setAttackPower(double attackPwr){
         this.attackPower = attackPwr; 
     }
-    public double getDurability(){
-        return durability;
+    public double getArmour(){
+        return armour;
     }
-    public void setDurability(double dura){
-        this.durability = dura; 
+    public void setArmour(double dura){
+        this.armour = dura; 
     }
     public double getHealth(){
         return health; 
