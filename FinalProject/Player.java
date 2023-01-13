@@ -10,7 +10,7 @@ public class Player extends SmoothMover
 {
     private int direction = 2; //1 = left, 2 = right, 3 = up, 4 = down
     //flag variables
-    private boolean ranged = true;
+    private boolean ranged;
     private boolean attacked;
     private boolean attackSwitched = false;
     private int attackSwitchTimer; 
@@ -18,23 +18,43 @@ public class Player extends SmoothMover
     private int meleeTimer; 
     
     //upgradable stats
-    private double speed = 10;
-    private int meleeRadius = 10; 
+    private double speed = 5;
+    private int meleeRadius = 50; 
     private double projectileSpeed = 2;
-    private int meleeSpeed = 90; //attack resets every 4 seconds
-    private int rangeSpeed = 180; 
+    private int meleeReset = 90; //attack resets every 4 seconds
+    private int rangeReset = 180; 
     private double attackPower = 10; 
-    private double durability = 0; //damage reduction variable
+    private double armour = 0; //damage reduction variable
     private double health = 20; 
-    public Player()
+    
+    //public Player(boolean ranged, double speed, int meleeRadius, double projectileSpeed, int meleeSpeed, int rangeSpeed, double attackPower, double armour, double health)
+    /**public Player(String[] values)
     {
+        
+        setImage("wombat.png");
+        //player stats
+        this.ranged = ranged; 
+        this.speed = speed; 
+        this.meleeRadius = meleeRadius; 
+        this.projectileSpeed = projectileSpeed; 
+        this.meleeReset = meleeSpeed; 
+        this.rangeReset = rangeSpeed;
+        this.attackPower = attackPower; 
+        this.armour = armour;
+        this.health = health; 
+        
+        attacked = false;
+        rangeTimer = 0;
+        meleeTimer = 0; 
+        attackSwitchTimer = 0;
+    }**/
+    public Player(){ //default constructor for now (january 11)
         setImage("wombat.png");
         attacked = false;
         rangeTimer = 0;
         meleeTimer = 0; 
         attackSwitchTimer = 0;
     }
-
     /**
      * Act - do whatever the Player wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -55,14 +75,14 @@ public class Player extends SmoothMover
             }
         }
         if(ranged){
-            if(rangeTimer>=rangeSpeed){
+            if(rangeTimer>=rangeReset){
                 attacked = false; 
                 System.out.println("ranged ready");
                 rangeTimer = 0; 
             }
         }
         if(!ranged){
-            if(meleeTimer>=meleeSpeed){
+            if(meleeTimer>=meleeReset){
                 attacked = false;
                 System.out.println("melee ready");
                 meleeTimer = 0;
@@ -107,7 +127,7 @@ public class Player extends SmoothMover
             GameWorld gw = (GameWorld)getWorld();
             if(!attacked){
                 if(ranged){
-                    RangedProjectile rp = new RangedProjectile(projectileSpeed, direction);
+                    RangedProjectile rp = new RangedProjectile(projectileSpeed, direction, this);
                     gw.addObject(rp, this.getX(), this.getY()); 
                 }
                 else{
@@ -122,6 +142,8 @@ public class Player extends SmoothMover
                         gw.addObject(ma, this.getX(), this.getY()+10); 
                     }
                     
+                    MeleeAttack ma = new MeleeAttack(meleeRadius, this); 
+                    gw.addObject(ma, this.getX(), this.getY()); 
                 }
                 attacked = true; 
             }
@@ -142,18 +164,19 @@ public class Player extends SmoothMover
             }
         }
     }
-    public void checkWall(){
-        if(this.isTouching(Wall.class)){
-            if(direction == 1){
-                setLocation(this.getX()+20, this.getY()); 
-            }else if(direction == 2){
-                setLocation(this.getX()-20, this.getY()); 
-            }else if(direction == 3){
-                setLocation(this.getX(), this.getY()+20); 
-            }else if(direction == 4){
-                setLocation(this.getX(), this.getY()-20); 
+    public void takeDamage(double atkDmg){
+        if(health-atkDmg>0){
+            if(armour<atkDmg){
+                this.health -= atkDmg; 
+                System.out.println("takingDamage"); 
             }
         }
+        else{
+            death();
+        }
+    }
+    public void death(){
+        Greenfoot.setWorld(new EndScreen()); 
     }
     public double getSpeed(){
         return speed; 
@@ -167,11 +190,11 @@ public class Player extends SmoothMover
     public void setAttackPower(double attackPwr){
         this.attackPower = attackPwr; 
     }
-    public double getDurability(){
-        return durability;
+    public double getArmour(){
+        return armour;
     }
-    public void setDurability(double dura){
-        this.durability = dura; 
+    public void setArmour(double dura){
+        this.armour = dura; 
     }
     public double getHealth(){
         return health; 
