@@ -18,7 +18,7 @@ public class Player extends SmoothMover
     private int meleeTimer; 
     
     //upgradable stats
-    private double speed = 10;
+    private double speed = 5;
     private int meleeRadius = 50; 
     private double projectileSpeed = 2;
     private int meleeReset = 90; //attack resets every 4 seconds
@@ -26,18 +26,28 @@ public class Player extends SmoothMover
     private double attackPower = 10; 
     private double armour = 0; //damage reduction variable
     private double health = 20; 
-    public Player(boolean ranged, double speed, int meleeRadius, double projectileSpeed, int meleeSpeed, int rangeSpeed, double attackPower, double armour, double health)
+    
+    //public Player(boolean ranged, double speed, int meleeRadius, double projectileSpeed, int meleeSpeed, int rangeSpeed, double attackPower, double armour, double health)
+    /**public Player(String[] values)
     {
+        
         setImage("wombat.png");
-        this.ranged = ranged; this.speed = speed; 
-        this.meleeRadius = meleeRadius; this.projectileSpeed = projectileSpeed; 
-        this.meleeReset = meleeSpeed; this.rangeReset = rangeSpeed;
-        this.attackPower = attackPower; this.armour = armour;this.health = health; 
+        //player stats
+        this.ranged = ranged; 
+        this.speed = speed; 
+        this.meleeRadius = meleeRadius; 
+        this.projectileSpeed = projectileSpeed; 
+        this.meleeReset = meleeSpeed; 
+        this.rangeReset = rangeSpeed;
+        this.attackPower = attackPower; 
+        this.armour = armour;
+        this.health = health; 
+        
         attacked = false;
         rangeTimer = 0;
         meleeTimer = 0; 
         attackSwitchTimer = 0;
-    }
+    }**/
     public Player(){ //default constructor for now (january 11)
         setImage("wombat.png");
         attacked = false;
