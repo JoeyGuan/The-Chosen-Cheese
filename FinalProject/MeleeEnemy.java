@@ -11,6 +11,7 @@ public class MeleeEnemy extends Enemies
     
     public MeleeEnemy(int hp, int spd, double atkDmg){
         super(hp, spd, atkDmg);
+        setImage("bee2.png");
     }
     
     /**
@@ -19,6 +20,6 @@ public class MeleeEnemy extends Enemies
      */
     public void act()
     {
-        // Add your action code here.
+        super.act();
     }
 }

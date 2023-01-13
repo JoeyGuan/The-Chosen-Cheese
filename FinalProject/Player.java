@@ -19,7 +19,7 @@ public class Player extends SmoothMover
     
     //upgradable stats
     private double speed = 10;
-    private int meleeRadius = 10; 
+    private int meleeRadius = 50; 
     private double projectileSpeed = 2;
     private int meleeReset = 90; //attack resets every 4 seconds
     private int rangeReset = 180; 
@@ -116,11 +116,11 @@ public class Player extends SmoothMover
             GameWorld gw = (GameWorld)getWorld();
             if(!attacked){
                 if(ranged){
-                    RangedProjectile rp = new RangedProjectile(projectileSpeed, direction);
+                    RangedProjectile rp = new RangedProjectile(projectileSpeed, direction, this);
                     gw.addObject(rp, this.getX(), this.getY()); 
                 }
                 else{
-                    MeleeAttack ma = new MeleeAttack(meleeRadius); 
+                    MeleeAttack ma = new MeleeAttack(meleeRadius, this); 
                     gw.addObject(ma, this.getX(), this.getY()); 
                 }
                 attacked = true; 
@@ -143,9 +143,10 @@ public class Player extends SmoothMover
         }
     }
     public void takeDamage(double atkDmg){
-        if(health-(atkDmg-armour)>0){
+        if(health-atkDmg>0){
             if(armour<atkDmg){
-                this.health = (health-(atkDmg-armour)); 
+                this.health -= atkDmg; 
+                System.out.println("takingDamage"); 
             }
         }
         else{

@@ -28,8 +28,8 @@ public class GameWorld extends World
     public GameWorld()
     {    
         super(1200, 700, 1); 
-        addObject(new HealCheese(), 400, 400);
-        addObject(new HealCheese(), 200, 200); 
+        addObject(new MeleeEnemy(20, 5, 5), 400, 400);
+        addObject(new MeleeEnemy(20,5,5), 200, 200); 
     }
 
     public void act()

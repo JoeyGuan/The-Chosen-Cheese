@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class MeleeAttack extends Actor
+public class MeleeAttack extends Attack
 {
     /**
      * Act - do whatever the MeleeAttack wants to do. This method is called whenever
@@ -15,10 +15,13 @@ public class MeleeAttack extends Actor
     private int attackRange;
     private int animationOffset; 
     private boolean animated; 
-    public MeleeAttack(int attackRange){
+    private Player p; 
+    public MeleeAttack(int attackRange, Player p){
         this.attackRange = attackRange; 
         animationOffset = 0; 
         animated = false;
+        this.p =p; 
+        this.getImage().scale(attackRange, attackRange); 
     }
     public void act()
     {
@@ -30,12 +33,12 @@ public class MeleeAttack extends Actor
        animationOffset++;
        if(animationOffset>=30){
            System.out.println("attacked");
+           for(Enemies e : getObjectsInRange(attackRange, Enemies.class)){
+               e.takeDamage(p.getAttackPower()); 
+           }
            getWorld().removeObject(this);
        }
-           /*for(Enemy e : getObjectsInRange(attackRange, Enemy.class){
-            //e.decreaseHealth(player.getAttackPower()); 
-            }
-            */
+           
         
     }
 }
