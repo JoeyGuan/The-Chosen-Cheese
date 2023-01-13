@@ -19,14 +19,6 @@ public class MeleeAttack extends Attack
     public MeleeAttack(int attackRange, Player p){
         this.attackRange = attackRange; 
         this.setImage("button-green.png");
-    }
-    public void act()
-    {
-        /*for(Enemy e : getObjectsInRange(attackRange, Enemy.class){
-            //e.decreaseHealth(player.getAttackPower()); 
-        }
-        */
-       //getWorld().removeObject(this); 
         animationOffset = 0; 
         animated = false;
         this.p =p; 

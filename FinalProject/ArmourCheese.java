@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class ArmourCheese extends Cheeses
 {
-    public DuraCheese(){
+    public ArmourCheese(){
         setImage("hamburger.png");
     }
     /**
