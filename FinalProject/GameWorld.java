@@ -3,7 +3,7 @@ import java.lang.Math.*;
 /**
  * Write a description of class MyWorld here.
  * 
- * @author (your name) 
+ * @author Joey Guan
  * @version (a version number or a date)
  */
 public class GameWorld extends World
@@ -70,6 +70,34 @@ public class GameWorld extends World
     
     public void spawnRoom()
     {
+        int roomType = Greenfoot.getRandomNumber(5);
+        switch (roomType)
+        {
+            case 0: 
+                room0();
+                break;
+            case 1: 
+                room1();
+                break;
+            case 2:
+                room2();
+                break;
+            case 3:
+                room3();
+                break;
+            case 4:
+                room4();
+                break;
+            case 5:
+                room5();
+                break;
+            case 6:
+                room6();
+                break;
+            case 7:
+                room7();
+                break;
+        }
         //Clear Screen
         removeObjects(getObjects(Actor.class));
         //Adding in Player
@@ -297,5 +325,44 @@ public class GameWorld extends World
     {
         return BLOCK_SIZE;
     }
-
+    
+    public void room0()
+    {
+        
+    }
+    
+    public void room1()
+    {
+        
+    }
+    
+    public void room2()
+    {
+        
+    }
+    
+    public void room3()
+    {
+        
+    }
+    
+    public void room4()
+    {
+        
+    }
+    
+    public void room5()
+    {
+        
+    }
+    
+    public void room6()
+    {
+        
+    }
+    
+    public void room7()
+    {
+        
+    }
 }
