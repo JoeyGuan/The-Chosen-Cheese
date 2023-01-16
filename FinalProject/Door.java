@@ -56,4 +56,10 @@ public class Door extends Structures
             w.setDoneSpawning(false);
         }
     }
+    public boolean getDoorOpen(){
+        return isOpen; 
+    }
+    public void setDoorOpen(boolean isOpen){
+        this.isOpen = isOpen; 
+    }
 }
