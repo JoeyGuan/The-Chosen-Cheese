@@ -16,7 +16,7 @@ public class GameWorld extends World
     private int maxFloorDepth = 5;
     private int totalRoomAmount = 5 + (3 * floorDepth);
 
-    //0 is empty, 1 is a room, 2 is boss room, 9 for starting room?
+    //0 is empty, 1 is a room, -1 is starting room, -2 is boss room
     private int[][] dungeonFloor;
 
     private boolean dungeonGenerated = false;
@@ -160,7 +160,7 @@ public class GameWorld extends World
             {0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0},
-            {0,0,0,9,0,0,0},
+            {0,0,0,-1,0,0,0},
             {0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0} 
@@ -197,7 +197,7 @@ public class GameWorld extends World
         {
             for(int j = 0; j < dungeonFloor[0].length; j++)
             {
-                if(dungeonFloor[i][j] != 0)
+                if(dungeonFloor[i][j] > 0)
                 {
                     dungeonFloor[i][j] = 1 + Greenfoot.getRandomNumber(7);
                 }
@@ -212,7 +212,7 @@ public class GameWorld extends World
         {
             for(int j = 0; j < dungeonFloor[0].length; j++)
             {
-                if(dungeonFloor[i][j] == 1)
+                if(dungeonFloor[i][j] > 0)
                 {
                     int totalDistance = Math.abs(3 - j) + Math.abs(3 - i);
                     if(totalDistance > farthestTotalDistance)
@@ -224,7 +224,7 @@ public class GameWorld extends World
                 }
             }
         }
-        dungeonFloor[farthestY][farthestX] = 2;
+        dungeonFloor[farthestY][farthestX] = -2;
 
         dungeonGenerated = true;
 
