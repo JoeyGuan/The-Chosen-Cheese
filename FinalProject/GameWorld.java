@@ -26,7 +26,7 @@ public class GameWorld extends World
     //The room player is currently in (starting location is dungeonFloor[3][3])
     private int currentRoomX = 3;
     private int currentRoomY = 3;
-    
+
     //The cell numbers that player spawns at
     private int playerX = 6;
     private int playerY = 3;
@@ -49,7 +49,7 @@ public class GameWorld extends World
             {
                 floorDepth++;
                 totalRoomAmount = 5 + (3 * floorDepth);
-            
+
                 generateDungeonFloor(); 
                 currentRoomX = 3;
                 currentRoomY = 3;
@@ -68,10 +68,10 @@ public class GameWorld extends World
             spawnRoom();
         }
     }
-    
+
     public void spawnRoom()
     {
-        int roomType = Greenfoot.getRandomNumber(5);
+        int roomType = dungeonFloor[currentRoomY][currentRoomX];
         switch (roomType)
         {
             case 0: 
@@ -145,7 +145,7 @@ public class GameWorld extends World
             Door doorLeft = new Door();
             addObject(doorLeft, getXCoordinate(0), getYCoordinate(3));
         }
-        
+
         //spawn trapdoor at boss room
         if(dungeonFloor[currentRoomY][currentRoomX] == 2)
         {
@@ -153,7 +153,7 @@ public class GameWorld extends World
         }
         doneSpawning = true;
     }
-    
+
     public void generateDungeonFloor()
     {
         dungeonFloor = new int[][]{
@@ -192,6 +192,18 @@ public class GameWorld extends World
             }
         }
 
+        //Sets room layouts
+        for(int i = 0; i < dungeonFloor.length; i++)
+        {
+            for(int j = 0; j < dungeonFloor[0].length; j++)
+            {
+                if(dungeonFloor[i][j] != 0)
+                {
+                    dungeonFloor[i][j] = 1 + Greenfoot.getRandomNumber(7);
+                }
+            }
+        }
+
         //Look for room farthest away to set as boss room to progress to next floor
         int farthestX = 3;
         int farthestY = 3;
@@ -215,7 +227,7 @@ public class GameWorld extends World
         dungeonFloor[farthestY][farthestX] = 2;
 
         dungeonGenerated = true;
-        
+
         //Prints out floor for testing purposes
         for(int i = 0; i < dungeonFloor.length; i++)
         {
@@ -250,21 +262,22 @@ public class GameWorld extends World
     {
         doneSpawning = b;
     }
-    
+
     public void setGoingToNextFloor(boolean b)
     {
         goingToNextFloor = b;
     }
-    
+
     public void setPlayerX(int x)
     {
         playerX = x;
     }
+
     public void setPlayerY(int y)
     {
         playerY = y;
     }
-    
+
     public boolean hasNeighborUp(int[][] floor, int x, int y)
     {
         if(y > 0 && floor[y-1][x] != 0)
@@ -326,44 +339,44 @@ public class GameWorld extends World
     {
         return BLOCK_SIZE;
     }
-    
+
     public void room0()
     {
-        
+
     }
-    
+
     public void room1()
     {
-        
+
     }
-    
+
     public void room2()
     {
-        
+
     }
-    
+
     public void room3()
     {
-        
+
     }
-    
+
     public void room4()
     {
-        
+
     }
-    
+
     public void room5()
     {
-        
+
     }
-    
+
     public void room6()
     {
-        
+
     }
-    
+
     public void room7()
     {
-        
+
     }
 }
