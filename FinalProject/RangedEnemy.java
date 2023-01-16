@@ -19,5 +19,11 @@ public class RangedEnemy extends Enemies
     public void act()
     {
         // Add your action code here.
+        trackPlayer();
+        move(spd);
+    }
+    
+    public void attack(){
+        
     }
 }
