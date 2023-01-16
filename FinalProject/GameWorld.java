@@ -147,7 +147,7 @@ public class GameWorld extends World
         }
 
         //spawn trapdoor at boss room
-        if(dungeonFloor[currentRoomY][currentRoomX] == 2)
+        if(dungeonFloor[currentRoomY][currentRoomX] == -2)
         {
             addObject(new Trapdoor(), getXCoordinate(6), getYCoordinate(3));
         }
