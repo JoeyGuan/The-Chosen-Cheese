@@ -6,7 +6,7 @@ import java.util.*;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public abstract class Enemies extends Actor
+public abstract class Enemies extends SmoothMover
 {
     private int NUM_TILES_X = 24, NUM_TILES_Y = 14;
     private int[][] roomLayout = new int[NUM_TILES_Y][NUM_TILES_X];
@@ -17,16 +17,18 @@ public abstract class Enemies extends Actor
     private Color fillColor = new Color(145, 10, 10), barColor = Color.MAGENTA;
     
     // Stats - will need to implement a stat scaling system based on the 'level'
-    protected int level, hp, spd, atkDmg, def;
+    protected int level, hp, def;
+    protected double spd, atkDmg; 
     protected SuperStatBar hpBar;
-    
+    protected int attackTimer;
     protected int atkTimer = 90;
     protected GreenfootImage attack;
     
-    public Enemies(int hp, int spd){
+    public Enemies(int hp, int spd, double atkDmg){
         this.hp = hp;
         this.spd = spd;
-        
+        this.atkDmg = atkDmg; 
+        this.attackTimer = 90; 
         hpBar = new SuperStatBar(hp, hp, this, getImage().getWidth(), hpBarHeight, - getImage().getHeight() / 2 - hpBarHeight, fillColor, barColor, false, barColor, 3);
     }
     
@@ -50,6 +52,23 @@ public abstract class Enemies extends Actor
         
     }
 
+    
+    public void act(){
+        doDamage(); 
+    }
+    public void doDamage(){
+        GameWorld gw = (GameWorld)getWorld(); 
+        Player p = gw.getObjects(Player.class).get(0);
+        if(this.isTouching(Player.class)){
+            attackTimer--; 
+            if(attackTimer<=0){
+                p.takeDamage(atkDmg); 
+                System.out.println("dealing damage"); 
+                attackTimer = 90; 
+            }
+        }
+    }
+    
     // Make the world a 12x7 grid (?)
     // Each grid space will have a value:
     // Walls/Obstacles will have a value of 1
@@ -101,10 +120,11 @@ public abstract class Enemies extends Actor
         turnTowards(getXCoordinate(turnToX), getYCoordinate(turnToY));
     }
     
-    public void takeDamage(int dmg){
+    public void takeDamage(double dmg){
         if(hp - dmg > 0){
             hp -= dmg;
             hpBar.update(hp);
+            System.out.println("Enemy: Taking damage"); 
         }
         else{
             hp = 0;
@@ -112,11 +132,15 @@ public abstract class Enemies extends Actor
             death();
         }
     }
-    
+    public double getAttackDamage(){
+        return atkDmg; 
+    }
+    public void setAttackDamage(double atkDmg){
+        this.atkDmg = atkDmg; 
+    }
     protected void death(){
         getWorld().removeObject(this);
     }
-    
     private int getXCoordinate (int cellNumber){
         return (cellNumber * TILE_SIZE);
     }

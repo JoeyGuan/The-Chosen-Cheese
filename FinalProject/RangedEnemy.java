@@ -8,8 +8,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class RangedEnemy extends Enemies
 {
-    public RangedEnemy(int hp, int spd){
-        super(hp, spd);
+    public RangedEnemy(int hp, int spd, double atkDmg){
+        super(hp, spd, atkDmg);
     }
     
     /**
@@ -18,12 +18,6 @@ public class RangedEnemy extends Enemies
      */
     public void act()
     {
-        // Add your action code here.
-        trackPlayer();
-        move(spd);
-    }
-    
-    public void attack(){
-        
+        super.act();
     }
 }

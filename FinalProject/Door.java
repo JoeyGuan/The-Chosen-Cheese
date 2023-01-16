@@ -6,21 +6,60 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Door extends Actor
+public class Door extends Structures
 {
     private boolean isOpen = true;
+    private String type;
     
-    public Door()
+    public Door(/*String t*/)
     {
+        //type = t;
         setImage("bluerock.jpg");
+        GreenfootImage image = getImage();
+        int sideLength = GameWorld.getBlockSize();
+        image.scale(sideLength, sideLength);
+        setImage(image);
     }
     
-    /**
-     * Act - do whatever the Door wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
     public void act()
     {
-        //if intersects player and isOpen, then move to other room
+        GameWorld w = (GameWorld) getWorld();
+        
+        w.removeObject(getOneIntersectingObject(Wall.class));
+        
+        if(isOpen && !getIntersectingObjects(Player.class).isEmpty())
+        {
+            if(getX() == 650 && getY() == 50)//up
+            {
+                w.moveRooms(0);
+                w.setPlayerX(6);
+                w.setPlayerY(5);
+            }
+            if(getX() == 650 && getY() == 650)//down
+            {
+                w.moveRooms(2);
+                w.setPlayerX(6);
+                w.setPlayerY(1);
+            }
+            if(getX() == 1250 && getY() == 350)//right
+            {
+                w.moveRooms(1);
+                w.setPlayerX(1);
+                w.setPlayerY(3);
+            }
+            if(getX() == 50 && getY() == 350)//left
+            {
+                w.moveRooms(3);
+                w.setPlayerX(11);
+                w.setPlayerY(3);
+            }
+            w.setDoneSpawning(false);
+        }
+    }
+    public boolean getDoorOpen(){
+        return isOpen; 
+    }
+    public void setDoorOpen(boolean isOpen){
+        this.isOpen = isOpen; 
     }
 }
