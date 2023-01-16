@@ -1,5 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.lang.Math.*;
+import java.util.List;
+
 /**
  * Write a description of class MyWorld here.
  * 
@@ -67,6 +69,7 @@ public class GameWorld extends World
         {
             spawnRoom();
         }
+        checkDoorLocks(); // locks doors if there are enemies, opens when there are none
     }
 
     public void spawnRoom()
@@ -152,6 +155,8 @@ public class GameWorld extends World
             addObject(new Trapdoor(), getXCoordinate(6), getYCoordinate(3));
         }
         doneSpawning = true;
+        
+        addObject(new MeleeEnemy(1, 1, 0), getXCoordinate(4), getYCoordinate(3));
     }
 
     public void generateDungeonFloor()
@@ -238,6 +243,26 @@ public class GameWorld extends World
             System.out.println();
         }
         System.out.println();
+    }
+
+    public void checkDoorLocks()
+    {
+        List<Enemies> enemies = getObjects(Enemies.class);
+        List<Door> doors = getObjects(Door.class);
+        if(enemies.isEmpty())
+        {
+            for(Door d : doors)
+            {
+                d.setIsOpen(true);
+            }
+        }
+        else
+        {
+            for(Door d : doors)
+            {
+                d.setIsOpen(false);
+            }
+        }
     }
 
     public void moveRooms(int direction)
