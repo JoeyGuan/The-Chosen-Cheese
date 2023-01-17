@@ -64,7 +64,7 @@ public class Player extends SmoothMover
         movement();
         attack();
         switchAttack();
-        //checkWall();
+        checkWall();
         //timer for attacks
         if(attacked){
             if(ranged){
@@ -170,6 +170,20 @@ public class Player extends SmoothMover
         }
         else{
             death();
+        }
+    }
+    public void checkWall(){
+        if(getOneObjectAtOffset(5, 0, Wall.class)!=null){
+            setLocation(this.getX()-speed, this.getY()); 
+        }
+        if(getOneObjectAtOffset(0, 5, Wall.class)!=null){
+            setLocation(this.getX(), this.getY()-speed); 
+        }
+        if(getOneObjectAtOffset(-5, 0, Wall.class)!=null){
+            setLocation(this.getX()+speed, this.getY()); 
+        }
+        if(getOneObjectAtOffset(0, -5, Wall.class)!=null){
+            setLocation(this.getX(), this.getY()+speed); 
         }
     }
     public void death(){
