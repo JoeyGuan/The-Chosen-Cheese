@@ -8,6 +8,8 @@ import java.util.*;
  */
 public abstract class Enemies extends SmoothMover
 {
+    // Player tracking variables
+    protected int playerX = 0, playerY = 0, enemyX = 0, enemyY = 0;
     private int NUM_TILES_X = 24, NUM_TILES_Y = 14;
     private int[][] roomLayout = new int[NUM_TILES_Y][NUM_TILES_X];
     private int TILE_SIZE = 50;
@@ -19,9 +21,9 @@ public abstract class Enemies extends SmoothMover
     // Stats - will need to implement a stat scaling system based on the 'level'
     protected int level, hp, def;
     protected double spd, atkDmg; 
-    protected SuperStatBar hpBar;
-    protected int attackTimer;
+    protected int attackTimer, range;
     protected int atkTimer = 90;
+    protected SuperStatBar hpBar;
     protected GreenfootImage attack;
     
     public Enemies(int hp, int spd, double atkDmg){
@@ -54,8 +56,15 @@ public abstract class Enemies extends SmoothMover
 
     
     public void act(){
-        doDamage(); 
+        trackPlayer();
+        if(isInRange()){
+            doDamage(); 
+        }
+        else{
+            move(spd);
+        }
     }
+    
     public void doDamage(){
         GameWorld gw = (GameWorld)getWorld(); 
         Player p = gw.getObjects(Player.class).get(0);
@@ -79,7 +88,8 @@ public abstract class Enemies extends SmoothMover
     protected void trackPlayer(){
         World w = (GameWorld) getWorld();
         Player player = (Player) ((ArrayList) w.getObjects(Player.class)).get(0);
-        int playerX = getXCell(player.getX()), playerY = getYCell(player.getY());
+        playerX = getXCell(player.getX());
+        playerY = getYCell(player.getY());
         roomLayout[playerY][playerX] = 100;
         
         for(int i = 0; i < NUM_TILES_Y; i++){
@@ -103,7 +113,8 @@ public abstract class Enemies extends SmoothMover
         }
         */
         
-        int enemyX = getXCell(getX()), enemyY = getYCell(getY());
+        enemyX = getXCell(getX());
+        enemyY = getYCell(getY());
         roomLayout[enemyY][enemyX] = 2;
         
         int largestGrid = 0, turnToX = 0, turnToY = 0;
@@ -120,6 +131,13 @@ public abstract class Enemies extends SmoothMover
         turnTowards(getXCoordinate(turnToX), getYCoordinate(turnToY));
     }
     
+    protected boolean isInRange(){
+        int dist = Math.abs(playerX - enemyX) + Math.abs(playerY - enemyY);
+        if(dist <= range){
+            return true;
+        }return false;
+    }
+    
     public void takeDamage(double dmg){
         if(hp - dmg > 0){
             hp -= dmg;
@@ -132,6 +150,8 @@ public abstract class Enemies extends SmoothMover
             death();
         }
     }
+    
+    
     public double getAttackDamage(){
         return atkDmg; 
     }
