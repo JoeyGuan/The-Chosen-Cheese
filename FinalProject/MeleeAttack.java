@@ -28,18 +28,17 @@ public class MeleeAttack extends Attack
     {
        if(!animated){
            //animation
-           System.out.println("animated");
            animated = true; 
        }
        animationOffset++;
        if(animationOffset>=30){
-           System.out.println("attacked");
            for(Enemies e : getObjectsInRange(attackRange, Enemies.class)){
-               e.takeDamage(p.getAttackPower()); 
+               GameWorld w = (GameWorld)getWorld();
+               String[] v = w.getArrValues(); 
+               double dmg = Double.parseDouble(v[6]); 
+               e.takeDamage(dmg); 
            }
            getWorld().removeObject(this);
        }
-           
-        
     }
 }
