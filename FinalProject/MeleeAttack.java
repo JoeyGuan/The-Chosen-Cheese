@@ -15,13 +15,11 @@ public class MeleeAttack extends Attack
     private int attackRange;
     private int animationOffset; 
     private boolean animated; 
-    private Player p; 
-    public MeleeAttack(int attackRange, Player p){
+    public MeleeAttack(int attackRange){
         this.attackRange = attackRange; 
         this.setImage("button-green.png");
         animationOffset = 0; 
         animated = false;
-        this.p =p; 
         this.getImage().scale(attackRange, attackRange); 
     }
     public void act()

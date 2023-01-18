@@ -37,7 +37,6 @@ public abstract class Enemies extends SmoothMover
             attackTimer--; 
             GameWorld w = (GameWorld)getWorld(); 
             String[] v = w.getArrValues(); 
-            
             if(attackTimer<=0){
                 if(Double.parseDouble(v[8])-atkDmg >0){
                     v[8] = Double.toString(Double.parseDouble(v[8])-atkDmg); 
@@ -50,7 +49,6 @@ public abstract class Enemies extends SmoothMover
                     System.out.println("died"); 
                     w.playerDeath(); 
                 }
-                
             }
         }
     }

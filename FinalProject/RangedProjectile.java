@@ -14,14 +14,12 @@ public class RangedProjectile extends Attack
      */
     private double speed = 0;
     private int direction = 0; 
-    private Player p; 
-    public RangedProjectile(double speed, int facing, Player p){
+    public RangedProjectile(double speed, int facing){
         this.getImage().scale(25,25);
         this.setImage("button-blue.png");
         this.speed = speed;
         //1 is left, 2 is right, 3 is up, 4 is down
         this.direction = facing; 
-        this.p = p; 
     }
     public void act(){
         // Add your action code here.
