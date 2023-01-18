@@ -47,14 +47,14 @@ public class MeleeAttack extends Attack
            animated = true; 
        }
        animationOffset++;
-       if(animationOffset>=30){
+       if(animationOffset>=10){
            for(Enemies e : getObjectsInRange(attackRange, Enemies.class)){
                GameWorld w = (GameWorld)getWorld();
                String[] v = w.getArrValues(); 
                double dmg = Double.parseDouble(v[6]); 
                e.takeDamage(dmg); 
            }
-           //getWorld().removeObject(this);
+           getWorld().removeObject(this);
        }
        
     }

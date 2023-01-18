@@ -48,7 +48,7 @@ public class RangedProjectile extends Attack
             e.takeDamage(dmg); 
             getWorld().removeObject(this);
         }
-        else if(isTouching(Wall.class)){  
+        else if(isTouching(Wall.class) || isTouching(Door.class)){  
             getWorld().removeObject(this);
         }
     }

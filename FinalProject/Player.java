@@ -131,7 +131,7 @@ public class Player extends SmoothMover
         }
     }
     public void attack(){
-        if(Greenfoot.isKeyDown("E"))//attack
+        if(Greenfoot.isKeyDown("SPACE"))//attack
         {
             GameWorld gw = (GameWorld)getWorld();
             if(!attacked){

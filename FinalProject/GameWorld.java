@@ -213,7 +213,6 @@ public class GameWorld extends World
         removeObjects(getObjects(Actor.class));
         //Adding in Player
         addObject(new Player(values), getXCoordinate(playerX), getYCoordinate(playerY));
-        addObject(new MeleeEnemy(20, 5, 7), 300, 300); 
         //Adding in walls
         for(int i = 0; i <= 6; i++) //Left Wall
         {
