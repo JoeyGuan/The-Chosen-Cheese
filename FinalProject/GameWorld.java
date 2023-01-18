@@ -1,5 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.lang.Math.*;
+import java.util.List;
+
 /**
  * Write a description of class MyWorld here.
  * 
@@ -16,8 +18,10 @@ public class GameWorld extends World
     private int maxFloorDepth = 5;
     private int totalRoomAmount = 5 + (3 * floorDepth);
 
+    private int enemyNumber;
     //0 is empty, 1 is a room, -1 is starting room, -2 is boss room
     private int[][] dungeonFloor;
+    private int[][] dungeonMap = new int[7][7]; // keeps track of rooms that are clear. 1 for not cleared, 2 for cleared
 
     private boolean dungeonGenerated = false;
     private boolean doneSpawning = false;
@@ -67,10 +71,113 @@ public class GameWorld extends World
         {
             spawnRoom();
         }
+        roomStatusCheck();
+    }
+    
+    public void roomStatusCheck()
+    {
+        List<Door> doors = getObjects(Door.class);
+        if(getObjects(Enemies.class).isEmpty()) 
+        {
+            dungeonMap[currentRoomY][currentRoomX] = 2; // set room to cleared
+            for(Door d : doors) //opens when there are none
+            {
+                d.setIsOpen(true);
+            }
+            if(dungeonFloor[currentRoomY][currentRoomX] == -2) //spawn trapdoor at boss room if all enemies are dead
+            {
+                addObject(new Trapdoor(), getXCoordinate(6), getYCoordinate(3));
+            }
+        }
+        else
+        {
+            for(Door d : doors) // locks doors if there are enemies
+            {
+                d.setIsOpen(false);
+            }
+        }
+    }
+    
+    public void generateDungeonFloor()
+    {
+        dungeonFloor = new int[][]{
+            {0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0},
+            {0,0,0,-1,0,0,0},
+            {0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0} 
+        };
+        int x = 3;
+        int y = 3;
+        int roomAmount = 1;
+        while(roomAmount < totalRoomAmount) // generates floor in a randomly moving, snake-like way
+        { 
+            int direction = Greenfoot.getRandomNumber(4);
+            switch (direction){
+                case 0: //up
+                    if(y != 0) y -= 1;
+                    break;
+                case 1: //right
+                    if(x != 6) x += 1;
+                    break;
+                case 2: //down
+                    if(y != 6) y += 1;
+                    break;
+                case 3: //left
+                    if(x != 0) x -= 1;
+                    break;
+            }
+            if(dungeonFloor[y][x] == 0)
+            {
+                dungeonFloor[y][x] = 1;
+                roomAmount++;
+            }
+        }
+
+        //Room characteristics setting
+        //Look for room farthest away to set as boss room to progress to next floor
+        int farthestX = 3;
+        int farthestY = 3;
+        int farthestTotalDistance = Math.abs(3 - farthestX) + Math.abs(3 - farthestY);
+        for(int i = 0; i < dungeonFloor.length; i++)
+        {
+            for(int j = 0; j < dungeonFloor[0].length; j++)
+            {
+                dungeonMap[i][j] = dungeonFloor[i][j]; // copies over the floor to a map that keeps track of cleared rooms
+                if(dungeonFloor[i][j] > 0)
+                {
+                    dungeonFloor[i][j] = 1 + Greenfoot.getRandomNumber(7); // sets room layout type (obstacles, etc.)
+                    int totalDistance = Math.abs(3 - j) + Math.abs(3 - i);
+                    if(totalDistance > farthestTotalDistance)
+                    {
+                        farthestTotalDistance = totalDistance;
+                        farthestX = j;
+                        farthestY = i;
+                    }
+                }
+            }
+        }
+        dungeonFloor[farthestY][farthestX] = -2;
+
+        dungeonGenerated = true;
+
+        //Prints out floor for testing purposes
+        for(int i = 0; i < dungeonFloor.length; i++)
+        {
+            for(int j = 0; j < dungeonFloor[0].length; j++)
+            {
+                System.out.print(dungeonFloor[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 
     public void spawnRoom()
     {
+        enemyNumber = 2 + Greenfoot.getRandomNumber(floorDepth+1);
         int roomType = dungeonFloor[currentRoomY][currentRoomX];
         switch (roomType)
         {
@@ -145,99 +252,50 @@ public class GameWorld extends World
             Door doorLeft = new Door();
             addObject(doorLeft, getXCoordinate(0), getYCoordinate(3));
         }
-
-        //spawn trapdoor at boss room
-        if(dungeonFloor[currentRoomY][currentRoomX] == -2)
+        //Spawn enemies randomly if room hasn't been cleared before
+        if(dungeonMap[currentRoomY][currentRoomX] == 1)
         {
-            addObject(new Trapdoor(), getXCoordinate(6), getYCoordinate(3));
+            spawnEnemies();
         }
         doneSpawning = true;
     }
-
-    public void generateDungeonFloor()
+    
+    public void spawnEnemies()
     {
-        dungeonFloor = new int[][]{
-            {0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0},
-            {0,0,0,-1,0,0,0},
-            {0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0} 
-        };
-        int x = 3;
-        int y = 3;
-        int roomAmount = 1;
-        while(roomAmount < totalRoomAmount)
-        { 
-            int direction = Greenfoot.getRandomNumber(4);
-            switch (direction){
-                case 0: //up
-                    if(y != 0) y -= 1;
-                    break;
-                case 1: //right
-                    if(x != 6) x += 1;
-                    break;
-                case 2: //down
-                    if(y != 6) y += 1;
-                    break;
-                case 3: //left
-                    if(x != 0) x -= 1;
-                    break;
-            }
-            if(dungeonFloor[y][x] == 0)
-            {
-                dungeonFloor[y][x] = 1;
-                roomAmount++;
-            }
-        }
-
-        //Sets room layouts
-        for(int i = 0; i < dungeonFloor.length; i++)
+        for(int i = 0; i < enemyNumber; i++) 
         {
-            for(int j = 0; j < dungeonFloor[0].length; j++)
+            boolean coordinateGenerated = false;
+            String enemyType;
+            int x = 0;
+            int y = 0;
+            while(!coordinateGenerated)
             {
-                if(dungeonFloor[i][j] > 0)
+                x = 1 + Greenfoot.getRandomNumber(11);
+                y = 1 + Greenfoot.getRandomNumber(5);
+                if(getObjectsAt(getXCoordinate(x), getYCoordinate(y), Enemies.class).isEmpty())
                 {
-                    dungeonFloor[i][j] = 1 + Greenfoot.getRandomNumber(7);
+                    coordinateGenerated = true;
                 }
             }
-        }
-
-        //Look for room farthest away to set as boss room to progress to next floor
-        int farthestX = 3;
-        int farthestY = 3;
-        int farthestTotalDistance = Math.abs(3 - farthestX) + Math.abs(3 - farthestY);
-        for(int i = 0; i < dungeonFloor.length; i++)
-        {
-            for(int j = 0; j < dungeonFloor[0].length; j++)
+            if(Greenfoot.getRandomNumber(1) == 1)
             {
-                if(dungeonFloor[i][j] > 0)
-                {
-                    int totalDistance = Math.abs(3 - j) + Math.abs(3 - i);
-                    if(totalDistance > farthestTotalDistance)
-                    {
-                        farthestTotalDistance = totalDistance;
-                        farthestX = j;
-                        farthestY = i;
-                    }
-                }
+                enemyType = "melee";
+            }
+            else
+            {
+                enemyType = "ranged";
+            }
+            if(enemyType.equals("melee"))
+            {
+                MeleeEnemy enemy = new MeleeEnemy(1,1,1);
+                addObject(enemy, getXCoordinate(x), getYCoordinate(y));
+            }
+            else if(enemyType.equals("ranged"))
+            {
+                RangedEnemy enemy = new RangedEnemy(1,1,1);
+                addObject(enemy, getXCoordinate(x), getYCoordinate(y));
             }
         }
-        dungeonFloor[farthestY][farthestX] = -2;
-
-        dungeonGenerated = true;
-
-        //Prints out floor for testing purposes
-        for(int i = 0; i < dungeonFloor.length; i++)
-        {
-            for(int j = 0; j < dungeonFloor[0].length; j++)
-            {
-                System.out.print(dungeonFloor[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
     }
 
     public void moveRooms(int direction)
