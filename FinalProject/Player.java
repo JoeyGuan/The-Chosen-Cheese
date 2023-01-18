@@ -61,6 +61,7 @@ public class Player extends SmoothMover
      */
     public void act()
     {
+        moving = false; 
         movement();
         attack();
         switchAttack();
@@ -76,6 +77,7 @@ public class Player extends SmoothMover
         }
         if(ranged){
             if(rangeTimer>=rangeReset){
+                attacking = true; 
                 attacked = false; 
                 System.out.println("ranged ready");
                 rangeTimer = 0; 
@@ -83,6 +85,7 @@ public class Player extends SmoothMover
         }
         if(!ranged){
             if(meleeTimer>=meleeReset){
+                attacking = true; 
                 attacked = false;
                 System.out.println("melee ready");
                 meleeTimer = 0;
@@ -96,6 +99,7 @@ public class Player extends SmoothMover
             attackSwitched = false;
             attackSwitchTimer = 0;
         }
+        actCounter++; 
     }
 
     public void movement()
@@ -104,21 +108,25 @@ public class Player extends SmoothMover
         {
             setLocation(getX(), getY() - speed);
             direction = 3; 
+            moving = true; 
         }
         if(Greenfoot.isKeyDown("A")) // left
         {
             setLocation(getX() - speed, getY());
             direction = 1;
+            moving = true; 
         } 
         if(Greenfoot.isKeyDown("S")) // down
         {
             setLocation(getX(), getY() + speed);
             direction = 4;
+            moving = true; 
         }
         if(Greenfoot.isKeyDown("D")) // right
         {
             setLocation(getX() + speed, getY());
             direction =2;
+            moving = true; 
         }
     }
     public void attack(){
@@ -143,6 +151,7 @@ public class Player extends SmoothMover
                     }
                 }
                 attacked = true; 
+                attacking = false; //for the smooth mover animation
             }
         }
     }
