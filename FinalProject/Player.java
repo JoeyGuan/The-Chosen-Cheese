@@ -64,7 +64,7 @@ public class Player extends SmoothMover
         movement();
         attack();
         switchAttack();
-        checkWall();
+        //checkWall();
         //timer for attacks
         if(attacked){
             if(ranged){
@@ -102,22 +102,30 @@ public class Player extends SmoothMover
     {
         if(Greenfoot.isKeyDown("W")) // up
         {
-            setLocation(getX(), getY() - speed);
+            if(getOneObjectAtOffset(0, getImage().getHeight()/-2, Wall.class)==null){
+                setLocation(getX(), getY() - speed);
+            }  
             direction = 3; 
         }
         if(Greenfoot.isKeyDown("A")) // left
         {
-            setLocation(getX() - speed, getY());
+            if(getOneObjectAtOffset(getImage().getWidth()/-2, 0, Wall.class)==null){
+                setLocation(getX() - speed, getY());
+            } 
             direction = 1;
         } 
         if(Greenfoot.isKeyDown("S")) // down
         {
-            setLocation(getX(), getY() + speed);
+            if(getOneObjectAtOffset(0, getImage().getHeight()/2, Wall.class)==null){
+                setLocation(getX(), getY() + speed);
+            } 
             direction = 4;
         }
         if(Greenfoot.isKeyDown("D")) // right
         {
-            setLocation(getX() + speed, getY());
+            if(getOneObjectAtOffset(getImage().getWidth()/2, 0, Wall.class)==null){
+                setLocation(getX() + speed, getY());
+            } 
             direction =2;
         }
     }
@@ -170,20 +178,6 @@ public class Player extends SmoothMover
         }
         else{
             death();
-        }
-    }
-    public void checkWall(){
-        if(getOneObjectAtOffset(5, 0, Wall.class)!=null){
-            setLocation(this.getX()-speed, this.getY()); 
-        }
-        if(getOneObjectAtOffset(0, 5, Wall.class)!=null){
-            setLocation(this.getX(), this.getY()-speed); 
-        }
-        if(getOneObjectAtOffset(-5, 0, Wall.class)!=null){
-            setLocation(this.getX()+speed, this.getY()); 
-        }
-        if(getOneObjectAtOffset(0, -5, Wall.class)!=null){
-            setLocation(this.getX(), this.getY()+speed); 
         }
     }
     public void death(){
