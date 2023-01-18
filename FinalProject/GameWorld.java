@@ -400,10 +400,15 @@ public class GameWorld extends World
     {
         return BLOCK_SIZE;
     }
-    public void playerDeath(){
-        Greenfoot.setWorld(new EndScreen()); 
+    
+    public int getCurrentRoomY() {
+        return currentRoomY; 
     }
-
+    
+    public int getCurrentRoomX() {
+        return currentRoomX; 
+    }
+    
     public void room0()
     {
 
