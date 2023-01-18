@@ -33,14 +33,22 @@ public abstract class Enemies extends SmoothMover
         doDamage(); 
     }
     public void doDamage(){
-        GameWorld gw = (GameWorld)getWorld(); 
-        Player p = gw.getObjects(Player.class).get(0);
         if(this.isTouching(Player.class)){
             attackTimer--; 
+            GameWorld w = (GameWorld)getWorld(); 
+            String[] v = w.getArrValues(); 
             if(attackTimer<=0){
-                p.takeDamage(atkDmg); 
-                System.out.println("dealing damage"); 
-                attackTimer = 90; 
+                if(Double.parseDouble(v[8])-atkDmg >0){
+                    v[8] = Double.toString(Double.parseDouble(v[8])-atkDmg); 
+                    w.setArrValues(v);  
+                    System.out.println("dealing damage"); 
+                    System.out.println("player health: "+v[8]); 
+                    attackTimer = 90; 
+                }
+                if(Double.parseDouble(v[8])-atkDmg<=0){ //else is not used for sequencing reasons
+                    System.out.println("died"); 
+                    w.playerDeath(); 
+                }
             }
         }
     }

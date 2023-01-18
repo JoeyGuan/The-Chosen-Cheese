@@ -18,9 +18,10 @@ public class ArmourCheese extends Cheeses
     public void act()
     {
         if(this.isTouching(Player.class)){
-            for(Player p: getIntersectingObjects(Player.class)){
-                  p.setArmour(p.getArmour()+2); 
-            }
+            GameWorld w = (GameWorld)getWorld(); 
+            String[] v = w.getArrValues(); 
+            v[7] = Double.toString(Double.parseDouble(v[7])+2); 
+            w.setArrValues(v); 
             getWorld().removeObject(this); 
         }
     }

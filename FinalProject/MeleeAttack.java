@@ -15,31 +15,47 @@ public class MeleeAttack extends Attack
     private int attackRange;
     private int animationOffset; 
     private boolean animated; 
-    private Player p; 
+    private Player p;
+    private int horiOffset =0; 
+    private int vertiOffset =0; 
     public MeleeAttack(int attackRange, Player p){
         this.attackRange = attackRange; 
         this.setImage("button-green.png");
+        this.p = p; 
         animationOffset = 0; 
         animated = false;
-        this.p =p; 
         this.getImage().scale(attackRange, attackRange); 
     }
     public void act()
     {
+       if(p.getDirection() == 1){
+            horiOffset = -25;
+            vertiOffset = 0; 
+       }else if(p.getDirection()==2){
+            horiOffset = 25;
+            vertiOffset = 0; 
+       }else if(p.getDirection() == 3){
+            vertiOffset = -20; 
+            horiOffset = 0;
+       }else if(p.getDirection() == 4){
+            vertiOffset = 20; 
+            horiOffset = 0;
+       }
+       setLocation(p.getX()+horiOffset, p.getY()+vertiOffset); 
        if(!animated){
            //animation
-           System.out.println("animated");
            animated = true; 
        }
        animationOffset++;
        if(animationOffset>=30){
-           System.out.println("attacked");
            for(Enemies e : getObjectsInRange(attackRange, Enemies.class)){
-               e.takeDamage(p.getAttackPower()); 
+               GameWorld w = (GameWorld)getWorld();
+               String[] v = w.getArrValues(); 
+               double dmg = Double.parseDouble(v[6]); 
+               e.takeDamage(dmg); 
            }
-           getWorld().removeObject(this);
+           //getWorld().removeObject(this);
        }
-           
-        
+       
     }
 }

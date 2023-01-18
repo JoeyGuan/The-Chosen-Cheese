@@ -34,6 +34,9 @@ public class GameWorld extends World
     //The cell numbers that player spawns at
     private int playerX = 6;
     private int playerY = 3;
+    
+    private String[] values = {"true", "50", "90", "180", "2", "5", "10", "0", "20"}; 
+    
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -209,7 +212,8 @@ public class GameWorld extends World
         //Clear Screen
         removeObjects(getObjects(Actor.class));
         //Adding in Player
-        addObject(new Player(), getXCoordinate(playerX), getYCoordinate(playerY));
+        addObject(new Player(values), getXCoordinate(playerX), getYCoordinate(playerY));
+        addObject(new MeleeEnemy(20, 5, 7), 300, 300); 
         //Adding in walls
         for(int i = 0; i <= 6; i++) //Left Wall
         {
@@ -397,6 +401,9 @@ public class GameWorld extends World
     {
         return BLOCK_SIZE;
     }
+    public void playerDeath(){
+        Greenfoot.setWorld(new EndScreen()); 
+    }
 
     public void room0()
     {
@@ -436,5 +443,13 @@ public class GameWorld extends World
     public void room7()
     {
 
+    }
+    public String[] getArrValues(){
+        return values;
+    }
+    public void setArrValues(String[] v){
+        for(int i = 0; i<v.length;i++){
+            values[i] = v[i]; 
+        }
     }
 }
