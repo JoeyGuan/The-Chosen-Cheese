@@ -34,14 +34,14 @@ public class Player extends SmoothMover
         setImage("wombat.png");
         //player stats
         this.ranged = Boolean.parseBoolean(values[0]);  
-        this.meleeRadius = Integer.parseInt(values[1]); 
-        this.meleeReset = Integer.parseInt(values[2]); 
-        this.rangeReset = Integer.parseInt(values[3]);
-        this.projectileSpeed = Double.parseDouble(values[4]); 
-        this.speed = Double.parseDouble(values[5]); 
-        this.attackPower = Double.parseDouble(values[6]); 
-        this.armour = Double.parseDouble(values[7]);
-        this.health = Double.parseDouble(values[8]); 
+        this.meleeRadius = Integer.parseInt(values[1]); //50
+        this.meleeReset = Integer.parseInt(values[2]); //90
+        this.rangeReset = Integer.parseInt(values[3]); //180
+        this.projectileSpeed = Double.parseDouble(values[4]); //2 
+        this.speed = Double.parseDouble(values[5]); //5
+        this.attackPower = Double.parseDouble(values[6]); //10 
+        this.armour = Double.parseDouble(values[7]); //0
+        this.health = Double.parseDouble(values[8]); //20
         
         attacked = false;
         rangeTimer = 0;
@@ -132,7 +132,7 @@ public class Player extends SmoothMover
                     gw.addObject(rp, this.getX(), this.getY()); 
                 }
                 else{
-                    MeleeAttack ma = new MeleeAttack(meleeRadius); 
+                    MeleeAttack ma = new MeleeAttack(meleeRadius, this); 
                     if(direction == 1){
                         gw.addObject(ma, this.getX()-10, this.getY()); 
                     } else if(direction == 2){
@@ -200,5 +200,8 @@ public class Player extends SmoothMover
         if(getOneObjectAtOffset(0, -5, Wall.class)!=null){
             setLocation(this.getX(), this.getY()+speed); 
         }
+    }
+    public int getDirection(){
+        return direction; 
     }
 }

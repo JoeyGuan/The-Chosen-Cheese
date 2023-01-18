@@ -18,4 +18,6 @@ comment7.params=atkDmg
 comment7.target=void\ takeDamage(double)
 comment8.params=
 comment8.target=void\ checkWall()
-numComments=9
+comment9.params=
+comment9.target=int\ getDirection()
+numComments=10
