@@ -327,6 +327,14 @@ public class GameWorld extends World
         return BLOCK_SIZE;
     }
     
+    public int getCurrentRoomY() {
+        return currentRoomY; 
+    }
+    
+    public int getCurrentRoomX() {
+        return currentRoomX; 
+    }
+    
     public void room0()
     {
         

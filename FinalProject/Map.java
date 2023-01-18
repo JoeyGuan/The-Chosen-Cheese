@@ -42,11 +42,16 @@ public class Map extends Actor
     }
     
     public void drawRooms() {
+        GameWorld w =  (GameWorld) getWorld(); 
+        int y = w.getCurrentRoomY(); 
+        int x =  w.getCurrentRoomX(); 
         map.scale(1500, 900); 
         map.clear(); 
         for (int i = 0; i < numMap.length; i++) {
             for (int j = 0; j < numMap[i].length; j++) {
-                if (numMap[i][j] != 0) {
+                if (i == y && j == x) {
+                    map.drawImage(new GreenfootImage(currentRoomImage), xCoordinates[j], yCoordinates[i]); 
+                } else if (numMap[i][j] != 0) {
                     map.drawImage(new GreenfootImage(roomImage), xCoordinates[j], yCoordinates[i]); 
                 }
             }
