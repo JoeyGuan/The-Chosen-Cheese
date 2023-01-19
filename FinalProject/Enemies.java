@@ -50,15 +50,9 @@ public abstract class Enemies extends SmoothMover
                 }
                 if(Double.parseDouble(v[8])-atkDmg<=0){ //else is not used for sequencing reasons
                     System.out.println("died"); 
-                    w.playerDeath(); 
+                    Greenfoot.setWorld(new EndScreen()); 
                 }
                 attacking = true; 
-                if(attackTimer<=0){
-                    p.takeDamage(atkDmg); 
-                    System.out.println("dealing damage"); 
-                    attackTimer = 90; 
-                    attacking = false; 
-                }
             }
         }
     }
