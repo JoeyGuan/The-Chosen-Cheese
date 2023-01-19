@@ -29,15 +29,15 @@ public abstract class SmoothMover extends Actor
     protected int actCounter = 0; 
     protected boolean moving;
     protected boolean attacking; 
+    protected boolean hasAttackFrame; 
     
-    /**
     public SmoothMover(String type) {
         actorType = type; 
+        hasAttackFrame = false; 
         initGraphics(); 
-        direction = 2; 
-        setImage(frames[2][0]); 
+        direction = 1; 
     }
-    */
+    
     
     /**
      * Move forward by the specified distance.
@@ -103,15 +103,26 @@ public abstract class SmoothMover extends Actor
         if (!actorType.equals("")) {
             if (actorType.equals("Player") || actorType.equals("Cat") || actorType.equals("Bird")) {
                 framesPerDirection = 4; 
+                hasAttackFrame = true; 
             } else if (actorType.equals("Snake")) {
                 framesPerDirection = 1; 
+                hasAttackFrame = false; 
             }
             frames = new GreenfootImage[4][framesPerDirection]; 
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < frames[i].length; j++) {
                     GreenfootImage image = new GreenfootImage(actorType + directions[i] + "Walk" + j + ".png"); 
-                    image.scale(200,200); 
+                    image.scale(100,100); 
                     frames[i][j] = image; 
+                }
+            }
+            setImage(frames[1][0]); 
+            if (hasAttackFrame) {
+                attackFrames = new GreenfootImage[4]; 
+                for (int i = 0; i < 4; i++) {
+                    GreenfootImage image = new GreenfootImage(actorType + directions[i] + "Attack.png"); 
+                    image.scale(100,100); 
+                    attackFrames[i] = image; 
                 }
             }
         }
@@ -129,7 +140,10 @@ public abstract class SmoothMover extends Actor
     //players and enemies need to call on this in their respective act methods
     public void animate(int d) {
         currentDirection = d; 
-        if (currentDirection != direction) {
+        if (attacking) {
+            animation.clear(); 
+            animation.add(attackFrames[direction]); 
+        } else if (currentDirection != direction) {
             direction = currentDirection; 
             animation.clear(); 
             addFrames(); 
@@ -137,7 +151,7 @@ public abstract class SmoothMover extends Actor
             addFrames(); 
         }
         if (actCounter % 5 == 0) {
-            if (!moving) {
+            if (!moving && !attacking) {
                 animation.clear(); 
             }
             if (animation.peek() == null) {
