@@ -49,6 +49,7 @@ public class Player extends SmoothMover
         attackSwitchTimer = 0;
     }**/
     public Player(){ //default constructor for now (january 11)
+        super("Player"); //constructor for smooth mover
         setImage("wombat.png");
         attacked = false;
         rangeTimer = 0;
@@ -76,8 +77,8 @@ public class Player extends SmoothMover
             }
         }
         if(ranged){
-            if(rangeTimer>=rangeReset){
-                attacking = true; 
+            if(rangeTimer>=rangeReset){ 
+                attacking = false; 
                 attacked = false; 
                 System.out.println("ranged ready");
                 rangeTimer = 0; 
@@ -85,7 +86,7 @@ public class Player extends SmoothMover
         }
         if(!ranged){
             if(meleeTimer>=meleeReset){
-                attacking = true; 
+                attacking = false; 
                 attacked = false;
                 System.out.println("melee ready");
                 meleeTimer = 0;
@@ -99,6 +100,7 @@ public class Player extends SmoothMover
             attackSwitched = false;
             attackSwitchTimer = 0;
         }
+        animate (direction - 1); 
         actCounter++; 
     }
 
@@ -132,6 +134,7 @@ public class Player extends SmoothMover
     public void attack(){
         if(Greenfoot.isKeyDown("E"))//attack
         {
+            attacking = true; 
             GameWorld gw = (GameWorld)getWorld();
             if(!attacked){
                 if(ranged){

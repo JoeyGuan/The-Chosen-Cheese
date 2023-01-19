@@ -19,6 +19,7 @@ public abstract class Enemies extends SmoothMover
     protected int attackTimer; 
     
     public Enemies(int hp, int spd, double atkDmg){
+        super("Cat"); 
         this.hp = hp;
         this.spd = spd;
         this.atkDmg = atkDmg; 
@@ -33,6 +34,7 @@ public abstract class Enemies extends SmoothMover
     }
     public void act(){
         doDamage(); 
+        animate (1); 
         actCounter++; //animation variable
     }
     public void doDamage(){
