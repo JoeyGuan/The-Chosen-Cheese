@@ -30,7 +30,7 @@ public class Player extends SmoothMover
     //public Player(boolean ranged, int meleeRadius, int meleeSpeed, int rangeSpeed, double projectileSpeed, double speed,  double attackPower, double armour, double health)
     public Player(String[] values)//updated player constructor using an array of strings to manage parameters 
     {
-        
+        super("Player");
         setImage("wombat.png");
         //player stats
         this.ranged = Boolean.parseBoolean(values[0]);  
