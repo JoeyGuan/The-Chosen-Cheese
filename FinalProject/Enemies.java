@@ -23,6 +23,8 @@ public abstract class Enemies extends SmoothMover
         this.spd = spd;
         this.atkDmg = atkDmg; 
         this.attackTimer = 90; 
+        moving = false; //animation variable 
+        attacking = false; //animation variable
         hpBar = new SuperStatBar(hp, hp, this, getImage().getWidth(), hpBarHeight, - getImage().getHeight() / 2 - hpBarHeight, fillColor, barColor, false, barColor, 3);
     }
     
@@ -31,16 +33,19 @@ public abstract class Enemies extends SmoothMover
     }
     public void act(){
         doDamage(); 
+        actCounter++; //animation variable
     }
     public void doDamage(){
         GameWorld gw = (GameWorld)getWorld(); 
         Player p = gw.getObjects(Player.class).get(0);
         if(this.isTouching(Player.class)){
             attackTimer--; 
+            attacking = true; 
             if(attackTimer<=0){
                 p.takeDamage(atkDmg); 
                 System.out.println("dealing damage"); 
                 attackTimer = 90; 
+                attacking = false; 
             }
         }
     }
