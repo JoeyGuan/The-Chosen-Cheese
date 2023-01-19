@@ -100,17 +100,19 @@ public abstract class SmoothMover extends Actor
     
     public void initGraphics() {
         String[] directions = {"L", "R", "U", "D"}; 
-        if (actorType.equals("Player") || actorType.equals("Cat") || actorType.equals("Bird")) {
-            framesPerDirection = 4; 
-        } else if (actorType.equals("Snake")) {
-            framesPerDirection = 1; 
-        }
-        frames = new GreenfootImage[4][framesPerDirection]; 
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < frames[i].length; j++) {
-                GreenfootImage image = new GreenfootImage(actorType + directions[i] + "Walk" + j + ".png"); 
-                image.scale(200,200); 
-                frames[i][j] = image; 
+        if (!actorType.equals("")) {
+            if (actorType.equals("Player") || actorType.equals("Cat") || actorType.equals("Bird")) {
+                framesPerDirection = 4; 
+            } else if (actorType.equals("Snake")) {
+                framesPerDirection = 1; 
+            }
+            frames = new GreenfootImage[4][framesPerDirection]; 
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < frames[i].length; j++) {
+                    GreenfootImage image = new GreenfootImage(actorType + directions[i] + "Walk" + j + ".png"); 
+                    image.scale(200,200); 
+                    frames[i][j] = image; 
+                }
             }
         }
     }
