@@ -18,10 +18,11 @@ public class HealCheese extends Cheeses
     public void act()
     {
         if(this.isTouching(Player.class)){
-            for(Player p: getIntersectingObjects(Player.class)){
-                  p.setHealth(p.getHealth()+6); 
-                  System.out.println("Player health: "+p.getHealth()); 
-            }
+            GameWorld w = (GameWorld)getWorld(); 
+            String[] v = w.getArrValues(); 
+            v[8] = Double.toString(Double.parseDouble(v[8])+6); 
+            w.setArrValues(v); 
+            System.out.println(v[8]); 
             getWorld().removeObject(this); 
         }
     }

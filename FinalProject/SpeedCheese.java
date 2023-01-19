@@ -18,9 +18,10 @@ public class SpeedCheese extends Cheeses
     public void act()
     {
         if(this.isTouching(Player.class)){
-            for(Player p: getIntersectingObjects(Player.class)){
-                p.setSpeed(p.getSpeed()+0.5); 
-            }
+            GameWorld w = (GameWorld)getWorld(); 
+            String[] v = w.getArrValues(); 
+            v[5] = Double.toString(Double.parseDouble(v[5])+0.5); 
+            w.setArrValues(v); 
             getWorld().removeObject(this); 
         }
     }
