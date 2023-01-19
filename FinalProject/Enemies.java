@@ -24,11 +24,14 @@ public abstract class Enemies extends SmoothMover
     protected int atkTimer = 90;
     protected GreenfootImage attack;
     
-    public Enemies(int hp, int spd, double atkDmg){
+    public Enemies(int hp, int spd, double atkDmg, String type){
+        super(type);
         this.hp = hp;
         this.spd = spd;
         this.atkDmg = atkDmg; 
         this.attackTimer = 90; 
+        moving = false; //animation variable 
+        attacking = false; //animation variable
         hpBar = new SuperStatBar(hp, hp, this, getImage().getWidth(), hpBarHeight, - getImage().getHeight() / 2 - hpBarHeight, fillColor, barColor, false, barColor, 3);
     }
     
@@ -55,16 +58,27 @@ public abstract class Enemies extends SmoothMover
     
     public void act(){
         doDamage(); 
+        animate (1); 
+        actCounter++; //animation variable
     }
     public void doDamage(){
-        GameWorld gw = (GameWorld)getWorld(); 
-        Player p = gw.getObjects(Player.class).get(0);
         if(this.isTouching(Player.class)){
             attackTimer--; 
+            GameWorld w = (GameWorld)getWorld(); 
+            String[] v = w.getArrValues(); 
             if(attackTimer<=0){
-                p.takeDamage(atkDmg); 
-                System.out.println("dealing damage"); 
-                attackTimer = 90; 
+                if(Double.parseDouble(v[8])-atkDmg >0){
+                    v[8] = Double.toString(Double.parseDouble(v[8])-atkDmg); 
+                    w.setArrValues(v);  
+                    System.out.println("dealing damage"); 
+                    System.out.println("player health: "+v[8]); 
+                    attackTimer = 90; 
+                }
+                if(Double.parseDouble(v[8])-atkDmg<=0){ //else is not used for sequencing reasons
+                    System.out.println("died"); 
+                    Greenfoot.setWorld(new EndScreen()); 
+                }
+                attacking = true; 
             }
         }
     }

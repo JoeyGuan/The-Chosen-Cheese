@@ -1,21 +1,8 @@
 #BlueJ class context
 comment0.target=Player
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ Player\ here.\r\n\ \r\n\ @author\ (Harishan\ Ganeshanathan)\ \r\n\ @version\ (January\ 10th)\r\n
-comment1.params=
-comment1.target=Player()
-comment1.text=public\ Player(String[]\ values)\r\n\ \ \ \ {\r\n\ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ setImage("wombat.png");\r\n\ \ \ \ \ \ \ \ //player\ stats\r\n\ \ \ \ \ \ \ \ this.ranged\ \=\ ranged;\ \r\n\ \ \ \ \ \ \ \ this.speed\ \=\ speed;\ \r\n\ \ \ \ \ \ \ \ this.meleeRadius\ \=\ meleeRadius;\ \r\n\ \ \ \ \ \ \ \ this.projectileSpeed\ \=\ projectileSpeed;\ \r\n\ \ \ \ \ \ \ \ this.meleeReset\ \=\ meleeSpeed;\ \r\n\ \ \ \ \ \ \ \ this.rangeReset\ \=\ rangeSpeed;\r\n\ \ \ \ \ \ \ \ this.attackPower\ \=\ attackPower;\ \r\n\ \ \ \ \ \ \ \ this.armour\ \=\ armour;\r\n\ \ \ \ \ \ \ \ this.health\ \=\ health;\ \r\n\ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ attacked\ \=\ false;\r\n\ \ \ \ \ \ \ \ rangeTimer\ \=\ 0;\r\n\ \ \ \ \ \ \ \ meleeTimer\ \=\ 0;\ \r\n\ \ \ \ \ \ \ \ attackSwitchTimer\ \=\ 0;\r\n}*
-comment10.params=
-comment10.target=double\ getAttackPower()
-comment11.params=attackPwr
-comment11.target=void\ setAttackPower(double)
-comment12.params=
-comment12.target=double\ getArmour()
-comment13.params=dura
-comment13.target=void\ setArmour(double)
-comment14.params=
-comment14.target=double\ getHealth()
-comment15.params=health
-comment15.target=void\ setHealth(double)
+comment1.params=values
+comment1.target=Player(java.lang.String[])
 comment2.params=
 comment2.target=void\ act()
 comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ Player\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
@@ -28,9 +15,5 @@ comment5.target=void\ switchAttack()
 comment6.params=atkDmg
 comment6.target=void\ takeDamage(double)
 comment7.params=
-comment7.target=void\ death()
-comment8.params=
-comment8.target=double\ getSpeed()
-comment9.params=spd
-comment9.target=void\ setSpeed(double)
-numComments=16
+comment7.target=int\ getDirection()
+numComments=8
