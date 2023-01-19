@@ -18,8 +18,8 @@ public abstract class Enemies extends SmoothMover
     protected SuperStatBar hpBar;
     protected int attackTimer; 
     
-    public Enemies(int hp, int spd, double atkDmg){
-        super("Cat"); 
+    public Enemies(int hp, int spd, double atkDmg, String type){
+        super(type);
         this.hp = hp;
         this.spd = spd;
         this.atkDmg = atkDmg; 

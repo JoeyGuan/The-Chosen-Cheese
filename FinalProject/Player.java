@@ -31,13 +31,12 @@ public class Player extends SmoothMover
     public Player(String[] values)//updated player constructor using an array of strings to manage parameters 
     {
         super("Player");
-        setImage("wombat.png");
         //player stats
         this.ranged = Boolean.parseBoolean(values[0]);  
-        this.meleeRadius = Integer.parseInt(values[1]); //50
+        this.meleeRadius = Integer.parseInt(values[1]); //100
         this.meleeReset = Integer.parseInt(values[2]); //90
-        this.rangeReset = Integer.parseInt(values[3]); //180
-        this.projectileSpeed = Double.parseDouble(values[4]); //2 
+        this.rangeReset = Integer.parseInt(values[3]); //90
+        this.projectileSpeed = Double.parseDouble(values[4]); //5 
         this.speed = Double.parseDouble(values[5]); //5
         this.attackPower = Double.parseDouble(values[6]); //10 
         this.armour = Double.parseDouble(values[7]); //0
@@ -48,15 +47,7 @@ public class Player extends SmoothMover
         meleeTimer = 0; 
         attackSwitchTimer = 0;
     }
-        
-    public Player(){ //default constructor for now (january 11)
-        super("Player"); //constructor for smooth mover
-        setImage("wombat.png");
-        attacked = false;
-        rangeTimer = 0;
-        meleeTimer = 0; 
-        attackSwitchTimer = 0;
-    }
+    
     /**
      * Act - do whatever the Player wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -204,21 +195,7 @@ public class Player extends SmoothMover
         }
         else{
             System.out.println("died"); 
-            //death();
-        }
-    }
-    public void checkWall(){
-        if(getOneObjectAtOffset(5, 0, Wall.class)!=null){
-            setLocation(this.getX()-speed, this.getY()); 
-        }
-        if(getOneObjectAtOffset(0, 5, Wall.class)!=null){
-            setLocation(this.getX(), this.getY()-speed); 
-        }
-        if(getOneObjectAtOffset(-5, 0, Wall.class)!=null){
-            setLocation(this.getX()+speed, this.getY()); 
-        }
-        if(getOneObjectAtOffset(0, -5, Wall.class)!=null){
-            setLocation(this.getX(), this.getY()+speed); 
+            Greenfoot.setWorld(new EndScreen()); 
         }
     }
     public int getDirection(){

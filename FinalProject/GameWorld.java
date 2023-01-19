@@ -6,7 +6,7 @@ import java.util.List;
  * Write a description of class MyWorld here.
  * 
  * @author Joey Guan
- * @version (a version number or a date)
+ * @version January 19, 2023
  */
 public class GameWorld extends World
 {
@@ -22,11 +22,15 @@ public class GameWorld extends World
     //0 is empty, 1 is a room, -1 is starting room, -2 is boss room
     private int[][] dungeonFloor;
     private int[][] dungeonMap = new int[7][7]; // keeps track of rooms that are clear. 1 for not cleared, 2 for cleared
-
+    private int[][] cheeseMap = new int[7][7]; // -1 for no cheese, other numbers means there's that number type of cheese, set to -1 by Cheese object when it gets picked up
+    
+    //Booleans to make sure certain events only happen once
     private boolean dungeonGenerated = false;
     private boolean doneSpawning = false;
-    private boolean goingToNextFloor = false;
-
+    private boolean cheeseSpawned = false;
+    private boolean trapdoorSpawned = false; 
+    private boolean goingToNextFloor = false; 
+    
     //The room player is currently in (starting location is dungeonFloor[3][3])
     private int currentRoomX = 3;
     private int currentRoomY = 3;
@@ -35,7 +39,7 @@ public class GameWorld extends World
     private int playerX = 6;
     private int playerY = 3;
     
-    private String[] values = {"true", "50", "90", "180", "2", "5", "10", "0", "20"}; 
+    private String[] values = {"false", "100", "90", "90", "5", "5", "10", "0", "20"}; 
     
     /**
      * Constructor for objects of class MyWorld.
@@ -44,7 +48,7 @@ public class GameWorld extends World
     public GameWorld()
     {    
         super(1300, 700, 1); 
-        setPaintOrder(Player.class, Cheeses.class, MeleeAttack.class, RangedProjectile.class, Structures.class);
+        setPaintOrder(PopUp.class, SuperStatBar.class, Player.class, Cheese.class, MeleeAttack.class, RangedProjectile.class, Structures.class);
     }
 
     public void act()
@@ -62,11 +66,12 @@ public class GameWorld extends World
                 currentRoomY = 3;
                 playerX = 6;
                 playerY = 3;
+                
+                trapdoorSpawned = false;
             }
             else
             {
-                //reaching below maxFloorDepth is win condition
-                //Send to end screen with win
+                Greenfoot.setWorld(new EndScreen());
             }
             goingToNextFloor = false;
         }
@@ -87,9 +92,15 @@ public class GameWorld extends World
             {
                 d.setIsOpen(true);
             }
-            if(dungeonFloor[currentRoomY][currentRoomX] == -2) //spawn trapdoor at boss room if all enemies are dead
+            if(dungeonFloor[currentRoomY][currentRoomX] == -2 && !trapdoorSpawned) //spawn trapdoor at boss room if all enemies are dead
             {
                 addObject(new Trapdoor(), getXCoordinate(6), getYCoordinate(3));
+                trapdoorSpawned = true;
+            }
+            if(cheeseMap[currentRoomY][currentRoomX] >= 0 && !cheeseSpawned) //spawn a cheese of indicated type by the cheeseMap, -1 means no cheese
+            {
+                addObject(new Cheese(cheeseMap[currentRoomY][currentRoomX]), getXCoordinate(6), getYCoordinate(2));
+                cheeseSpawned = true;
             }
         }
         else
@@ -149,6 +160,7 @@ public class GameWorld extends World
             for(int j = 0; j < dungeonFloor[0].length; j++)
             {
                 dungeonMap[i][j] = dungeonFloor[i][j]; // copies over the floor to a map that keeps track of cleared rooms
+                cheeseMap[i][j] = Greenfoot.getRandomNumber(4); // generates the room's cheese type that will spawn
                 if(dungeonFloor[i][j] > 0)
                 {
                     dungeonFloor[i][j] = 1 + Greenfoot.getRandomNumber(7); // sets room layout type (obstacles, etc.)
@@ -180,7 +192,9 @@ public class GameWorld extends World
 
     public void spawnRoom()
     {
+        cheeseSpawned = false;
         enemyNumber = 2 + Greenfoot.getRandomNumber(floorDepth+1);
+        //Adds room layout
         int roomType = dungeonFloor[currentRoomY][currentRoomX];
         switch (roomType)
         {
@@ -280,7 +294,7 @@ public class GameWorld extends World
                     coordinateGenerated = true;
                 }
             }
-            if(Greenfoot.getRandomNumber(1) == 1)
+            if(Greenfoot.getRandomNumber(2) == 1)
             {
                 enemyType = "melee";
             }
@@ -290,17 +304,21 @@ public class GameWorld extends World
             }
             if(enemyType.equals("melee"))
             {
-                MeleeEnemy enemy = new MeleeEnemy(1,1,1);
-                addObject(enemy, getXCoordinate(x), getYCoordinate(y));
+                int hp = 15 + Greenfoot.getRandomNumber(floorDepth+1);
+                int attack = 2 + Greenfoot.getRandomNumber(floorDepth+1);
+                int speed = 3 + Greenfoot.getRandomNumber(floorDepth+1);
+                addObject(new MeleeEnemy(hp,attack,speed), getXCoordinate(x), getYCoordinate(y));
             }
             else if(enemyType.equals("ranged"))
             {
-                RangedEnemy enemy = new RangedEnemy(1,1,1);
-                addObject(enemy, getXCoordinate(x), getYCoordinate(y));
+                int hp = 10 + Greenfoot.getRandomNumber(floorDepth+1);
+                int attack = 2 + Greenfoot.getRandomNumber(floorDepth+1);
+                int speed = 2;
+                addObject(new RangedEnemy(hp,attack,speed), getXCoordinate(x), getYCoordinate(y));
             }
         }
     }
-
+    
     public void moveRooms(int direction)
     {
         switch (direction){
@@ -375,9 +393,9 @@ public class GameWorld extends World
         return false;
     }
 
-    public int[][] getDungeonFloor()
+    public void markCheeseMap() // marks current room's cheese as taken
     {
-        return dungeonFloor;
+        cheeseMap[currentRoomY][currentRoomX] = -1;
     }
 
     public static int getXCoordinate (int cellNumber){

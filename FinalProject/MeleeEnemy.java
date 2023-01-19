@@ -8,10 +8,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MeleeEnemy extends Enemies
 {
-    
     public MeleeEnemy(int hp, int spd, double atkDmg){
-        super(hp, spd, atkDmg);
-        setImage("bee2.png");
+        super(hp, spd, atkDmg, "Cat");
     }
     
     /**
