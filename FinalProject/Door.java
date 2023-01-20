@@ -1,16 +1,18 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Door here.
+ * Gateways between different rooms. A player cannot enter through a door until all the enemies in the room have been killed
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author (Joey Guan) 
+ * @version (January 15)
  */
 public class Door extends Structures
 {
     private boolean isOpen = true;
     private String type;
-    
+    /**
+     * Simple Constructor for Door
+     */
     public Door(/*String t*/)
     {
         //type = t;
@@ -20,7 +22,9 @@ public class Door extends Structures
         image.scale(sideLength, sideLength);
         setImage(image);
     }
-    
+    /**
+     * Simple Act Method for Door
+     */
     public void act()
     {
         GameWorld w = (GameWorld) getWorld();
@@ -56,11 +60,18 @@ public class Door extends Structures
             w.setDoneSpawning(false);
         }
     }
-    
+    /**
+     * Checks if the door is open 
+     * @return boolean Returns if the door is open or not 
+     */
     public boolean getIsOpen()
     {
         return isOpen;
     }
+    /**
+     * Sets whether the door is open or not 
+     * @param b Boolean that says whether the door is open or not
+     */
     public void setIsOpen(boolean b)
     {
         isOpen = b;

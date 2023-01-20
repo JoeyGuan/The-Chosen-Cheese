@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Write a description of class MyWorld here.
  * 
- * @author Joey Guan
+ * @author Joey Guan, Harishan Ganeshanathan, Marco Luong, Anthony Ung
  * @version January 19, 2023
  */
 public class GameWorld extends World
@@ -276,7 +276,9 @@ public class GameWorld extends World
         }
         doneSpawning = true;
     }
-    
+    /**
+     * Spawns enemies into the world 
+     */
     public void spawnEnemies()
     {
         for(int i = 0; i < enemyNumber; i++) 
@@ -336,22 +338,34 @@ public class GameWorld extends World
                 break;
         }
     }
-
+    /**
+     * Set doneSpawning variable
+     * @param b Boolean for doneSpawning variables to be set to 
+     */
     public void setDoneSpawning(boolean b)
     {
         doneSpawning = b;
     }
-
+    /**
+     * Set goingToNextFloor variable 
+     * @param b Boolean to set goingToNextFloor variable to
+     */
     public void setGoingToNextFloor(boolean b)
     {
         goingToNextFloor = b;
     }
-
+    /**
+     * Set player x coordinate
+     * @param x New x coordinate for player 
+     */
     public void setPlayerX(int x)
     {
         playerX = x;
     }
-
+    /**
+     * Set player y coordinate 
+     * @param y New y coordinate for player 
+     */
     public void setPlayerY(int y)
     {
         playerY = y;
@@ -392,7 +406,9 @@ public class GameWorld extends World
         }
         return false;
     }
-
+    /**
+     * Marks if the cheese in the room is taken on the map 
+     */
     public void markCheeseMap() // marks current room's cheese as taken
     {
         cheeseMap[currentRoomY][currentRoomX] = -1;
@@ -413,16 +429,25 @@ public class GameWorld extends World
     public static int getYCell(int coordinate){
         return (coordinate - Y_OFFSET) % BLOCK_SIZE;
     }
-
+    /**
+     * Get the BLOCK_SIZE variable
+     * return int Return the BLOCK_SIZE variable 
+     */
     public static int getBlockSize()
     {
         return BLOCK_SIZE;
     }
-    
+    /**
+     * Get the currentRoomY variable
+     * return int Return the currentRoomY variable 
+     */
     public int getCurrentRoomY() {
         return currentRoomY; 
     }
-    
+    /**
+     * Get the currentRoomX variable
+     * return int Return the currentRoomX variable 
+     */
     public int getCurrentRoomX() {
         return currentRoomX; 
     }
@@ -466,9 +491,17 @@ public class GameWorld extends World
     {
 
     }
+    /**
+     * Get the array holding the player values 
+     * @return String[] Returns the string array holding player values
+     */
     public String[] getArrValues(){
         return values;
     }
+    /**
+     * Set the array holding the player values 
+     * @param v String array with the updated player values 
+     */
     public void setArrValues(String[] v){
         for(int i = 0; i<v.length;i++){
             values[i] = v[i]; 

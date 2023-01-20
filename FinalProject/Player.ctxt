@@ -1,21 +1,28 @@
 #BlueJ class context
 comment0.target=Player
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Player\ here.\r\n\ \r\n\ @author\ (Harishan\ Ganeshanathan)\ \r\n\ @version\ (January\ 10th)\r\n
+comment0.text=\r\n\ The\ main\ player\ can\ move\ around,\ attack\ and\ switch\ their\ attack\ type\r\n\ \r\n\ @author\ (Harishan\ Ganeshanathan,\ Anthony\ Ung)\ \r\n\ @version\ (January\ 10th)\r\n
 comment1.params=values
 comment1.target=Player(java.lang.String[])
+comment1.text=\r\n\ Simple\ Constructor\ for\ Player\ to\ set\ values\ through\ parsing\ a\ String\ into\ integers,\ booleans\ and/or\ doubles\r\n\ @param\ values\ A\ string\ array\ that\ holds\ the\ values\ for\ the\ players\ attack\ type,\ attack\ radius,\ attack\ timer,\ attack\ speed,\ player\ speed,\ attack\ power,\ armour\ and\ health\r\n
 comment2.params=
 comment2.target=void\ act()
 comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ Player\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
 comment3.params=
 comment3.target=void\ movement()
+comment3.text=\r\n\ Method\ for\ player\ movement\ -\ Note\ that\ players\ cannot\ move\ when\ melee\ attacking\r\n
 comment4.params=
 comment4.target=void\ attack()
+comment4.text=\r\n\ Attack\ method\ for\ Player\r\n
 comment5.params=
 comment5.target=void\ switchAttack()
+comment5.text=\r\n\ Method\ for\ switching\ between\ ranged\ attack\ and\ melee\ attack\r\n
 comment6.params=atkDmg
 comment6.target=void\ takeDamage(double)
+comment6.text=\r\n\ Method\ for\ taking\ damage\r\n\ @param\ atkDmg\ Damage\ dealt\ to\ player\r\n
 comment7.params=
 comment7.target=int\ getDirection()
+comment7.text=\r\n\ Gets\ the\ direction\ that\ the\ player\ is\ facing\ \r\n\ @return\ int\ Returns\ the\ direction\ as\ an\ int\ value\:\ 1\ \=\ left,\ 2\ \=\ right,\ 3\ \=\ up,\ 4\ \=\ down\r\n
 comment8.params=b
 comment8.target=void\ setAttackStatus(boolean)
+comment8.text=\r\n\ Sets\ the\ melee\ attack\ status\ of\ the\ player\r\n\ @param\ b\ Boolean\ that\ determines\ if\ the\ player\ is\ attacking\ or\ not\ \r\n
 numComments=9

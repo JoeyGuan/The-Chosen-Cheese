@@ -1,13 +1,20 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Melee here.
+ * Melee Enemies are enemies with melee attacks. 
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author (Marco Luong) 
+ * @version (January 20)
  */
 public class MeleeEnemy extends Enemies
 {
+    /**
+     * Simple Constructor for Melee Enemy 
+     * @param hp Health of the enemy 
+     * @param spd Speed of the enemy 
+     * @param atkDmg Attack Damage of the enemy 
+     * @param type Enemy type 
+     */
     public MeleeEnemy(int hp, int spd, double atkDmg){
         super(hp, spd, atkDmg, "Cat");
     }

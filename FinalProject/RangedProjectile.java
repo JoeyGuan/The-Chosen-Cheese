@@ -1,19 +1,20 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class RangedProjectile here.
+ * Ranged Projectile that is fired by a player or an enemy
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author (Harishan Ganeshanathan) 
+ * @version (January 15)
  */
 public class RangedProjectile extends Attack
 {
-    /**
-     * Act - do whatever the RangedProjectile wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
     private double speed = 0;
     private int direction = 0; 
+    /**
+     * Simple Constructor for Ranged Projectile 
+     * @param speed The speed of the projectile 
+     * @param facing The direction that the projectile needs to be fired in, passed in as an int value
+     */
     public RangedProjectile(double speed, int facing){
         this.getImage().scale(25,25);
         this.setImage("button-blue.png");
@@ -21,25 +22,23 @@ public class RangedProjectile extends Attack
         //1 is left, 2 is right, 3 is up, 4 is down
         this.direction = facing; 
     }
+    /**
+     * Simple act method for RangedProjectile
+     */
     public void act(){
-        // Add your action code here.
         if(direction == 1){
-            //if(Greenfoot.isKeyDown("A")){setLocation(this.getExactX()-(speed+(p.getSpeed()/1.5)), this.getExactY());}
             setLocation(this.getExactX()-speed, this.getExactY());
         }
         if(direction == 2){
-            //if(Greenfoot.isKeyDown("D")){setLocation(this.getExactX()+(speed+(p.getSpeed()/1.5)), this.getExactY());}
             setLocation(this.getExactX()+speed, this.getExactY());
         }
         if(direction == 3){
-           // if(Greenfoot.isKeyDown("W")){setLocation(this.getExactX(), this.getExactY()-(speed+(p.getSpeed()/1.5)));}
            setLocation(this.getExactX(), this.getExactY()-speed);
         }
         if(direction == 4){
-           // if(Greenfoot.isKeyDown("S")){setLocation(this.getExactX(), this.getExactY()+(speed+(p.getSpeed()/1.5)));}
-            setLocation(this.getExactX(),this.getExactY()+speed);
+           setLocation(this.getExactX(),this.getExactY()+speed);
         }
-        //if the arrow hits the end of the world, it removes itself
+        //if the arrow hits the end of the world or a player, it removes itself
         if(getOneIntersectingObject(Enemies.class)!=null){
             Enemies e = (Enemies)getOneIntersectingObject(Enemies.class);
             GameWorld w = (GameWorld)getWorld();

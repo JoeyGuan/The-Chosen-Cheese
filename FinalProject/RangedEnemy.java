@@ -1,13 +1,20 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Ranged here.
+ * Ranged Enemies are enemies with ranged attacks. 
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author (Marco Luong) 
+ * @version (January 20)
  */
 public class RangedEnemy extends Enemies
 {
+    /**
+     * Simple Constructor for Melee Enemy 
+     * @param hp Health of the enemy 
+     * @param spd Speed of the enemy 
+     * @param atkDmg Attack Damage of the enemy 
+     * @param type Enemy type 
+     */
     public RangedEnemy(int hp, int spd, double atkDmg){
         super(hp, spd, atkDmg, "Bird");
     }

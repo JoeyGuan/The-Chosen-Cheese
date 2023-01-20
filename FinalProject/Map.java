@@ -17,7 +17,10 @@ public class Map extends Actor
     
     private int[] xCoordinates = new int[7]; //x-coordinates for possible placements of rooms in the map
     private int[] yCoordinates = new int[7]; //y-coordinates for possible placements of rooms in the map
-    
+    /**
+     * Simple Constructor for Map
+     * @param map 2D number array of the world map to generate a minimap
+     */
     public Map(int[][] map) {
         numMap = map; 
         roomImage.scale(130, 70); 
@@ -27,20 +30,27 @@ public class Map extends Actor
     }
     
     //updates the map, redraws the map
+    /**
+     * Method for updating and redrawing the map 
+     */
     public void updateMap() {
         drawRooms(); 
         drawHallways(); 
         map.scale(750, 450); 
         setImage(map);
     }
-
+    /**
+     * Generates coordinates for the room to properly to scale the image 
+     */
     public void generateRoomCoordinates() {
         for (int j = 0; j < xCoordinates.length; j++) {
             xCoordinates[j] = (j * roomImage.getWidth()) + (j * hallwayLength) + (roomImage.getWidth() / 2); 
             yCoordinates[j] = (j * roomImage.getHeight()) + (j * hallwayLength) + (roomImage.getHeight() / 2); 
         }
     }
-    
+    /**
+     * Draws the rooms and their orientation on the minimap
+     */
     public void drawRooms() {
         GameWorld w =  (GameWorld) getWorld(); 
         int y = w.getCurrentRoomY(); 
@@ -57,7 +67,9 @@ public class Map extends Actor
             }
         }
     }
-    
+    /**
+     * Draws a hallway that connects rooms if a hallway exists 
+     */
     public void drawHallways() {
         for (int i = 0; i < numMap.length - 1; i++) {
             for (int j = 0; j < numMap[i].length - 1; j++) {
@@ -71,15 +83,5 @@ public class Map extends Actor
                 }
             }
         }
-    }
-    
-    public int[][] genExampleMap() {
-        int[][] result = new int[7][7]; 
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 7; j++) {
-                result[i][j] = Greenfoot.getRandomNumber(2); 
-            }
-        }
-        return result; 
     }
 }

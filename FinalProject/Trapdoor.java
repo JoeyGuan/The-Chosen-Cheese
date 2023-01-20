@@ -1,13 +1,16 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Trapdoor here.
+ * Once the player defeats the boss in the boss room, a trapdoor will appear and the player can move down to the next floor
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author (Joey Guan) 
+ * @version (January 16)
  */
 public class Trapdoor extends Structures
 {   
+    /**
+     * Simple Constructor for Trapdoor
+     */
     public void Trapdoor()
     {
         

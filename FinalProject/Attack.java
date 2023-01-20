@@ -1,13 +1,16 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Attack here.
+ * Superclass for different attacks. Mostly just for organization to keep melee and ranged attacks together. 
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author (Harishan Ganeshanathan) 
+ * @version (January 13)
  */
 public class Attack extends SmoothMover
 {
+    /**
+     * Constructor for Attack
+     */
     public Attack () {
         super(""); 
     }

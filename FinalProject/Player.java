@@ -1,9 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Player here.
+ * The main player can move around, attack and switch their attack type
  * 
- * @author (Harishan Ganeshanathan) 
+ * @author (Harishan Ganeshanathan, Anthony Ung) 
  * @version (January 10th)
  */
 public class Player extends SmoothMover
@@ -29,6 +29,10 @@ public class Player extends SmoothMover
     private double health; 
     
     //public Player(boolean ranged, int meleeRadius, int meleeSpeed, int rangeSpeed, double projectileSpeed, double speed,  double attackPower, double armour, double health)
+    /**
+     * Simple Constructor for Player to set values through parsing a String into integers, booleans and/or doubles
+     * @param values A string array that holds the values for the players attack type, attack radius, attack timer, attack speed, player speed, attack power, armour and health
+     */
     public Player(String[] values)//updated player constructor using an array of strings to manage parameters 
     {
         super("Player");
@@ -97,7 +101,9 @@ public class Player extends SmoothMover
         animate (direction - 1); 
         actCounter++; 
     }
-
+    /**
+     * Method for player movement - Note that players cannot move when melee attacking
+     */
     public void movement()
     {
         if(!isAttacking){
@@ -135,6 +141,9 @@ public class Player extends SmoothMover
             }
         }
     }
+    /**
+     * Attack method for Player
+     */
     public void attack(){
         if(Greenfoot.isKeyDown("SPACE"))//attack
         {
@@ -163,6 +172,9 @@ public class Player extends SmoothMover
             }
         }
     }
+    /**
+     * Method for switching between ranged attack and melee attack
+     */
     public void switchAttack(){
         if(!attackSwitched){
             if(Greenfoot.isKeyDown("X")){
@@ -185,6 +197,10 @@ public class Player extends SmoothMover
             }
         }
     }
+    /**
+     * Method for taking damage
+     * @param atkDmg Damage dealt to player
+     */
     public void takeDamage(double atkDmg){
         System.out.println("health: "+health); 
         System.out.println("atkDmg: "+atkDmg); 
@@ -203,9 +219,17 @@ public class Player extends SmoothMover
             Greenfoot.setWorld(new EndScreen()); 
         }
     }
+    /**
+     * Gets the direction that the player is facing 
+     * @return int Returns the direction as an int value: 1 = left, 2 = right, 3 = up, 4 = down
+     */
     public int getDirection(){
         return direction; 
     }
+    /**
+     * Sets the melee attack status of the player
+     * @param b Boolean that determines if the player is attacking or not 
+     */
     public void setAttackStatus(boolean b){
         isAttacking = b; 
     }

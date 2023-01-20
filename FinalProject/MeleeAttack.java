@@ -1,23 +1,24 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class MeleeAttack here.
+ * Melee Attack - This is a sword swing, that damages enemies within the range of the swing.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author (Harishan Ganeshanathan) 
+ * @version (January 17)
  */
 public class MeleeAttack extends Attack
 {
-    /**
-     * Act - do whatever the MeleeAttack wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
     private int attackRange;
     private int animationOffset; 
     private boolean animated; 
     private Player p;
     private int horiOffset =0; 
     private int vertiOffset =0; 
+    /**
+     * Simple Constructor 
+     * @param attackRange The range of the sword swing
+     * @param p The player that the sword swing belongs to
+     */
     public MeleeAttack(int attackRange, Player p){
         this.attackRange = attackRange; 
         this.setImage("button-green.png");
@@ -26,6 +27,9 @@ public class MeleeAttack extends Attack
         animated = false;
         this.getImage().scale(attackRange, attackRange); 
     }
+    /**
+     * Simple Act Method - Offsets attack to be in front of the player and also damage enemies
+     */
     public void act()
     {
        if(p.getDirection() == 1){

@@ -1,10 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 /**
- * Write a description of class Enemies here.
+ * Enemies will pathfind around the room to attack the player. There are ranged enemies and 
+ * melee enemies. 
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author (Marco Luong) 
+ * @version (January 20)
  */
 public abstract class Enemies extends SmoothMover
 {
@@ -23,7 +24,13 @@ public abstract class Enemies extends SmoothMover
     protected int attackTimer;
     protected int atkTimer = 90;
     protected GreenfootImage attack;
-    
+    /**
+     * Constructor for setting enemy values 
+     * @param hp Health of the enemy 
+     * @param spd Speed of the enemy 
+     * @param atkDmg Attack Damage of the enemy 
+     * @param type Enemy type 
+     */
     public Enemies(int hp, int spd, double atkDmg, String type){
         super(type);
         this.hp = hp;
@@ -34,13 +41,17 @@ public abstract class Enemies extends SmoothMover
         attacking = false; //animation variable
         hpBar = new SuperStatBar(hp, hp, this, getImage().getWidth(), hpBarHeight, - getImage().getHeight() / 2 - hpBarHeight, fillColor, barColor, false, barColor, 3);
     }
-    
+    /**
+     * Added to World method
+     */
     public void addedToWorld(World w){
         w.addObject(hpBar, getX(), getY());
     }
     
     //protected abstract void attack();
-    
+    /**
+     * Attack method for enemies 
+     */
     protected void attack(){
         if(isTouching(Player.class) && atkTimer == 0){
             atkTimer = 90;
@@ -50,17 +61,23 @@ public abstract class Enemies extends SmoothMover
             atkTimer--;
         }
     }
-    
+    /**
+     * Move method for enemies 
+     */
     protected void move(){
         
     }
-
-    
+    /**
+     * Act method for enemies
+     */
     public void act(){
         doDamage(); 
         animate (1); 
         actCounter++; //animation variable
     }
+    /**
+     * Enemy damage dealing method.
+     */
     public void doDamage(){
         if(this.isTouching(Player.class)){
             attackTimer--; 
@@ -90,6 +107,9 @@ public abstract class Enemies extends SmoothMover
     // The grid value will decrease as it goes further from the player
     // Enemies will move towards coordinates of a higher value, checking
     // in a one tile radius around themselves.
+    /**
+     * Method for tracking player 
+     */
     protected void trackPlayer(){
         World w = (GameWorld) getWorld();
         Player player = (Player) ((ArrayList) w.getObjects(Player.class)).get(0);
@@ -133,7 +153,10 @@ public abstract class Enemies extends SmoothMover
         
         turnTowards(getXCoordinate(turnToX), getYCoordinate(turnToY));
     }
-    
+    /**
+     * Take damage method for enemy 
+     * @param dmg Damage dealt to enemy
+     */
     public void takeDamage(double dmg){
         if(hp - dmg > 0){
             hp -= dmg;
@@ -146,27 +169,55 @@ public abstract class Enemies extends SmoothMover
             death();
         }
     }
+    /**
+     * Gets attack damage of enemy 
+     * @return double Returns enemy Attack Damage
+     */
     public double getAttackDamage(){
         return atkDmg; 
     }
+    /**
+     * Sets attack damage of enemy 
+     * @param atkDmg New attack damage for enemy 
+     */
     public void setAttackDamage(double atkDmg){
         this.atkDmg = atkDmg; 
     }
+    /**
+     * Death method for enemy (removes from world)
+     */
     protected void death(){
         getWorld().removeObject(this);
     }
+    /**
+     * Returns the x coordiante of the enemy 
+     * @param cellNumber Cell Number of the enemy 
+     * @return int Returns the Cell number*Tile Size to get an X coordinate
+     */
     private int getXCoordinate (int cellNumber){
         return (cellNumber * TILE_SIZE);
     }
-    
+    /**
+     * Returns the X cell of the enemy 
+     * @param coorindate Coordinate of the enemy
+     * @return int Returns the Coordinate/tilesize to get the X cell
+     */
     private int getXCell(int coordinate){
         return (coordinate) / TILE_SIZE;
     }
-    
+    /**
+     * Returns the y coordiante of the enemy 
+     * @param cellNumber Cell Number of the enemy 
+     * @return int Returns the Cell number*Tile Size to get a y coordinate
+     */
     private int getYCoordinate (int cellNumber){
         return (cellNumber * TILE_SIZE);
     }
-    
+    /**
+     * Returns the Y cell of the enemy 
+     * @param coorindate Coordinate of the enemy
+     * @return int Returns the Coordinate/tilesize to get the Y cell
+     */
     private int getYCell(int coordinate){
         return (coordinate) / TILE_SIZE;
     }
