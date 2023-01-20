@@ -54,6 +54,7 @@ public class MeleeAttack extends Attack
                double dmg = Double.parseDouble(v[6]); 
                e.takeDamage(dmg); 
            }
+           p.setAttackStatus(false); 
            getWorld().removeObject(this);
        }
        

@@ -12,6 +12,7 @@ public class Player extends SmoothMover
     //flag variables
     private boolean ranged;
     private boolean attacked;
+    private boolean isAttacking; 
     private boolean attackSwitched = false;
     private int attackSwitchTimer; 
     private int rangeTimer; 
@@ -43,6 +44,7 @@ public class Player extends SmoothMover
         this.health = Double.parseDouble(values[8]); //20
         
         attacked = false;
+        isAttacking = false;
         rangeTimer = 0;
         meleeTimer = 0; 
         attackSwitchTimer = 0;
@@ -98,43 +100,46 @@ public class Player extends SmoothMover
 
     public void movement()
     {
-        if(Greenfoot.isKeyDown("W")) // up
-        {
-            if(getOneObjectAtOffset(0, getImage().getHeight()/-2, Wall.class)==null){
-                setLocation(getX(), getY() - speed);
-            }  
-            direction = 3; 
-            moving = true; 
-        }
-        if(Greenfoot.isKeyDown("A")) // left
-        {
-            if(getOneObjectAtOffset(getImage().getWidth()/-2, 0, Wall.class)==null){
-                setLocation(getX() - speed, getY());
+        if(!isAttacking){
+            if(Greenfoot.isKeyDown("W")) // up
+            {
+                if(getOneObjectAtOffset(0, getImage().getHeight()/-2, Wall.class)==null){
+                    setLocation(getX(), getY() - speed);
+                }  
+                direction = 3; 
+                moving = true; 
+            }
+            if(Greenfoot.isKeyDown("A")) // left
+            {
+                if(getOneObjectAtOffset(getImage().getWidth()/-2, 0, Wall.class)==null){
+                    setLocation(getX() - speed, getY());
+                } 
+                direction = 1;
+                moving = true; 
             } 
-            direction = 1;
-            moving = true; 
-        } 
-        if(Greenfoot.isKeyDown("S")) // down
-        {
-            if(getOneObjectAtOffset(0, getImage().getHeight()/2, Wall.class)==null){
-                setLocation(getX(), getY() + speed);
-            } 
-            direction = 4;
-            moving = true; 
-        }
-        if(Greenfoot.isKeyDown("D")) // right
-        {
-            if(getOneObjectAtOffset(getImage().getWidth()/2, 0, Wall.class)==null){
-                setLocation(getX() + speed, getY());
-            } 
-            direction =2;
-            moving = true; 
+            if(Greenfoot.isKeyDown("S")) // down
+            {
+                if(getOneObjectAtOffset(0, getImage().getHeight()/2, Wall.class)==null){
+                    setLocation(getX(), getY() + speed);
+                } 
+                direction = 4;
+                moving = true; 
+            }
+            if(Greenfoot.isKeyDown("D")) // right
+            {
+                if(getOneObjectAtOffset(getImage().getWidth()/2, 0, Wall.class)==null){
+                    setLocation(getX() + speed, getY());
+                } 
+                direction =2;
+                moving = true; 
+            }
         }
     }
     public void attack(){
         if(Greenfoot.isKeyDown("SPACE"))//attack
         {
             attacking = true; 
+            isAttacking = true; 
             GameWorld gw = (GameWorld)getWorld();
             if(!attacked){
                 if(ranged){
@@ -200,5 +205,8 @@ public class Player extends SmoothMover
     }
     public int getDirection(){
         return direction; 
+    }
+    public void setAttackStatus(boolean b){
+        isAttacking = b; 
     }
 }
