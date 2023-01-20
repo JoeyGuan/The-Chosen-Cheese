@@ -39,7 +39,20 @@ public class MeleeAttack extends Attack
     }
     int imageIndex = 0;
     
-    public void animateSwing(){
+    public GreenfootImage[] animationCreation(String s){
+        for(int i = 0; i <swingAnimation.length; i++){
+            swingAnimation[i] = new GreenfootImage (s + i +".png");
+            swingAnimation[i].scale(200,100);
+            //swingAnimation[i].offsetX(100);
+        }
+    
+    
+        return swingAnimation;
+    }
+    
+    
+    
+    public void animateSwing(GreenfootImage[] animation){
         
         if(animationTimer.millisElapsed() < 25){
             return;
@@ -47,7 +60,7 @@ public class MeleeAttack extends Attack
         animationTimer.mark();
         
        
-        setImage(swingAnimation[imageIndex]);
+        setImage(animation[imageIndex]);
         
 
         imageIndex = (imageIndex + 1) % swingAnimation.length;
@@ -59,7 +72,7 @@ public class MeleeAttack extends Attack
     {
            //animation
         System.out.println("animated");
-        animateSwing();
+        animateSwing(animationCreation("swordSwing_"));
  
         
        animationOffset++;
