@@ -32,7 +32,7 @@ public class MeleeAttack extends Attack
         
         animationTimer.mark();
         for(int i = 0; i <swingAnimation.length; i++){
-            swingAnimation[i] = new GreenfootImage ("images/swordSwing/swordSwing_"+ i +".png");
+            swingAnimation[i] = new GreenfootImage ("swordSwing_"+ i +".png");
             swingAnimation[i].scale(200,100);
             //swingAnimation[i].offsetX(100);
         }
