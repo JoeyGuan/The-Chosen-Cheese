@@ -59,7 +59,7 @@ public class MeleeAttack extends Attack
     
     public void animateSwing(GreenfootImage[] animation){
         
-        if(animationTimer.millisElapsed() < 25){
+        if(animationTimer.millisElapsed() < 30){
             return;
         }
         animationTimer.mark();
