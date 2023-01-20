@@ -103,7 +103,10 @@ public class Player extends SmoothMover
         if(!isAttacking){
             if(Greenfoot.isKeyDown("W")) // up
             {
-                if(getOneObjectAtOffset(0, getImage().getHeight()/-2, Wall.class)==null){
+                Wall wall = (Wall) getOneObjectAtOffset(0, getImage().getHeight()/-2, Wall.class);
+                Door door = (Door) getOneObjectAtOffset(0, getImage().getHeight()/-2, Door.class);
+                
+                if(wall == null || door == null || door.getIsOpen()){
                     setLocation(getX(), getY() - speed);
                 }  
                 direction = 3; 
@@ -111,7 +114,10 @@ public class Player extends SmoothMover
             }
             if(Greenfoot.isKeyDown("A")) // left
             {
-                if(getOneObjectAtOffset(getImage().getWidth()/-2, 0, Wall.class)==null){
+                Wall wall = (Wall) getOneObjectAtOffset(getImage().getWidth()/-2, 0, Wall.class);
+                Door door = (Door) getOneObjectAtOffset(getImage().getWidth()/-2, 0, Door.class);
+                
+                if(wall == null || door == null || door.getIsOpen()){
                     setLocation(getX() - speed, getY());
                 } 
                 direction = 1;
@@ -119,7 +125,10 @@ public class Player extends SmoothMover
             } 
             if(Greenfoot.isKeyDown("S")) // down
             {
-                if(getOneObjectAtOffset(0, getImage().getHeight()/2, Wall.class)==null){
+                Wall wall = (Wall) getOneObjectAtOffset(0, getImage().getHeight()/2, Wall.class);
+                Door door = (Door) getOneObjectAtOffset(0, getImage().getHeight()/2, Door.class);
+                
+                if(wall == null || door == null || door.getIsOpen()){
                     setLocation(getX(), getY() + speed);
                 } 
                 direction = 4;
@@ -127,7 +136,10 @@ public class Player extends SmoothMover
             }
             if(Greenfoot.isKeyDown("D")) // right
             {
-                if(getOneObjectAtOffset(getImage().getWidth()/2, 0, Wall.class)==null){
+                Wall wall = (Wall) getOneObjectAtOffset(getImage().getWidth()/2, 0, Wall.class);
+                Door door = (Door) getOneObjectAtOffset(getImage().getWidth()/2, 0, Door.class);
+                
+                if(wall == null || door == null || door.getIsOpen()){
                     setLocation(getX() + speed, getY());
                 } 
                 direction =2;
