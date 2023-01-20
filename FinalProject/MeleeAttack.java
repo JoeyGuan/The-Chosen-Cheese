@@ -1,4 +1,5 @@
-// import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.GreenfootImage;
 
 /**
  * Write a description of class MeleeAttack here.
@@ -19,7 +20,15 @@ public abstract class MeleeAttack extends Attack
         this.attackRange = attackRange; 
         this.setImage("button-green.png");
         animationOffset = 0; 
+        
         animated = false;
         this.getImage().scale(attackRange, attackRange); 
+        
+        animationTimer.mark();
+        for(int i = 0; i <swingAnimation.length; i++){
+            swingAnimation[i] = new GreenfootImage ("swordSwing_"+ i +".png");
+            swingAnimation[i].scale(200,100);
+            //swingAnimation[i].offsetX(100);
+        }
     }
 }
