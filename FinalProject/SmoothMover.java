@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, and Greenfoot)
-
+import java.util.Queue; 
+import java.util.LinkedList; 
 /**
  * A variation of an actor that maintains a precise location (using doubles for the co-ordinates
  * instead of ints).  This allows small precise movements (e.g. movements of 1 pixel or less)
@@ -15,7 +16,29 @@ public abstract class SmoothMover extends Actor
 {
     private double exactX;
     private double exactY;
-
+    
+    private int direction; //direction that its facing
+    private int currentDirection; //tracking of its current direction
+    private GreenfootImage[][] frames; //2D array of all its frames while walking
+    private Queue<GreenfootImage> animation = new LinkedList<GreenfootImage> (); //queue of the frames that are to be played
+    private String actorType; //ie. "Player", "Cat", "Snake" 
+    private int framesPerDirection = 0; //how many frames that are available for any given direction
+    private GreenfootImage[] attackFrames; //array of the frames where it's attacking 
+    
+    //inherited variables - variables that need to be present in subclasses 
+    protected int actCounter = 0; 
+    protected boolean moving;
+    protected boolean attacking; 
+    protected boolean hasAttackFrame; 
+    
+    public SmoothMover(String type) {
+        actorType = type; 
+        hasAttackFrame = false; 
+        initGraphics(); 
+        direction = 1; 
+    }
+    
+    
     /**
      * Move forward by the specified distance.
      * (Overrides the method in Actor).
@@ -73,5 +96,70 @@ public abstract class SmoothMover extends Actor
     public double getExactY() 
     {
         return exactY;
+    }
+    
+    public void initGraphics() {
+        String[] directions = {"L", "R", "U", "D"}; 
+        if (!actorType.equals("")) {
+            if (actorType.equals("Player") || actorType.equals("Cat") || actorType.equals("Bird")) {
+                framesPerDirection = 4; 
+                hasAttackFrame = true; 
+            } else if (actorType.equals("Snake")) {
+                framesPerDirection = 1; 
+                hasAttackFrame = false; 
+            }
+            frames = new GreenfootImage[4][framesPerDirection]; 
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < frames[i].length; j++) {
+                    GreenfootImage image = new GreenfootImage(actorType + directions[i] + "Walk" + j + ".png"); 
+                    image.scale(100,100); 
+                    frames[i][j] = image; 
+                }
+            }
+            setImage(frames[1][0]); 
+            if (hasAttackFrame) {
+                attackFrames = new GreenfootImage[4]; 
+                for (int i = 0; i < 4; i++) {
+                    GreenfootImage image = new GreenfootImage(actorType + directions[i] + "Attack.png"); 
+                    image.scale(100,100); 
+                    attackFrames[i] = image; 
+                }
+            }
+        }
+    }
+    
+    //adds frames to the queue
+    public void addFrames() {
+        if (moving) {
+            for (int i = 0; i < framesPerDirection; i++) {
+                animation.add(frames[direction][i]); 
+            }
+        } 
+    }
+    
+    //players and enemies need to call on this in their respective act methods
+    public void animate(int d) {
+        currentDirection = d; 
+        if (attacking) {
+            animation.clear(); 
+            animation.add(attackFrames[direction]); 
+        } else if (currentDirection != direction) {
+            direction = currentDirection; 
+            animation.clear(); 
+            addFrames(); 
+        } else if (moving && animation.peek() == null) {
+            addFrames(); 
+        }
+        if (actCounter % 5 == 0) {
+            if (!moving && !attacking) {
+                animation.clear(); 
+            }
+            if (animation.peek() == null) {
+                setImage(frames[direction][0]); 
+            } else{
+                setImage(animation.peek()); 
+                animation.remove(); 
+            }
+        }
     }
 }

@@ -12,59 +12,55 @@ public class Player extends SmoothMover
     //flag variables
     private boolean ranged;
     private boolean attacked;
+    private boolean isAttacking; 
     private boolean attackSwitched = false;
     private int attackSwitchTimer; 
     private int rangeTimer; 
     private int meleeTimer; 
     
     //upgradable stats
-    private double speed = 5;
-    private int meleeRadius = 50; 
-    private double projectileSpeed = 2;
-    private int meleeReset = 90; //attack resets every 4 seconds
-    private int rangeReset = 180; 
-    private double attackPower = 10; 
-    private double armour = 0; //damage reduction variable
-    private double health = 20; 
+    private double speed;
+    private int meleeRadius; 
+    private double projectileSpeed;
+    private int meleeReset; //attack resets every 4 seconds
+    private int rangeReset; 
+    private double attackPower; 
+    private double armour; //damage reduction variable
+    private double health; 
     
-    //public Player(boolean ranged, double speed, int meleeRadius, double projectileSpeed, int meleeSpeed, int rangeSpeed, double attackPower, double armour, double health)
-    /**public Player(String[] values)
+    //public Player(boolean ranged, int meleeRadius, int meleeSpeed, int rangeSpeed, double projectileSpeed, double speed,  double attackPower, double armour, double health)
+    public Player(String[] values)//updated player constructor using an array of strings to manage parameters 
     {
-        
-        setImage("wombat.png");
+        super("Player");
         //player stats
-        this.ranged = ranged; 
-        this.speed = speed; 
-        this.meleeRadius = meleeRadius; 
-        this.projectileSpeed = projectileSpeed; 
-        this.meleeReset = meleeSpeed; 
-        this.rangeReset = rangeSpeed;
-        this.attackPower = attackPower; 
-        this.armour = armour;
-        this.health = health; 
+        this.ranged = Boolean.parseBoolean(values[0]);  
+        this.meleeRadius = Integer.parseInt(values[1]); //100
+        this.meleeReset = Integer.parseInt(values[2]); //90
+        this.rangeReset = Integer.parseInt(values[3]); //90
+        this.projectileSpeed = Double.parseDouble(values[4]); //5 
+        this.speed = Double.parseDouble(values[5]); //5
+        this.attackPower = Double.parseDouble(values[6]); //10 
+        this.armour = Double.parseDouble(values[7]); //0
+        this.health = Double.parseDouble(values[8]); //20
         
         attacked = false;
-        rangeTimer = 0;
-        meleeTimer = 0; 
-        attackSwitchTimer = 0;
-    }**/
-    public Player(){ //default constructor for now (january 11)
-        setImage("wombat.png");
-        attacked = false;
+        isAttacking = false;
         rangeTimer = 0;
         meleeTimer = 0; 
         attackSwitchTimer = 0;
     }
+    
     /**
      * Act - do whatever the Player wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
     {
+        moving = false; 
         movement();
         attack();
         switchAttack();
-        checkWall();
+        //checkWall();
         //timer for attacks
         if(attacked){
             if(ranged){
@@ -75,7 +71,8 @@ public class Player extends SmoothMover
             }
         }
         if(ranged){
-            if(rangeTimer>=rangeReset){
+            if(rangeTimer>=rangeReset){ 
+                attacking = false; 
                 attacked = false; 
                 System.out.println("ranged ready");
                 rangeTimer = 0; 
@@ -83,6 +80,7 @@ public class Player extends SmoothMover
         }
         if(!ranged){
             if(meleeTimer>=meleeReset){
+                attacking = false; 
                 attacked = false;
                 System.out.println("melee ready");
                 meleeTimer = 0;
@@ -96,38 +94,55 @@ public class Player extends SmoothMover
             attackSwitched = false;
             attackSwitchTimer = 0;
         }
+        animate (direction - 1); 
+        actCounter++; 
     }
 
     public void movement()
     {
-        if(Greenfoot.isKeyDown("W")) // up
-        {
-            setLocation(getX(), getY() - speed);
-            direction = 3; 
-        }
-        if(Greenfoot.isKeyDown("A")) // left
-        {
-            setLocation(getX() - speed, getY());
-            direction = 1;
-        } 
-        if(Greenfoot.isKeyDown("S")) // down
-        {
-            setLocation(getX(), getY() + speed);
-            direction = 4;
-        }
-        if(Greenfoot.isKeyDown("D")) // right
-        {
-            setLocation(getX() + speed, getY());
-            direction =2;
+        if(!isAttacking){
+            if(Greenfoot.isKeyDown("W")) // up
+            {
+                if(getOneObjectAtOffset(0, getImage().getHeight()/-2, Wall.class)==null){
+                    setLocation(getX(), getY() - speed);
+                }  
+                direction = 3; 
+                moving = true; 
+            }
+            if(Greenfoot.isKeyDown("A")) // left
+            {
+                if(getOneObjectAtOffset(getImage().getWidth()/-2, 0, Wall.class)==null){
+                    setLocation(getX() - speed, getY());
+                } 
+                direction = 1;
+                moving = true; 
+            } 
+            if(Greenfoot.isKeyDown("S")) // down
+            {
+                if(getOneObjectAtOffset(0, getImage().getHeight()/2, Wall.class)==null){
+                    setLocation(getX(), getY() + speed);
+                } 
+                direction = 4;
+                moving = true; 
+            }
+            if(Greenfoot.isKeyDown("D")) // right
+            {
+                if(getOneObjectAtOffset(getImage().getWidth()/2, 0, Wall.class)==null){
+                    setLocation(getX() + speed, getY());
+                } 
+                direction =2;
+                moving = true; 
+            }
         }
     }
     public void attack(){
-        if(Greenfoot.isKeyDown("E"))//attack
+        if(Greenfoot.isKeyDown("SPACE"))//attack
         {
+            attacking = true; 
             GameWorld gw = (GameWorld)getWorld();
             if(!attacked){
                 if(ranged){
-                    RangedProjectile rp = new RangedProjectile(projectileSpeed, direction, this);
+                    RangedProjectile rp = new RangedProjectile(projectileSpeed, direction);
                     gw.addObject(rp, this.getX(), this.getY()); 
                 }
                 else{
@@ -140,21 +155,30 @@ public class Player extends SmoothMover
                         gw.addObject(ma, this.getX(), this.getY()-10); 
                     }else if(direction == 4){
                         gw.addObject(ma, this.getX(), this.getY()+10); 
-                    }
+                    }  
+                    isAttacking = true; 
                 }
                 attacked = true; 
+                attacking = false; //for the smooth mover animation
             }
         }
     }
     public void switchAttack(){
         if(!attackSwitched){
             if(Greenfoot.isKeyDown("X")){
+                GameWorld w = (GameWorld)getWorld(); 
                 if(ranged){
                     ranged = false;
+                    String[] v = w.getArrValues(); 
+                    v[0] = Boolean.toString(ranged);
+                    w.setArrValues(v);
                     System.out.println("melee");
                 }
                 else if(!ranged){
-                    ranged = true; 
+                    ranged = true;
+                    String[] v = w.getArrValues(); 
+                    v[0] = Boolean.toString(ranged);
+                    w.setArrValues(v);
                     System.out.println("Ranged");
                 }
                 attackSwitched = true;
@@ -162,55 +186,27 @@ public class Player extends SmoothMover
         }
     }
     public void takeDamage(double atkDmg){
-        if(health-atkDmg>0){
+        System.out.println("health: "+health); 
+        System.out.println("atkDmg: "+atkDmg); 
+        if(this.health - atkDmg>0){
             if(armour<atkDmg){
+                GameWorld w = (GameWorld)getWorld();
+                String[] v = w.getArrValues(); 
                 this.health -= atkDmg; 
+                v[8] = Double.toString(this.health); 
+                w.setArrValues(v); 
                 System.out.println("takingDamage"); 
             }
         }
         else{
-            death();
+            System.out.println("died"); 
+            Greenfoot.setWorld(new EndScreen()); 
         }
     }
-    public void checkWall(){
-        if(getOneObjectAtOffset(5, 0, Wall.class)!=null){
-            setLocation(this.getX()-speed, this.getY()); 
-        }
-        if(getOneObjectAtOffset(0, 5, Wall.class)!=null){
-            setLocation(this.getX(), this.getY()-speed); 
-        }
-        if(getOneObjectAtOffset(-5, 0, Wall.class)!=null){
-            setLocation(this.getX()+speed, this.getY()); 
-        }
-        if(getOneObjectAtOffset(0, -5, Wall.class)!=null){
-            setLocation(this.getX(), this.getY()+speed); 
-        }
+    public int getDirection(){
+        return direction; 
     }
-    public void death(){
-        Greenfoot.setWorld(new EndScreen()); 
-    }
-    public double getSpeed(){
-        return speed; 
-    }
-    public void setSpeed(double spd){
-        this.speed = spd; 
-    }
-    public double getAttackPower(){
-        return attackPower;
-    }
-    public void setAttackPower(double attackPwr){
-        this.attackPower = attackPwr; 
-    }
-    public double getArmour(){
-        return armour;
-    }
-    public void setArmour(double dura){
-        this.armour = dura; 
-    }
-    public double getHealth(){
-        return health; 
-    }
-    public void setHealth(double health){
-        this.health = health; 
+    public void setAttackStatus(boolean b){
+        isAttacking = b; 
     }
 }

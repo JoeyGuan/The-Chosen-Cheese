@@ -21,13 +21,18 @@ public class MeleeAttack extends Attack
     GreenfootImage[] swingAnimation = new GreenfootImage[12];
     
     SimpleTimer animationTimer = new SimpleTimer();
+
+    private boolean animated; 
+
+    private int horiOffset =0; 
+    private int vertiOffset =0; 
     public MeleeAttack(int attackRange, Player p){
         this.attackRange = attackRange; 
         this.setImage("button-green.png");
+        this.p = p; 
         animationOffset = 0; 
-   
-        this.p =p; 
         
+        animated = false;
         this.getImage().scale(attackRange, attackRange); 
         
         animationTimer.mark();
@@ -75,15 +80,35 @@ public class MeleeAttack extends Attack
         animateSwing(animationCreation("swordSwing_"));
  
         
+       if(p.getDirection() == 1){
+            horiOffset = -25;
+            vertiOffset = 0; 
+       }else if(p.getDirection()==2){
+            horiOffset = 25;
+            vertiOffset = 0; 
+       }else if(p.getDirection() == 3){
+            vertiOffset = -20; 
+            horiOffset = 0;
+       }else if(p.getDirection() == 4){
+            vertiOffset = 20; 
+            horiOffset = 0;
+       }
+       setLocation(p.getX()+horiOffset, p.getY()+vertiOffset); 
+       if(!animated){
+           //animation
+           animated = true; 
+       }
        animationOffset++;
-       if(animationOffset>=30){
-           System.out.println("attacked");
+       if(animationOffset>=10){
            for(Enemies e : getObjectsInRange(attackRange, Enemies.class)){
-               e.takeDamage(p.getAttackPower()); 
+               GameWorld w = (GameWorld)getWorld();
+               String[] v = w.getArrValues(); 
+               double dmg = Double.parseDouble(v[6]); 
+               e.takeDamage(dmg); 
            }
+           p.setAttackStatus(false); 
            getWorld().removeObject(this);
        }
-           
-        
+       
     }
 }
