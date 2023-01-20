@@ -139,7 +139,6 @@ public class Player extends SmoothMover
         if(Greenfoot.isKeyDown("SPACE"))//attack
         {
             attacking = true; 
-            isAttacking = true; 
             GameWorld gw = (GameWorld)getWorld();
             if(!attacked){
                 if(ranged){
@@ -156,7 +155,8 @@ public class Player extends SmoothMover
                         gw.addObject(ma, this.getX(), this.getY()-10); 
                     }else if(direction == 4){
                         gw.addObject(ma, this.getX(), this.getY()+10); 
-                    }
+                    }  
+                    isAttacking = true; 
                 }
                 attacked = true; 
                 attacking = false; //for the smooth mover animation
