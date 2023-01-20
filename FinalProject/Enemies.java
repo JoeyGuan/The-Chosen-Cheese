@@ -21,8 +21,8 @@ public abstract class Enemies extends SmoothMover
     // Stats - will need to implement a stat scaling system based on the 'level'
     protected int level, hp, def;
     protected double spd, atkDmg; 
-    protected int attackTimer, range;
-    protected int atkTimer = 90;
+    protected int range;
+    protected int atkCD, atkTimer; // cooldown as a setting, timer to actually count
     protected SuperStatBar hpBar;
     protected GreenfootImage attack;
     
@@ -30,7 +30,6 @@ public abstract class Enemies extends SmoothMover
         this.hp = hp;
         this.spd = spd;
         this.atkDmg = atkDmg; 
-        this.attackTimer = 90; 
         hpBar = new SuperStatBar(hp, hp, this, getImage().getWidth(), hpBarHeight, - getImage().getHeight() / 2 - hpBarHeight, fillColor, barColor, false, barColor, 3);
     }
     
@@ -38,17 +37,7 @@ public abstract class Enemies extends SmoothMover
         w.addObject(hpBar, getX(), getY());
     }
     
-    //protected abstract void attack();
-    
-    protected void attack(){
-        if(isTouching(Player.class) && atkTimer == 0){
-            atkTimer = 90;
-            // return atkDmg ?
-        }
-        else{
-            atkTimer--;
-        }
-    }
+    protected abstract void attack();
     
     protected void move(){
         
@@ -58,23 +47,10 @@ public abstract class Enemies extends SmoothMover
     public void act(){
         trackPlayer();
         if(isInRange()){
-            doDamage(); 
+            attack();
         }
         else{
             move(spd);
-        }
-    }
-    
-    public void doDamage(){
-        GameWorld gw = (GameWorld)getWorld(); 
-        Player p = gw.getObjects(Player.class).get(0);
-        if(this.isTouching(Player.class)){
-            attackTimer--; 
-            if(attackTimer<=0){
-                p.takeDamage(atkDmg); 
-                System.out.println("dealing damage"); 
-                attackTimer = 90; 
-            }
         }
     }
     

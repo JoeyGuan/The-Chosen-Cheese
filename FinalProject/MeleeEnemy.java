@@ -8,10 +8,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MeleeEnemy extends Enemies
 {
-    
+    private int meleeRadius = 50;
     public MeleeEnemy(int hp, int spd, double atkDmg){
         super(hp, spd, atkDmg);
         setImage("bee2.png");
+        range = 1;
+        atkCD = 90;
+        atkTimer = atkCD;
     }
     
     /**
@@ -21,5 +24,17 @@ public class MeleeEnemy extends Enemies
     public void act()
     {
         super.act();
+    }
+    
+    public void attack(){
+        GameWorld gw = (GameWorld)getWorld();
+        
+        if(atkTimer<=0){
+            EnemyMelee em = new EnemyMelee(meleeRadius, this); 
+            gw.addObject(em, this.getX(), this.getY()); 
+            System.out.println("dealing damage"); 
+            atkTimer = atkCD; 
+        }
+        atkTimer--;
     }
 }
