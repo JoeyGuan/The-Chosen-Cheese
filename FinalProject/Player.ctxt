@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=Player
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Player\ here.\r\n\ \r\n\ @author\ (Harishan\ Ganeshanathan)\ \r\n\ @version\ (January\ 10th)\r\n
+comment0.text=\n\ Write\ a\ description\ of\ class\ Player\ here.\n\ \n\ @author\ (Harishan\ Ganeshanathan)\ \n\ @version\ (January\ 10th)\n
 comment1.params=
 comment1.target=Player()
-comment1.text=public\ Player(String[]\ values)\r\n\ \ \ \ {\r\n\ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ setImage("wombat.png");\r\n\ \ \ \ \ \ \ \ //player\ stats\r\n\ \ \ \ \ \ \ \ this.ranged\ \=\ ranged;\ \r\n\ \ \ \ \ \ \ \ this.speed\ \=\ speed;\ \r\n\ \ \ \ \ \ \ \ this.meleeRadius\ \=\ meleeRadius;\ \r\n\ \ \ \ \ \ \ \ this.projectileSpeed\ \=\ projectileSpeed;\ \r\n\ \ \ \ \ \ \ \ this.meleeReset\ \=\ meleeSpeed;\ \r\n\ \ \ \ \ \ \ \ this.rangeReset\ \=\ rangeSpeed;\r\n\ \ \ \ \ \ \ \ this.attackPower\ \=\ attackPower;\ \r\n\ \ \ \ \ \ \ \ this.armour\ \=\ armour;\r\n\ \ \ \ \ \ \ \ this.health\ \=\ health;\ \r\n\ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ attacked\ \=\ false;\r\n\ \ \ \ \ \ \ \ rangeTimer\ \=\ 0;\r\n\ \ \ \ \ \ \ \ meleeTimer\ \=\ 0;\ \r\n\ \ \ \ \ \ \ \ attackSwitchTimer\ \=\ 0;\r\n}*
+comment1.text=public\ Player(String[]\ values)\n\ \ \ \ {\n\ \ \ \ \ \ \ \ \n\ \ \ \ \ \ \ \ setImage("wombat.png");\n\ \ \ \ \ \ \ \ //player\ stats\n\ \ \ \ \ \ \ \ this.ranged\ \=\ ranged;\ \n\ \ \ \ \ \ \ \ this.speed\ \=\ speed;\ \n\ \ \ \ \ \ \ \ this.meleeRadius\ \=\ meleeRadius;\ \n\ \ \ \ \ \ \ \ this.projectileSpeed\ \=\ projectileSpeed;\ \n\ \ \ \ \ \ \ \ this.meleeReset\ \=\ meleeSpeed;\ \n\ \ \ \ \ \ \ \ this.rangeReset\ \=\ rangeSpeed;\n\ \ \ \ \ \ \ \ this.attackPower\ \=\ attackPower;\ \n\ \ \ \ \ \ \ \ this.armour\ \=\ armour;\n\ \ \ \ \ \ \ \ this.health\ \=\ health;\ \n\ \ \ \ \ \ \ \ \n\ \ \ \ \ \ \ \ attacked\ \=\ false;\n\ \ \ \ \ \ \ \ rangeTimer\ \=\ 0;\n\ \ \ \ \ \ \ \ meleeTimer\ \=\ 0;\ \n\ \ \ \ \ \ \ \ attackSwitchTimer\ \=\ 0;\n}*
 comment10.params=spd
 comment10.target=void\ setSpeed(double)
 comment11.params=
@@ -20,7 +20,7 @@ comment16.params=health
 comment16.target=void\ setHealth(double)
 comment2.params=
 comment2.target=void\ act()
-comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ Player\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment2.text=\n\ Act\ -\ do\ whatever\ the\ Player\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
 comment3.params=
 comment3.target=void\ movement()
 comment4.params=

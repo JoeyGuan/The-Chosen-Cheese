@@ -37,7 +37,11 @@ public class GameWorld extends World
     public GameWorld()
     {    
         super(1300, 700, 1); 
+        GreenfootImage background = new GreenfootImage("GameBackground.png");
+        background.scale(1300,700);
+    
         setPaintOrder(Player.class, Cheeses.class, MeleeAttack.class, RangedProjectile.class, Structures.class);
+        setBackground(background);
     }
 
     public void act()
