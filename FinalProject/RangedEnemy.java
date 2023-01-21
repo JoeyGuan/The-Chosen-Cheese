@@ -9,8 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class RangedEnemy extends Enemies
 {
     
-    public RangedEnemy(int hp, int spd, double atkDmg){
-        super(hp, spd, atkDmg);
+    public RangedEnemy(int hp, int spd, double atkDmg, String type){
+        super(hp, spd, atkDmg, type);
         range = 8;
         atkCD = 40;
         atkTimer = atkCD;

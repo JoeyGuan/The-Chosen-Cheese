@@ -9,8 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class MeleeEnemy extends Enemies
 {
     private int meleeRadius = 50;
-    public MeleeEnemy(int hp, int spd, double atkDmg){
-        super(hp, spd, atkDmg);
+    public MeleeEnemy(int hp, int spd, double atkDmg, String type){
+        super(hp, spd, atkDmg, type);
         setImage("bee2.png");
         range = 1;
         atkCD = 90;
