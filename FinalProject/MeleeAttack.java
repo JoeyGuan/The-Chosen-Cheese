@@ -15,7 +15,15 @@ public abstract class MeleeAttack extends Attack
      */
     protected int attackRange;
     protected int animationOffset; 
-    protected boolean animated;
+    
+    GreenfootImage[] swingAnimation = new GreenfootImage[12];
+    
+    SimpleTimer animationTimer = new SimpleTimer();
+
+    protected boolean animated; 
+    
+    protected int horiOffset =0; 
+    protected int vertiOffset =0; 
     public MeleeAttack(int attackRange){
         this.attackRange = attackRange; 
         this.setImage("button-green.png");

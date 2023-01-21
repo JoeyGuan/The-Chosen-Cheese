@@ -38,7 +38,10 @@ public class PlayerProjectile extends RangedProjectile
         //if the arrow hits the end of the world, it removes itself
         if(getOneIntersectingObject(Enemies.class)!=null){
             Enemies e = (Enemies)getOneIntersectingObject(Enemies.class);
-            e.takeDamage(p.getAttackPower()); 
+            GameWorld w = (GameWorld)getWorld();
+           String[] v = w.getArrValues(); 
+           double dmg = Double.parseDouble(v[6]); 
+            e.takeDamage(dmg); 
             getWorld().removeObject(this);
         }
         else if(this.getX() > getWorld().getWidth() -5 || this.getX()<5 || this.getY() < 5 || this.getY() > 695){  
