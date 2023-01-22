@@ -33,12 +33,12 @@ public class MeleeAttack extends Attack
         animationOffset = 0; 
         
         animated = false;
-        setImage(new GreenfootImage("swordSwing_0.png"));
+        setImage(new GreenfootImage("images/swordSwingRight/swordSwing_0.png"));
         this.getImage().scale(attackRange, attackRange); 
         
         animationTimer.mark();
         for(int i = 0; i <swingAnimation.length; i++){
-            swingAnimation[i] = new GreenfootImage ("images/swordSwingUp/swordSwing_"+ i +".png");
+            swingAnimation[i] = new GreenfootImage ("images/swordSwingRight/swordSwing_"+ i +".png");
             swingAnimation[i].scale(200,100);
             
             //swingAnimation[i].offsetX(100);
@@ -71,15 +71,6 @@ public class MeleeAttack extends Attack
         
        
         setImage(animation[imageIndex]);
-        if(p.getDirection() == 1){
-            getImage().rotate(180); 
-        }else if(p.getDirection() ==3){
-            getImage().rotate(270); 
-        }else if (p.getDirection() == 4){
-            getImage().rotate(90); 
-        }
-        
-
         imageIndex = (imageIndex + 1) % swingAnimation.length;
         
     
@@ -89,7 +80,7 @@ public class MeleeAttack extends Attack
     {
            //animation
         System.out.println("animated");
-        animateSwing(animationCreation("swordSwing_"));
+        animateSwing(animationCreation("images/swordSwingRight/swordSwing_"));
  
         
        if(p.getDirection() == 1){
