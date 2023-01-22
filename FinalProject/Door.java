@@ -15,22 +15,43 @@ public class Door extends Structures
      */
     public Door(/*String t*/)
     {
-        //type = t;
-        setImage("bluerock.jpg");
-        GreenfootImage image = getImage();
-        int sideLength = GameWorld.getBlockSize();
-        image.scale(sideLength, sideLength);
-        setImage(image);
+
     }
     /**
      * Simple Act Method for Door
      */
     public void act()
     {
+        int sideLength = GameWorld.getBlockSize();
+        if(getX() == 650 && getY() == 50)//up
+        {
+            GreenfootImage imageTop = new GreenfootImage("topDoor.png");
+            imageTop.scale(sideLength, sideLength);
+            setImage(imageTop);
+        }
+        if(getX() == 650 && getY() == 650)//down
+        {
+            GreenfootImage imageBottom = new GreenfootImage("bottomDoor.png");
+            imageBottom.scale(sideLength, sideLength);
+            setImage(imageBottom);
+        }
+        if(getX() == 1250 && getY() == 350)//right
+        {
+            GreenfootImage imageRight = new GreenfootImage("rightDoor.png");
+            imageRight.scale(sideLength, sideLength);
+            setImage(imageRight);
+        }
+        if(getX() == 50 && getY() == 350)//left
+        {
+            GreenfootImage imageLeft = new GreenfootImage("leftDoor.png");
+            imageLeft.scale(sideLength, sideLength);
+            setImage(imageLeft);
+        }
+
         GameWorld w = (GameWorld) getWorld();
-        
+
         w.removeObject(getOneIntersectingObject(Wall.class));
-        
+
         if(isOpen && !getIntersectingObjects(Player.class).isEmpty())
         {
             if(getX() == 650 && getY() == 50)//up
