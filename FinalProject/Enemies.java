@@ -23,6 +23,7 @@ public abstract class Enemies extends SmoothMover
     protected double spd, atkDmg; 
     protected int range;
     protected int atkCD, atkTimer; // cooldown as a setting, timer to actually count
+    private boolean flipped = false;
     protected SuperStatBar hpBar;
     protected GreenfootImage attack;
     
@@ -40,11 +41,6 @@ public abstract class Enemies extends SmoothMover
     
     protected abstract void attack();
     
-    protected void move(){
-        
-    }
-
-    
     public void act(){
         trackPlayer();
         if(isInRange()){
@@ -53,6 +49,7 @@ public abstract class Enemies extends SmoothMover
         else{
             move(spd);
         }
+        setRotation(0);
     }
     
     // Make the world a 12x7 grid (?)
@@ -106,6 +103,10 @@ public abstract class Enemies extends SmoothMover
         }
         
         turnTowards(getXCoordinate(turnToX), getYCoordinate(turnToY));
+        if(((getRotation() > 90  && getRotation() < 270) && !flipped) || (flipped && (getRotation() > 270 || getRotation() < 90))){
+            getImage().mirrorHorizontally();
+            flipped = !flipped;
+        }
     }
     
     protected boolean isInRange(){
