@@ -29,17 +29,18 @@ public class MeleeAttack extends Attack
      */
     public MeleeAttack(int attackRange, Player p){
         this.attackRange = attackRange; 
-        this.setImage("button-green.png");
         this.p = p; 
         animationOffset = 0; 
         
         animated = false;
+        setImage(new GreenfootImage("swordSwing_0.png"));
         this.getImage().scale(attackRange, attackRange); 
         
         animationTimer.mark();
         for(int i = 0; i <swingAnimation.length; i++){
-            swingAnimation[i] = new GreenfootImage ("swordSwing_"+ i +".png");
+            swingAnimation[i] = new GreenfootImage ("images/swordSwingUp/swordSwing_"+ i +".png");
             swingAnimation[i].scale(200,100);
+            
             //swingAnimation[i].offsetX(100);
         }
     }
@@ -63,13 +64,20 @@ public class MeleeAttack extends Attack
     
     public void animateSwing(GreenfootImage[] animation){
         
-        if(animationTimer.millisElapsed() < 30){
+        if(animationTimer.millisElapsed() < 10){
             return;
         }
         animationTimer.mark();
         
        
         setImage(animation[imageIndex]);
+        if(p.getDirection() == 1){
+            getImage().rotate(180); 
+        }else if(p.getDirection() ==3){
+            getImage().rotate(270); 
+        }else if (p.getDirection() == 4){
+            getImage().rotate(90); 
+        }
         
 
         imageIndex = (imageIndex + 1) % swingAnimation.length;
