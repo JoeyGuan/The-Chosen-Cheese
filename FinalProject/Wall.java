@@ -1,13 +1,16 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Wall here.
+ * Walls surround the room. Players cannot go into or past a wall. 
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author (Joey Guan) 
+ * @version (January 13)
  */
 public class Wall extends Structures
 {
+    /**
+     * Simple Constructor for Wall 
+     */
     public Wall()
     {
         GreenfootImage image = getImage();

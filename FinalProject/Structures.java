@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Structures here.
+ * Structures include walls, doors and trapdoors
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author (Joey Guan) 
+ * @version (January 13)
  */
 public class Structures extends Actor
 {

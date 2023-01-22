@@ -1,14 +1,23 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Cheeses here.
+ * Cheeses are essentially powerups that the player can find. Instead of making a subclass for each different 
+ * cheese powerup, we made it all in one class and the type as an integer parameter. 
+ * <p>
+ * There is armour cheese, which decreases the amount of damage a player takes, attack cheese, which increases damage, 
+ * heal cheese, which heals health, and speed cheese, which increases speed. 
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author (Clara Hong, Harishan Ganeshanathan) 
+ * @version (January 20)
  */
 public class Cheese extends Actor
 {
     private int cheeseType;
+    /**
+     * Constructor - Sets the type of cheese and its corresponding image
+     * 
+     * @param type The type of cheese passed in as an integer
+     */
     public Cheese(int type)
     {
         cheeseType = type;
@@ -30,7 +39,9 @@ public class Cheese extends Actor
         }
         getImage().scale(50,50);
     }
-
+    /**
+     * Act Method - responsible for the actions of each type of cheese
+     */
     public void act()
     {
         if(cheeseType == 0)
@@ -95,5 +106,4 @@ public class Cheese extends Actor
             }
         }
     }
-
 }

@@ -1,12 +1,16 @@
 #BlueJ class context
 comment0.target=Door
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Door\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Gateways\ between\ different\ rooms.\ A\ player\ cannot\ enter\ through\ a\ door\ until\ all\ the\ enemies\ in\ the\ room\ have\ been\ killed\r\n\ \r\n\ @author\ (Joey\ Guan)\ \r\n\ @version\ (January\ 15)\r\n
 comment1.params=
 comment1.target=Door()
+comment1.text=\r\n\ Simple\ Constructor\ for\ Door\r\n
 comment2.params=
 comment2.target=void\ act()
+comment2.text=\r\n\ Simple\ Act\ Method\ for\ Door\r\n
 comment3.params=
 comment3.target=boolean\ getIsOpen()
+comment3.text=\r\n\ Checks\ if\ the\ door\ is\ open\ \r\n\ @return\ boolean\ Returns\ if\ the\ door\ is\ open\ or\ not\ \r\n
 comment4.params=b
 comment4.target=void\ setIsOpen(boolean)
+comment4.text=\r\n\ Sets\ whether\ the\ door\ is\ open\ or\ not\ \r\n\ @param\ b\ Boolean\ that\ says\ whether\ the\ door\ is\ open\ or\ not\r\n
 numComments=5
