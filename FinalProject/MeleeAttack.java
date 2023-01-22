@@ -1,4 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.GreenfootImage;
+
+ 
 
 /**
  * Melee Attack - This is a sword swing, that damages enemies within the range of the swing.
@@ -9,9 +12,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class MeleeAttack extends Attack
 {
     private int attackRange;
-    private int animationOffset; 
+    private int animationOffset;  
+    private Player p; 
+    GreenfootImage[] swingAnimation = new GreenfootImage[12];
+    
+    SimpleTimer animationTimer = new SimpleTimer();
+
     private boolean animated; 
-    private Player p;
+
     private int horiOffset =0; 
     private int vertiOffset =0; 
     /**
@@ -24,14 +32,58 @@ public class MeleeAttack extends Attack
         this.setImage("button-green.png");
         this.p = p; 
         animationOffset = 0; 
+        
         animated = false;
         this.getImage().scale(attackRange, attackRange); 
+        
+        animationTimer.mark();
+        for(int i = 0; i <swingAnimation.length; i++){
+            swingAnimation[i] = new GreenfootImage ("swordSwing_"+ i +".png");
+            swingAnimation[i].scale(200,100);
+            //swingAnimation[i].offsetX(100);
+        }
     }
     /**
      * Simple Act Method - Offsets attack to be in front of the player and also damage enemies
      */
+    int imageIndex = 0;
+    
+    public GreenfootImage[] animationCreation(String s){
+        for(int i = 0; i <swingAnimation.length; i++){
+            swingAnimation[i] = new GreenfootImage (s + i +".png");
+            swingAnimation[i].scale(200,100);
+            //swingAnimation[i].offsetX(100);
+        }
+    
+    
+        return swingAnimation;
+    }
+    
+    
+    
+    public void animateSwing(GreenfootImage[] animation){
+        
+        if(animationTimer.millisElapsed() < 30){
+            return;
+        }
+        animationTimer.mark();
+        
+       
+        setImage(animation[imageIndex]);
+        
+
+        imageIndex = (imageIndex + 1) % swingAnimation.length;
+        
+    
+    }
+    
     public void act()
     {
+           //animation
+        System.out.println("animated");
+        animateSwing(animationCreation("swordSwing_"));
+ 
+        
        if(p.getDirection() == 1){
             horiOffset = -25;
             vertiOffset = 0; 
