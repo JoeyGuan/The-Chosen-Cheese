@@ -105,49 +105,51 @@ public class Player extends SmoothMover
      */
     public void movement()
     {
-        if(Greenfoot.isKeyDown("W")) // up
-        {
-            Wall wall = (Wall) getOneObjectAtOffset(0, getImage().getHeight()/-2, Wall.class);
-            Door door = (Door) getOneObjectAtOffset(0, getImage().getHeight()/-2, Door.class);
-
-            if(wall == null && (door == null || door.getIsOpen())){
-                setLocation(getX(), getY() - speed);
-            }  
-            direction = 3; 
-            moving = true; 
-        }
-        if(Greenfoot.isKeyDown("A")) // left
-        {
-            Wall wall = (Wall) getOneObjectAtOffset(getImage().getWidth()/-2, 0, Wall.class);
-            Door door = (Door) getOneObjectAtOffset(getImage().getWidth()/-2, 0, Door.class);
-
-            if(wall == null && (door == null || door.getIsOpen())){
-                setLocation(getX() - speed, getY());
+        if(!isAttacking){
+            if(Greenfoot.isKeyDown("W")) // up
+            {
+                Wall wall = (Wall) getOneObjectAtOffset(0, getImage().getHeight()/-2, Wall.class);
+                Door door = (Door) getOneObjectAtOffset(0, getImage().getHeight()/-2, Door.class);
+    
+                if(wall == null && (door == null || door.getIsOpen())){
+                    setLocation(getX(), getY() - speed);
+                }  
+                direction = 3; 
+                moving = true; 
+            }
+            if(Greenfoot.isKeyDown("A")) // left
+            {
+                Wall wall = (Wall) getOneObjectAtOffset(getImage().getWidth()/-2, 0, Wall.class);
+                Door door = (Door) getOneObjectAtOffset(getImage().getWidth()/-2, 0, Door.class);
+    
+                if(wall == null && (door == null || door.getIsOpen())){
+                    setLocation(getX() - speed, getY());
+                } 
+                direction = 1;
+                moving = true; 
             } 
-            direction = 1;
-            moving = true; 
-        } 
-        if(Greenfoot.isKeyDown("S")) // down
-        {
-            Wall wall = (Wall) getOneObjectAtOffset(0, getImage().getHeight()/2, Wall.class);
-            Door door = (Door) getOneObjectAtOffset(0, getImage().getHeight()/2, Door.class);
-
-            if(wall == null && (door == null || door.getIsOpen())){
-                setLocation(getX(), getY() + speed);
-            } 
-            direction = 4;
-            moving = true; 
-        }
-        if(Greenfoot.isKeyDown("D")) // right
-        {
-            Wall wall = (Wall) getOneObjectAtOffset(getImage().getWidth()/2, 0, Wall.class);
-            Door door = (Door) getOneObjectAtOffset(getImage().getWidth()/2, 0, Door.class);
-
-            if(wall == null && (door == null || door.getIsOpen())){
-                setLocation(getX() + speed, getY());
-            } 
-            direction =2;
-            moving = true; 
+            if(Greenfoot.isKeyDown("S")) // down
+            {
+                Wall wall = (Wall) getOneObjectAtOffset(0, getImage().getHeight()/2, Wall.class);
+                Door door = (Door) getOneObjectAtOffset(0, getImage().getHeight()/2, Door.class);
+    
+                if(wall == null && (door == null || door.getIsOpen())){
+                    setLocation(getX(), getY() + speed);
+                } 
+                direction = 4;
+                moving = true; 
+            }
+            if(Greenfoot.isKeyDown("D")) // right
+            {
+                Wall wall = (Wall) getOneObjectAtOffset(getImage().getWidth()/2, 0, Wall.class);
+                Door door = (Door) getOneObjectAtOffset(getImage().getWidth()/2, 0, Door.class);
+    
+                if(wall == null && (door == null || door.getIsOpen())){
+                    setLocation(getX() + speed, getY());
+                } 
+                direction =2;
+                moving = true; 
+            }
         }
     }
 
@@ -172,7 +174,7 @@ public class Player extends SmoothMover
                     }else if(direction == 4){
                         gw.addObject(ma, this.getX(), this.getY()+10); 
                     }  
-                    isAttacking = true; 
+                    isAttacking = true;
                 }
                 attacked = true; 
                 attacking = false; //for the smooth mover animation
