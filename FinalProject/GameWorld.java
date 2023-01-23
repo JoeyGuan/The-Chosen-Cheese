@@ -30,6 +30,7 @@ public class GameWorld extends World
     private boolean cheeseSpawned = false;
     private boolean trapdoorSpawned = false; 
     private boolean goingToNextFloor = false; 
+    private boolean mapAdded = false;
     
     //The room player is currently in (starting location is dungeonFloor[3][3])
     private int currentRoomX = 3;
@@ -51,7 +52,7 @@ public class GameWorld extends World
         GreenfootImage background = new GreenfootImage("backgroundnoDoor.png");
         background.scale(1300,700);
         setBackground(background);
-        setPaintOrder(PopUp.class, SuperStatBar.class, Player.class, Cheese.class, MeleeAttack.class, RangedProjectile.class, Structures.class);
+        setPaintOrder(Map.class, PopUp.class, SuperStatBar.class, Player.class, Cheese.class, MeleeAttack.class, RangedProjectile.class, Structures.class);
     }
 
     public void act()
@@ -83,6 +84,7 @@ public class GameWorld extends World
             spawnRoom();
         }
         roomStatusCheck();
+        displayMap();
     }
     
     public void roomStatusCheck()
@@ -321,6 +323,17 @@ public class GameWorld extends World
                 int speed = 2;
                 addObject(new RangedEnemy(hp,attack,speed), getXCoordinate(x), getYCoordinate(y));
             }
+        }
+    }
+    
+    public void displayMap()
+    {
+        removeObjects(getObjects(Map.class));
+        mapAdded = false;
+        if(Greenfoot.isKeyDown("M") && mapAdded == false)
+        {
+            addObject(new Map(dungeonFloor), 650, 350);
+            mapAdded = true;
         }
     }
     

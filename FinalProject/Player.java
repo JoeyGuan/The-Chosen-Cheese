@@ -17,7 +17,7 @@ public class Player extends SmoothMover
     private int attackSwitchTimer; 
     private int rangeTimer; 
     private int meleeTimer; 
-    
+
     //upgradable stats
     private double speed;
     private int meleeRadius; 
@@ -27,7 +27,7 @@ public class Player extends SmoothMover
     private double attackPower; 
     private double armour; //damage reduction variable
     private double health; 
-    
+
     //public Player(boolean ranged, int meleeRadius, int meleeSpeed, int rangeSpeed, double projectileSpeed, double speed,  double attackPower, double armour, double health)
     /**
      * Simple Constructor for Player to set values through parsing a String into integers, booleans and/or doubles
@@ -46,14 +46,14 @@ public class Player extends SmoothMover
         this.attackPower = Double.parseDouble(values[6]); //10 
         this.armour = Double.parseDouble(values[7]); //0
         this.health = Double.parseDouble(values[8]); //20
-        
+
         attacked = false;
         isAttacking = false;
         rangeTimer = 0;
         meleeTimer = 0; 
         attackSwitchTimer = 0;
     }
-    
+
     /**
      * Act - do whatever the Player wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -64,7 +64,6 @@ public class Player extends SmoothMover
         movement();
         attack();
         switchAttack();
-        //checkWall();
         //timer for attacks
         if(attacked){
             if(ranged){
@@ -106,56 +105,52 @@ public class Player extends SmoothMover
      */
     public void movement()
     {
-        if(!isAttacking){
-            if(Greenfoot.isKeyDown("W")) // up
-            {
-                Wall wall = (Wall) getOneObjectAtOffset(0, getImage().getHeight()/-2, Wall.class);
-                Door door = (Door) getOneObjectAtOffset(0, getImage().getHeight()/-2, Door.class);
-                
-                if(wall == null || door == null || door.getIsOpen()){
-                    setLocation(getX(), getY() - speed);
-                }  
-                direction = 3; 
-                moving = true; 
-            }
-            if(Greenfoot.isKeyDown("A")) // left
-            {
-                Wall wall = (Wall) getOneObjectAtOffset(getImage().getWidth()/-2, 0, Wall.class);
-                Door door = (Door) getOneObjectAtOffset(getImage().getWidth()/-2, 0, Door.class);
-                
-                if(wall == null || door == null || door.getIsOpen()){
-                    setLocation(getX() - speed, getY());
-                } 
-                direction = 1;
-                moving = true; 
+        if(Greenfoot.isKeyDown("W")) // up
+        {
+            Wall wall = (Wall) getOneObjectAtOffset(0, getImage().getHeight()/-2, Wall.class);
+            Door door = (Door) getOneObjectAtOffset(0, getImage().getHeight()/-2, Door.class);
+
+            if(wall == null && (door == null || door.getIsOpen())){
+                setLocation(getX(), getY() - speed);
+            }  
+            direction = 3; 
+            moving = true; 
+        }
+        if(Greenfoot.isKeyDown("A")) // left
+        {
+            Wall wall = (Wall) getOneObjectAtOffset(getImage().getWidth()/-2, 0, Wall.class);
+            Door door = (Door) getOneObjectAtOffset(getImage().getWidth()/-2, 0, Door.class);
+
+            if(wall == null && (door == null || door.getIsOpen())){
+                setLocation(getX() - speed, getY());
             } 
-            if(Greenfoot.isKeyDown("S")) // down
-            {
-                Wall wall = (Wall) getOneObjectAtOffset(0, getImage().getHeight()/2, Wall.class);
-                Door door = (Door) getOneObjectAtOffset(0, getImage().getHeight()/2, Door.class);
-                
-                if(wall == null || door == null || door.getIsOpen()){
-                    setLocation(getX(), getY() + speed);
-                } 
-                direction = 4;
-                moving = true; 
-            }
-            if(Greenfoot.isKeyDown("D")) // right
-            {
-                Wall wall = (Wall) getOneObjectAtOffset(getImage().getWidth()/2, 0, Wall.class);
-                Door door = (Door) getOneObjectAtOffset(getImage().getWidth()/2, 0, Door.class);
-                
-                if(wall == null || door == null || door.getIsOpen()){
-                    setLocation(getX() + speed, getY());
-                } 
-                direction =2;
-                moving = true; 
-            }
+            direction = 1;
+            moving = true; 
+        } 
+        if(Greenfoot.isKeyDown("S")) // down
+        {
+            Wall wall = (Wall) getOneObjectAtOffset(0, getImage().getHeight()/2, Wall.class);
+            Door door = (Door) getOneObjectAtOffset(0, getImage().getHeight()/2, Door.class);
+
+            if(wall == null && (door == null || door.getIsOpen())){
+                setLocation(getX(), getY() + speed);
+            } 
+            direction = 4;
+            moving = true; 
+        }
+        if(Greenfoot.isKeyDown("D")) // right
+        {
+            Wall wall = (Wall) getOneObjectAtOffset(getImage().getWidth()/2, 0, Wall.class);
+            Door door = (Door) getOneObjectAtOffset(getImage().getWidth()/2, 0, Door.class);
+
+            if(wall == null && (door == null || door.getIsOpen())){
+                setLocation(getX() + speed, getY());
+            } 
+            direction =2;
+            moving = true; 
         }
     }
-    /**
-     * Attack method for Player
-     */
+
     public void attack(){
         if(Greenfoot.isKeyDown("SPACE"))//attack
         {
@@ -189,7 +184,7 @@ public class Player extends SmoothMover
      */
     public void switchAttack(){
         if(!attackSwitched){
-            if(Greenfoot.isKeyDown("X")){
+            if(Greenfoot.isKeyDown("Q")){
                 GameWorld w = (GameWorld)getWorld(); 
                 if(ranged){
                     ranged = false;
