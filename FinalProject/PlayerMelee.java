@@ -11,8 +11,6 @@ import greenfoot.GreenfootImage;
  */
 public class PlayerMelee extends MeleeAttack
 {
-    private int attackRange;
-    private int animationOffset;  
     private Player p;
     GreenfootImage[] up = new GreenfootImage[12];
     GreenfootImage[] left = new GreenfootImage[12];
@@ -20,8 +18,6 @@ public class PlayerMelee extends MeleeAttack
     GreenfootImage[] down = new GreenfootImage[12];
    
     SimpleTimer animationTimer = new SimpleTimer();
-
-    private boolean animated;
 
     private int horiOffset =0;
     private int vertiOffset =0;
