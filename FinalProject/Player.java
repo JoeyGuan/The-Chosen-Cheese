@@ -3,8 +3,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * The main player can move around, attack and switch their attack type
  * 
- * @author (Harishan Ganeshanathan, Anthony Ung) 
- * @version (January 10th)
+ * @author (Harishan Ganeshanathan, Anthony Ung, Joey Guan) 
+ * @version (January 22th, 2023)
  */
 public class Player extends SmoothMover
 {
