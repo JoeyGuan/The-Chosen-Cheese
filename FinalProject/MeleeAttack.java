@@ -25,6 +25,7 @@ public class MeleeAttack extends Attack
 
     private int horiOffset =0; 
     private int vertiOffset =0; 
+    private int imageIndex = 0;
     /**
      * Simple Constructor 
      * @param attackRange The range of the sword swing
@@ -62,7 +63,7 @@ public class MeleeAttack extends Attack
             this.getImage().scale(attackRange, attackRange);
             for(int i = 0; i <up.length; i++){
             up[i] = new GreenfootImage ("images/swordSwingUp/swordSwing_"+ i +".png");
-            up[i].scale(200,100);
+            up[i].scale(100,200);
             //swingAnimation[i].offsetX(100);
             }
         }else if(p.getDirection() == 4){
@@ -70,7 +71,7 @@ public class MeleeAttack extends Attack
             this.getImage().scale(attackRange, attackRange);
             for(int i = 0; i <down.length; i++){
             down[i] = new GreenfootImage ("images/swordSwingDown/swordSwing_"+ i +".png");
-            down[i].scale(200,100);
+            down[i].scale(100,200);
             //swingAnimation[i].offsetX(100);
             }
         }
@@ -78,17 +79,7 @@ public class MeleeAttack extends Attack
     /**
      * Simple Act Method - Offsets attack to be in front of the player and also damage enemies
      */
-    int imageIndex = 0;
     
-    /*public GreenfootImage[] animationCreation(String s){
-        for(int i = 0; i <swingAnimation.length; i++){
-            swingAnimation[i] = new GreenfootImage (s + i +".png");
-            swingAnimation[i].scale(200,100);
-            //swingAnimation[i].offsetX(100);
-        }
-        return swingAnimation;
-    }*/
-
     public void animateSwing(){
         if(animationTimer.millisElapsed() < 30){
             return;
@@ -108,24 +99,13 @@ public class MeleeAttack extends Attack
         }
         animationTimer.mark();
     }
-    
     public void act()
     {
         animateSwing(); 
-        /*if(p.getDirection() == 1){
-            horiOffset = -25;
-            vertiOffset = 0; 
-        }else if(p.getDirection()==2){
-            horiOffset = 25;
-            vertiOffset = 0; 
-        }else if(p.getDirection() == 3){
-            vertiOffset = -20; 
-            horiOffset = 0;
-        }else if(p.getDirection() == 4){
+        if(p.getDirection() == 4){
             vertiOffset = 20; 
-            horiOffset = 0;
-        }*/
-        setLocation(p.getX(), p.getY()); 
+        }
+        setLocation(p.getX(), p.getY()+vertiOffset); 
         animationOffset++;
         if(animationOffset>=25){
             for(Enemies e : getObjectsInRange(attackRange, Enemies.class)){

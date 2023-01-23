@@ -6,7 +6,7 @@ comment1.target=MeleeAttack(int,\ Player)
 comment1.text=\r\n\ Simple\ Constructor\ \r\n\ @param\ attackRange\ The\ range\ of\ the\ sword\ swing\r\n\ @param\ p\ The\ player\ that\ the\ sword\ swing\ belongs\ to\r\n
 comment2.params=
 comment2.target=void\ animateSwing()
-comment2.text=public\ GreenfootImage[]\ animationCreation(String\ s){\r\n\ \ \ \ \ \ \ \ for(int\ i\ \=\ 0;\ i\ <swingAnimation.length;\ i++){\r\n\ \ \ \ \ \ \ \ \ \ \ \ swingAnimation[i]\ \=\ new\ GreenfootImage\ (s\ +\ i\ +".png");\r\n\ \ \ \ \ \ \ \ \ \ \ \ swingAnimation[i].scale(200,100);\r\n\ \ \ \ \ \ \ \ \ \ \ \ //swingAnimation[i].offsetX(100);\r\n\ \ \ \ \ \ \ \ }\r\n\ \ \ \ \ \ \ \ return\ swingAnimation;\r\n}
+comment2.text=\r\n\ Simple\ Act\ Method\ -\ Offsets\ attack\ to\ be\ in\ front\ of\ the\ player\ and\ also\ damage\ enemies\r\n
 comment3.params=
 comment3.target=void\ act()
 numComments=4
