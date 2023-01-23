@@ -14,7 +14,10 @@ public class MeleeAttack extends Attack
     private int attackRange;
     private int animationOffset;  
     private Player p; 
-    GreenfootImage[] swingAnimation = new GreenfootImage[12];
+    GreenfootImage[] up = new GreenfootImage[12];
+    GreenfootImage[] left = new GreenfootImage[12];
+    GreenfootImage[] right = new GreenfootImage[12];
+    GreenfootImage[] down = new GreenfootImage[12];
     
     SimpleTimer animationTimer = new SimpleTimer();
 
@@ -33,15 +36,43 @@ public class MeleeAttack extends Attack
         animationOffset = 0; 
         
         animated = false;
-        setImage(new GreenfootImage("images/swordSwingRight/swordSwing_0.png"));
-        this.getImage().scale(attackRange, attackRange); 
+        
         
         animationTimer.mark();
-        for(int i = 0; i <swingAnimation.length; i++){
-            swingAnimation[i] = new GreenfootImage ("images/swordSwingRight/swordSwing_"+ i +".png");
-            swingAnimation[i].scale(200,100);
-            
+        if(p.getDirection() == 1){
+            setImage(new GreenfootImage("images/swordSwingLeft/swordSwing_0.png"));
+            this.getImage().scale(attackRange, attackRange); 
+            for(int i = 0; i <left.length; i++){
+            left[i] = new GreenfootImage ("images/swordSwingLeft/swordSwing_"+ i +".png");
+            left[i].scale(200,100);
             //swingAnimation[i].offsetX(100);
+            }
+            
+        }else if(p.getDirection() == 2){
+            setImage(new GreenfootImage("images/swordSwingRight/swordSwing_0.png"));
+            this.getImage().scale(attackRange, attackRange);
+            for(int i = 0; i <right.length; i++){
+            right[i] = new GreenfootImage ("images/swordSwingRight/swordSwing_"+ i +".png");
+            right[i].scale(200,100);
+            //swingAnimation[i].offsetX(100);
+            }
+            
+        }else if(p.getDirection() == 3){
+            setImage(new GreenfootImage("images/swordSwingUp/swordSwing_0.png"));
+            this.getImage().scale(attackRange, attackRange);
+            for(int i = 0; i <up.length; i++){
+            up[i] = new GreenfootImage ("images/swordSwingUp/swordSwing_"+ i +".png");
+            up[i].scale(200,100);
+            //swingAnimation[i].offsetX(100);
+            }
+        }else if(p.getDirection() == 4){
+            setImage(new GreenfootImage("images/swordSwingDown/swordSwing_0.png"));
+            this.getImage().scale(attackRange, attackRange);
+            for(int i = 0; i <down.length; i++){
+            down[i] = new GreenfootImage ("images/swordSwingDown/swordSwing_"+ i +".png");
+            down[i].scale(200,100);
+            //swingAnimation[i].offsetX(100);
+            }
         }
     }
     /**
@@ -49,69 +80,62 @@ public class MeleeAttack extends Attack
      */
     int imageIndex = 0;
     
-    public GreenfootImage[] animationCreation(String s){
+    /*public GreenfootImage[] animationCreation(String s){
         for(int i = 0; i <swingAnimation.length; i++){
             swingAnimation[i] = new GreenfootImage (s + i +".png");
             swingAnimation[i].scale(200,100);
             //swingAnimation[i].offsetX(100);
         }
-    
-    
         return swingAnimation;
-    }
-    
-    
-    
-    public void animateSwing(GreenfootImage[] animation){
-        
-        if(animationTimer.millisElapsed() < 10){
+    }*/
+
+    public void animateSwing(){
+        if(animationTimer.millisElapsed() < 30){
             return;
         }
+        if(p.getDirection() == 1){
+            setImage(left[imageIndex]);
+            imageIndex = (imageIndex+1)%left.length; 
+        }else if(p.getDirection() ==2){
+            setImage(right[imageIndex]);
+            imageIndex = (imageIndex+1)%right.length; 
+        }else if(p.getDirection() == 3){
+            setImage(up[imageIndex]);
+            imageIndex = (imageIndex+1)%up.length; 
+        }else{
+            setImage(down[imageIndex]);
+            imageIndex = (imageIndex+1)%down.length; 
+        }
         animationTimer.mark();
-        
-       
-        setImage(animation[imageIndex]);
-        imageIndex = (imageIndex + 1) % swingAnimation.length;
-        
-    
     }
     
     public void act()
     {
-           //animation
-        System.out.println("animated");
-        animateSwing(animationCreation("images/swordSwingRight/swordSwing_"));
- 
-        
-       if(p.getDirection() == 1){
+        animateSwing(); 
+        /*if(p.getDirection() == 1){
             horiOffset = -25;
             vertiOffset = 0; 
-       }else if(p.getDirection()==2){
+        }else if(p.getDirection()==2){
             horiOffset = 25;
             vertiOffset = 0; 
-       }else if(p.getDirection() == 3){
+        }else if(p.getDirection() == 3){
             vertiOffset = -20; 
             horiOffset = 0;
-       }else if(p.getDirection() == 4){
+        }else if(p.getDirection() == 4){
             vertiOffset = 20; 
             horiOffset = 0;
-       }
-       setLocation(p.getX()+horiOffset, p.getY()+vertiOffset); 
-       if(!animated){
-           //animation
-           animated = true; 
-       }
-       animationOffset++;
-       if(animationOffset>=10){
-           for(Enemies e : getObjectsInRange(attackRange, Enemies.class)){
-               GameWorld w = (GameWorld)getWorld();
-               String[] v = w.getArrValues(); 
-               double dmg = Double.parseDouble(v[6]); 
-               e.takeDamage(dmg); 
-           }
-           p.setAttackStatus(false); 
-           getWorld().removeObject(this);
-       }
-       
+        }*/
+        setLocation(p.getX(), p.getY()); 
+        animationOffset++;
+        if(animationOffset>=25){
+            for(Enemies e : getObjectsInRange(attackRange, Enemies.class)){
+                GameWorld w = (GameWorld)getWorld();
+                String[] v = w.getArrValues(); 
+                double dmg = Double.parseDouble(v[6]); 
+                e.takeDamage(dmg); 
+            }
+            p.setAttackStatus(false); 
+            getWorld().removeObject(this);
+        }
     }
 }
