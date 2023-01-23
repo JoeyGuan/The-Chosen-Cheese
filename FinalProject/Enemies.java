@@ -144,7 +144,6 @@ public abstract class Enemies extends SmoothMover
         else{
             hp = 0;
             hpBar.update(hp);
-            death();
         }
     }
     
@@ -154,6 +153,9 @@ public abstract class Enemies extends SmoothMover
     }
     public void setAttackDamage(double atkDmg){
         this.atkDmg = atkDmg; 
+    }
+    public double getHp(){
+        return hp; 
     }
     protected void death(){
         getWorld().removeObject(this);

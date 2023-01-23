@@ -109,6 +109,18 @@ public class PlayerMelee extends MeleeAttack
                 String[] v = w.getArrValues();
                 double dmg = Double.parseDouble(v[6]);
                 e.takeDamage(dmg);
+                if(p.getDirection() ==1){
+                    e.setLocation(e.getX()-75, e.getY()); 
+                }else if(p.getDirection() == 2){
+                    e.setLocation(e.getX()+75, e.getY()); 
+                }else if(p.getDirection() == 3){
+                    e.setLocation(e.getX(), e.getY()-75); 
+                }else if(p.getDirection() ==4){
+                    e.setLocation(e.getX(), e.getY()+75); 
+                }
+                if(e.getHp() <= 0){
+                    getWorld().removeObject(e); 
+                }
             }
             p.setAttackStatus(false);
             getWorld().removeObject(this);
