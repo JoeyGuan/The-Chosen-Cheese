@@ -28,7 +28,7 @@ public class EnemyMelee extends MeleeAttack
            animated = true; 
        }
        animationOffset++;
-       if(animationOffset>=30){
+       if(animationOffset>=10){
            System.out.println("attacked");
            for(Player p : getObjectsInRange(attackRange, Player.class)){
                p.takeDamage(e.getAttackDamage());

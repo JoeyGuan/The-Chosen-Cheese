@@ -49,7 +49,7 @@ public class Cheese extends Actor
             if(this.isTouching(Player.class)){
                 GameWorld w = (GameWorld)getWorld(); 
                 String[] v = w.getArrValues(); 
-                v[7] = Double.toString(Double.parseDouble(v[7])+2); 
+                v[7] = Double.toString(Double.parseDouble(v[7])+0.5); 
                 w.setArrValues(v); 
                 
                 w.markCheeseMap();

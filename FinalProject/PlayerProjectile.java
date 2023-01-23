@@ -44,7 +44,7 @@ public class PlayerProjectile extends RangedProjectile
             e.takeDamage(dmg); 
             getWorld().removeObject(this);
         }
-        else if(this.getX() > getWorld().getWidth() -5 || this.getX()<5 || this.getY() < 5 || this.getY() > 695){  
+        else if(this.isTouching(Door.class)||this.isTouching(Wall.class)){  
             /**
              * running into a problem where since there are two removeObject methods being called, the game returns an error
              * use try catch?

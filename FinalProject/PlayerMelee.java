@@ -77,7 +77,7 @@ public class PlayerMelee extends MeleeAttack
      */
    
     public void animateSwing(){
-        if(animationTimer.millisElapsed() < 30){
+        if(animationTimer.millisElapsed() < 10){
             return;
         }
         if(p.getDirection() == 1){
@@ -103,7 +103,7 @@ public class PlayerMelee extends MeleeAttack
         }
         setLocation(p.getX(), p.getY()+vertiOffset);
         animationOffset++;
-        if(animationOffset>=15){
+        if(animationOffset>=10){
             for(Enemies e : getObjectsInRange(attackRange, Enemies.class)){
                 GameWorld w = (GameWorld)getWorld();
                 String[] v = w.getArrValues();
