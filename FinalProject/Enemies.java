@@ -1,14 +1,15 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 /**
- * Enemies will pathfind around the room to attack the player. There are ranged enemies and 
- * melee enemies. 
+ * Write a description of class Enemies here.
  * 
- * @author (Marco Luong) 
- * @version (January 20)
+ * @author (your name) 
+ * @version (a version number or a date)
  */
 public abstract class Enemies extends SmoothMover
 {
+    // Player tracking variables
+    protected int playerX = 0, playerY = 0, enemyX = 0, enemyY = 0;
     private int NUM_TILES_X = 24, NUM_TILES_Y = 14;
     private int[][] roomLayout = new int[NUM_TILES_Y][NUM_TILES_X];
     private int TILE_SIZE = 50;
@@ -20,84 +21,42 @@ public abstract class Enemies extends SmoothMover
     // Stats - will need to implement a stat scaling system based on the 'level'
     protected int level, hp, def;
     protected double spd, atkDmg; 
+    protected int range;
+    protected int atkCD, atkTimer; // cooldown as a setting, timer to actually count
     protected SuperStatBar hpBar;
-    protected int attackTimer;
-    protected int atkTimer = 90;
     protected GreenfootImage attack;
-    /**
-     * Constructor for setting enemy values 
-     * @param hp Health of the enemy 
-     * @param spd Speed of the enemy 
-     * @param atkDmg Attack Damage of the enemy 
-     * @param type Enemy type 
-     */
+    
+    // animation variables
+    private boolean flipped = false;
+    private int direction = 2;
+    
     public Enemies(int hp, int spd, double atkDmg, String type){
         super(type);
         this.hp = hp;
         this.spd = spd;
         this.atkDmg = atkDmg; 
-        this.attackTimer = 90; 
-        moving = false; //animation variable 
-        attacking = false; //animation variable
         hpBar = new SuperStatBar(hp, hp, this, getImage().getWidth(), hpBarHeight, - getImage().getHeight() / 2 - hpBarHeight, fillColor, barColor, false, barColor, 3);
     }
-    /**
-     * Added to World method
-     */
+    
     public void addedToWorld(World w){
         w.addObject(hpBar, getX(), getY());
     }
     
-    //protected abstract void attack();
-    /**
-     * Attack method for enemies 
-     */
-    protected void attack(){
-        if(isTouching(Player.class) && atkTimer == 0){
-            atkTimer = 90;
-            // return atkDmg ?
+    protected abstract void attack();
+    
+    public void act(){
+        trackPlayer();
+        if(isInRange()){
+            moving = false;
+            attack();
         }
         else{
-            atkTimer--;
+            attacking = false;
+            moving = true;
+            move(spd);
         }
-    }
-    /**
-     * Move method for enemies 
-     */
-    protected void move(){
-        
-    }
-    /**
-     * Act method for enemies
-     */
-    public void act(){
-        doDamage(); 
-        animate (1); 
-        actCounter++; //animation variable
-    }
-    /**
-     * Enemy damage dealing method.
-     */
-    public void doDamage(){
-        if(this.isTouching(Player.class)){
-            attackTimer--; 
-            GameWorld w = (GameWorld)getWorld(); 
-            String[] v = w.getArrValues(); 
-            if(attackTimer<=0){
-                if(Double.parseDouble(v[8])-atkDmg >0){
-                    v[8] = Double.toString(Double.parseDouble(v[8])-atkDmg); 
-                    w.setArrValues(v);  
-                    System.out.println("dealing damage"); 
-                    System.out.println("player health: "+v[8]); 
-                    attackTimer = 90; 
-                }
-                if(Double.parseDouble(v[8])-atkDmg<=0){ //else is not used for sequencing reasons
-                    System.out.println("died"); 
-                    Greenfoot.setWorld(new EndScreen()); 
-                }
-                attacking = true; 
-            }
-        }
+        setRotation(0);
+        animate(direction - 1);
     }
     
     // Make the world a 12x7 grid (?)
@@ -107,13 +66,11 @@ public abstract class Enemies extends SmoothMover
     // The grid value will decrease as it goes further from the player
     // Enemies will move towards coordinates of a higher value, checking
     // in a one tile radius around themselves.
-    /**
-     * Method for tracking player 
-     */
     protected void trackPlayer(){
         World w = (GameWorld) getWorld();
         Player player = (Player) ((ArrayList) w.getObjects(Player.class)).get(0);
-        int playerX = getXCell(player.getX()), playerY = getYCell(player.getY());
+        playerX = getXCell(player.getX());
+        playerY = getYCell(player.getY());
         roomLayout[playerY][playerX] = 100;
         
         for(int i = 0; i < NUM_TILES_Y; i++){
@@ -137,26 +94,46 @@ public abstract class Enemies extends SmoothMover
         }
         */
         
-        int enemyX = getXCell(getX()), enemyY = getYCell(getY());
+        enemyX = getXCell(getX());
+        enemyY = getYCell(getY());
         roomLayout[enemyY][enemyX] = 2;
         
         int largestGrid = 0, turnToX = 0, turnToY = 0;
         for(int i = enemyY - 1; i < enemyY + 2; i++){
             for(int j = enemyX - 1; j < enemyX + 2; j++){
-                if(roomLayout[i][j] > largestGrid){
-                    turnToY = i;
-                    turnToX = j;
-                    largestGrid = roomLayout[i][j];
+                try{
+                    if(roomLayout[i][j] > largestGrid){
+                        turnToY = i;
+                        turnToX = j;
+                        largestGrid = roomLayout[i][j];
+                    }
+                }
+                catch(ArrayIndexOutOfBoundsException e){
+                    continue;
                 }
             }
         }
         
         turnTowards(getXCoordinate(turnToX), getYCoordinate(turnToY));
+        if(((getRotation() > 90  && getRotation() < 270) && !flipped) || (flipped && (getRotation() > 270 || getRotation() < 90))){
+            flipped = !flipped;
+        }
+        
+        if(flipped){
+            direction = 1; // facing left}
+        }
+        else{
+            direction = 2; // right
+        }
     }
-    /**
-     * Take damage method for enemy 
-     * @param dmg Damage dealt to enemy
-     */
+    
+    protected boolean isInRange(){
+        int dist = Math.abs(playerX - enemyX) + Math.abs(playerY - enemyY);
+        if(dist <= range){
+            return true;
+        }return false;
+    }
+    
     public void takeDamage(double dmg){
         if(hp - dmg > 0){
             hp -= dmg;
@@ -169,55 +146,26 @@ public abstract class Enemies extends SmoothMover
             death();
         }
     }
-    /**
-     * Gets attack damage of enemy 
-     * @return double Returns enemy Attack Damage
-     */
+    
+    
     public double getAttackDamage(){
         return atkDmg; 
     }
-    /**
-     * Sets attack damage of enemy 
-     * @param atkDmg New attack damage for enemy 
-     */
     public void setAttackDamage(double atkDmg){
         this.atkDmg = atkDmg; 
     }
-    /**
-     * Death method for enemy (removes from world)
-     */
     protected void death(){
         getWorld().removeObject(this);
     }
-    /**
-     * Returns the x coordiante of the enemy 
-     * @param cellNumber Cell Number of the enemy 
-     * @return int Returns the Cell number*Tile Size to get an X coordinate
-     */
     private int getXCoordinate (int cellNumber){
         return (cellNumber * TILE_SIZE);
-    }
-    /**
-     * Returns the X cell of the enemy 
-     * @param coorindate Coordinate of the enemy
-     * @return int Returns the Coordinate/tilesize to get the X cell
-     */
+    }    
     private int getXCell(int coordinate){
         return (coordinate) / TILE_SIZE;
     }
-    /**
-     * Returns the y coordiante of the enemy 
-     * @param cellNumber Cell Number of the enemy 
-     * @return int Returns the Cell number*Tile Size to get a y coordinate
-     */
     private int getYCoordinate (int cellNumber){
         return (cellNumber * TILE_SIZE);
     }
-    /**
-     * Returns the Y cell of the enemy 
-     * @param coorindate Coordinate of the enemy
-     * @return int Returns the Coordinate/tilesize to get the Y cell
-     */
     private int getYCell(int coordinate){
         return (coordinate) / TILE_SIZE;
     }

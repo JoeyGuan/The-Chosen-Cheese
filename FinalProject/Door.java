@@ -3,26 +3,32 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Gateways between different rooms. A player cannot enter through a door until all the enemies in the room have been killed
  * 
- * @author (Joey Guan) 
- * @version (January 15)
+ * @author Joey Guan
+ * @version January 22, 2023
  */
 public class Door extends Structures
 {
     private boolean isOpen = true;
-    private String type;
     /**
      * Simple Constructor for Door
      */
-    public Door(/*String t*/)
+    public Door()
     {
-
+        
     }
+
     /**
      * Simple Act Method for Door
      */
     public void act()
     {
         int sideLength = GameWorld.getBlockSize();
+        
+        GameWorld w = (GameWorld) getWorld();
+        //Quirk of world gen. It's easier to just remove Walls, than to prevent them from spawning
+        w.removeObject(getOneIntersectingObject(Wall.class));        
+        
+        //Sets image based on orientation
         if(getX() == 650 && getY() == 50)//up
         {
             GreenfootImage imageTop = new GreenfootImage("topDoor.png");
@@ -48,10 +54,7 @@ public class Door extends Structures
             setImage(imageLeft);
         }
 
-        GameWorld w = (GameWorld) getWorld();
-
-        w.removeObject(getOneIntersectingObject(Wall.class));
-
+        //Chooses which way to move rooms in based on location of door
         if(isOpen && !getIntersectingObjects(Player.class).isEmpty())
         {
             if(getX() == 650 && getY() == 50)//up
@@ -81,6 +84,7 @@ public class Door extends Structures
             w.setDoneSpawning(false);
         }
     }
+
     /**
      * Checks if the door is open 
      * @return boolean Returns if the door is open or not 
@@ -89,6 +93,7 @@ public class Door extends Structures
     {
         return isOpen;
     }
+    
     /**
      * Sets whether the door is open or not 
      * @param b Boolean that says whether the door is open or not

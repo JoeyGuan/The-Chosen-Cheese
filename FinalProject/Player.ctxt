@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Player
-comment0.text=\r\n\ The\ main\ player\ can\ move\ around,\ attack\ and\ switch\ their\ attack\ type\r\n\ \r\n\ @author\ (Harishan\ Ganeshanathan,\ Anthony\ Ung)\ \r\n\ @version\ (January\ 10th)\r\n
+comment0.text=\r\n\ The\ main\ player\ can\ move\ around,\ attack\ and\ switch\ their\ attack\ type\r\n\ \r\n\ @author\ (Harishan\ Ganeshanathan,\ Anthony\ Ung,\ Joey\ Guan)\ \r\n\ @version\ (January\ 22th,\ 2023)\r\n
 comment1.params=values
 comment1.target=Player(java.lang.String[])
 comment1.text=\r\n\ Simple\ Constructor\ for\ Player\ to\ set\ values\ through\ parsing\ a\ String\ into\ integers,\ booleans\ and/or\ doubles\r\n\ @param\ values\ A\ string\ array\ that\ holds\ the\ values\ for\ the\ players\ attack\ type,\ attack\ radius,\ attack\ timer,\ attack\ speed,\ player\ speed,\ attack\ power,\ armour\ and\ health\r\n
@@ -12,7 +12,6 @@ comment3.target=void\ movement()
 comment3.text=\r\n\ Method\ for\ player\ movement\ -\ Note\ that\ players\ cannot\ move\ when\ melee\ attacking\r\n
 comment4.params=
 comment4.target=void\ attack()
-comment4.text=\r\n\ Attack\ method\ for\ Player\r\n
 comment5.params=
 comment5.target=void\ switchAttack()
 comment5.text=\r\n\ Method\ for\ switching\ between\ ranged\ attack\ and\ melee\ attack\r\n

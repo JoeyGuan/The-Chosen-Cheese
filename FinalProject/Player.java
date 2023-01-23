@@ -3,8 +3,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * The main player can move around, attack and switch their attack type
  * 
- * @author (Harishan Ganeshanathan, Anthony Ung) 
- * @version (January 10th)
+ * @author (Harishan Ganeshanathan, Anthony Ung, Joey Guan) 
+ * @version (January 22th, 2023)
  */
 public class Player extends SmoothMover
 {
@@ -17,7 +17,7 @@ public class Player extends SmoothMover
     private int attackSwitchTimer; 
     private int rangeTimer; 
     private int meleeTimer; 
-    
+
     //upgradable stats
     private double speed;
     private int meleeRadius; 
@@ -27,7 +27,7 @@ public class Player extends SmoothMover
     private double attackPower; 
     private double armour; //damage reduction variable
     private double health; 
-    
+
     //public Player(boolean ranged, int meleeRadius, int meleeSpeed, int rangeSpeed, double projectileSpeed, double speed,  double attackPower, double armour, double health)
     /**
      * Simple Constructor for Player to set values through parsing a String into integers, booleans and/or doubles
@@ -46,14 +46,14 @@ public class Player extends SmoothMover
         this.attackPower = Double.parseDouble(values[6]); //10 
         this.armour = Double.parseDouble(values[7]); //0
         this.health = Double.parseDouble(values[8]); //20
-        
+
         attacked = false;
         isAttacking = false;
         rangeTimer = 0;
         meleeTimer = 0; 
         attackSwitchTimer = 0;
     }
-    
+
     /**
      * Act - do whatever the Player wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -64,7 +64,6 @@ public class Player extends SmoothMover
         movement();
         attack();
         switchAttack();
-        //checkWall();
         //timer for attacks
         if(attacked){
             if(ranged){
@@ -111,8 +110,8 @@ public class Player extends SmoothMover
             {
                 Wall wall = (Wall) getOneObjectAtOffset(0, getImage().getHeight()/-2, Wall.class);
                 Door door = (Door) getOneObjectAtOffset(0, getImage().getHeight()/-2, Door.class);
-                
-                if(wall == null || door == null || door.getIsOpen()){
+    
+                if(wall == null && (door == null || door.getIsOpen())){
                     setLocation(getX(), getY() - speed);
                 }  
                 direction = 3; 
@@ -122,8 +121,8 @@ public class Player extends SmoothMover
             {
                 Wall wall = (Wall) getOneObjectAtOffset(getImage().getWidth()/-2, 0, Wall.class);
                 Door door = (Door) getOneObjectAtOffset(getImage().getWidth()/-2, 0, Door.class);
-                
-                if(wall == null || door == null || door.getIsOpen()){
+    
+                if(wall == null && (door == null || door.getIsOpen())){
                     setLocation(getX() - speed, getY());
                 } 
                 direction = 1;
@@ -133,8 +132,8 @@ public class Player extends SmoothMover
             {
                 Wall wall = (Wall) getOneObjectAtOffset(0, getImage().getHeight()/2, Wall.class);
                 Door door = (Door) getOneObjectAtOffset(0, getImage().getHeight()/2, Door.class);
-                
-                if(wall == null || door == null || door.getIsOpen()){
+    
+                if(wall == null && (door == null || door.getIsOpen())){
                     setLocation(getX(), getY() + speed);
                 } 
                 direction = 4;
@@ -144,8 +143,8 @@ public class Player extends SmoothMover
             {
                 Wall wall = (Wall) getOneObjectAtOffset(getImage().getWidth()/2, 0, Wall.class);
                 Door door = (Door) getOneObjectAtOffset(getImage().getWidth()/2, 0, Door.class);
-                
-                if(wall == null || door == null || door.getIsOpen()){
+    
+                if(wall == null && (door == null || door.getIsOpen())){
                     setLocation(getX() + speed, getY());
                 } 
                 direction =2;
@@ -153,9 +152,7 @@ public class Player extends SmoothMover
             }
         }
     }
-    /**
-     * Attack method for Player
-     */
+
     public void attack(){
         if(Greenfoot.isKeyDown("SPACE"))//attack
         {
@@ -163,12 +160,12 @@ public class Player extends SmoothMover
             GameWorld gw = (GameWorld)getWorld();
             if(!attacked){
                 if(ranged){
-                    RangedProjectile rp = new RangedProjectile(projectileSpeed, direction);
+                    PlayerProjectile rp = new PlayerProjectile(projectileSpeed, direction, this);
                     gw.addObject(rp, this.getX(), this.getY()); 
                     isAttacking = false;
                 }
                 else{
-                    MeleeAttack ma = new MeleeAttack(meleeRadius, this); 
+                    PlayerMelee ma = new PlayerMelee(meleeRadius, this); 
                     if(direction == 1){
                         gw.addObject(ma, this.getX()-10, this.getY()); 
                     } else if(direction == 2){
@@ -178,6 +175,7 @@ public class Player extends SmoothMover
                     }else if(direction == 4){
                         gw.addObject(ma, this.getX(), this.getY()+10); 
                     }  
+                    isAttacking = true;
                 }
                 attacked = true; 
                 attacking = false; //for the smooth mover animation
@@ -189,7 +187,7 @@ public class Player extends SmoothMover
      */
     public void switchAttack(){
         if(!attackSwitched){
-            if(Greenfoot.isKeyDown("X")){
+            if(Greenfoot.isKeyDown("Q")){
                 GameWorld w = (GameWorld)getWorld(); 
                 if(ranged){
                     ranged = false;

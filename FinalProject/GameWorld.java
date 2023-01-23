@@ -30,6 +30,7 @@ public class GameWorld extends World
     private boolean cheeseSpawned = false;
     private boolean trapdoorSpawned = false; 
     private boolean goingToNextFloor = false; 
+    private boolean mapAdded = false;
     
     //The room player is currently in (starting location is dungeonFloor[3][3])
     private int currentRoomX = 3;
@@ -51,7 +52,7 @@ public class GameWorld extends World
         GreenfootImage background = new GreenfootImage("backgroundnoDoor.png");
         background.scale(1300,700);
         setBackground(background);
-        setPaintOrder(PopUp.class, SuperStatBar.class, Player.class, Cheese.class, Attack.class, Structures.class);
+        setPaintOrder(Map.class, PopUp.class, SuperStatBar.class, Player.class, Cheese.class, MeleeAttack.class, RangedProjectile.class, Structures.class);
     }
 
     public void act()
@@ -83,6 +84,7 @@ public class GameWorld extends World
             spawnRoom();
         }
         roomStatusCheck();
+        displayMap();
     }
     
     public void roomStatusCheck()
@@ -324,6 +326,17 @@ public class GameWorld extends World
         }
     }
     
+    public void displayMap()
+    {
+        removeObjects(getObjects(Map.class));
+        mapAdded = false;
+        if(Greenfoot.isKeyDown("M") && mapAdded == false)
+        {
+            addObject(new Map(dungeonFloor), 650, 350);
+            mapAdded = true;
+        }
+    }
+    
     public void moveRooms(int direction)
     {
         switch (direction){
@@ -454,7 +467,26 @@ public class GameWorld extends World
     public int getCurrentRoomX() {
         return currentRoomX; 
     }
+    /**
+     * Get the array holding the player values 
+     * @return String[] Returns the string array holding player values
+     */
+    public String[] getArrValues(){
+        return values;
+    }
+    /**
+     * Set the array holding the player values 
+     * @param v String array with the updated player values 
+     */
+    public void setArrValues(String[] v){
+        for(int i = 0; i<v.length;i++){
+            values[i] = v[i]; 
+        }
+    }
     
+    /**
+     * Methods for adding room layouts into the world
+     */
     public void room0()
     {
 
@@ -494,20 +526,5 @@ public class GameWorld extends World
     {
 
     }
-    /**
-     * Get the array holding the player values 
-     * @return String[] Returns the string array holding player values
-     */
-    public String[] getArrValues(){
-        return values;
-    }
-    /**
-     * Set the array holding the player values 
-     * @param v String array with the updated player values 
-     */
-    public void setArrValues(String[] v){
-        for(int i = 0; i<v.length;i++){
-            values[i] = v[i]; 
-        }
-    }
+    
 }
