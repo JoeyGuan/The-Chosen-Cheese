@@ -14,7 +14,7 @@ public class Door extends Structures
      */
     public Door()
     {
-        int sideLength = GameWorld.getBlockSize();
+        
     }
 
     /**
@@ -22,6 +22,13 @@ public class Door extends Structures
      */
     public void act()
     {
+        int sideLength = GameWorld.getBlockSize();
+        
+        GameWorld w = (GameWorld) getWorld();
+        //Quirk of world gen. It's easier to just remove Walls, than to prevent them from spawning
+        w.removeObject(getOneIntersectingObject(Wall.class));        
+        
+        //Sets image based on orientation
         if(getX() == 650 && getY() == 50)//up
         {
             GreenfootImage imageTop = new GreenfootImage("topDoor.png");
@@ -47,10 +54,7 @@ public class Door extends Structures
             setImage(imageLeft);
         }
 
-        GameWorld w = (GameWorld) getWorld();
-
-        w.removeObject(getOneIntersectingObject(Wall.class));
-
+        //Chooses which way to move rooms in based on location of door
         if(isOpen && !getIntersectingObjects(Player.class).isEmpty())
         {
             if(getX() == 650 && getY() == 50)//up

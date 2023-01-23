@@ -467,7 +467,26 @@ public class GameWorld extends World
     public int getCurrentRoomX() {
         return currentRoomX; 
     }
+    /**
+     * Get the array holding the player values 
+     * @return String[] Returns the string array holding player values
+     */
+    public String[] getArrValues(){
+        return values;
+    }
+    /**
+     * Set the array holding the player values 
+     * @param v String array with the updated player values 
+     */
+    public void setArrValues(String[] v){
+        for(int i = 0; i<v.length;i++){
+            values[i] = v[i]; 
+        }
+    }
     
+    /**
+     * Methods for adding room layouts into the world
+     */
     public void room0()
     {
 
@@ -507,20 +526,5 @@ public class GameWorld extends World
     {
 
     }
-    /**
-     * Get the array holding the player values 
-     * @return String[] Returns the string array holding player values
-     */
-    public String[] getArrValues(){
-        return values;
-    }
-    /**
-     * Set the array holding the player values 
-     * @param v String array with the updated player values 
-     */
-    public void setArrValues(String[] v){
-        for(int i = 0; i<v.length;i++){
-            values[i] = v[i]; 
-        }
-    }
+    
 }
