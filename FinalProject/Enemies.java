@@ -47,9 +47,12 @@ public abstract class Enemies extends SmoothMover
     public void act(){
         trackPlayer();
         if(isInRange()){
+            moving = false;
             attack();
         }
         else{
+            attacking = false;
+            moving = true;
             move(spd);
         }
         setRotation(0);

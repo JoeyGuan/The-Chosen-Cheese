@@ -27,6 +27,7 @@ public class MeleeEnemy extends Enemies
     }
     
     public void attack(){
+        attacking = true;
         GameWorld gw = (GameWorld)getWorld();
         
         if(atkTimer<=0){
