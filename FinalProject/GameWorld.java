@@ -49,14 +49,10 @@ public class GameWorld extends World
     public GameWorld()
     {    
         super(1300, 700, 1); 
-<<<<<<< Updated upstream
-        setPaintOrder(PopUp.class, SuperStatBar.class, Player.class, Cheese.class, MeleeAttack.class, RangedProjectile.class, Structures.class);
-=======
         GreenfootImage background = new GreenfootImage("backgroundnoDoor.png");
         background.scale(1300,700);
         setBackground(background);
         setPaintOrder(Map.class, PopUp.class, SuperStatBar.class, Player.class, Cheese.class, MeleeAttack.class, RangedProjectile.class, Structures.class);
->>>>>>> Stashed changes
     }
 
     public void act()

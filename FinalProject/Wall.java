@@ -13,6 +13,7 @@ public class Wall extends Structures
         GreenfootImage image = getImage();
         int sideLength = GameWorld.getBlockSize();
         image.scale(sideLength, sideLength);
+        image.setTransparency(0);
         setImage(image);
     }
     /**
