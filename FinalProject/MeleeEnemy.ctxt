@@ -1,9 +1,8 @@
 #BlueJ class context
 comment0.target=MeleeEnemy
-comment0.text=\r\n\ Melee\ Enemies\ are\ enemies\ with\ melee\ attacks.\ \r\n\ \r\n\ @author\ (Marco\ Luong)\ \r\n\ @version\ (January\ 20)\r\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Melee\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=hp\ spd\ atkDmg
 comment1.target=MeleeEnemy(int,\ int,\ double)
-comment1.text=\r\n\ Simple\ Constructor\ for\ Melee\ Enemy\ \r\n\ @param\ hp\ Health\ of\ the\ enemy\ \r\n\ @param\ spd\ Speed\ of\ the\ enemy\ \r\n\ @param\ atkDmg\ Attack\ Damage\ of\ the\ enemy\ \r\n\ @param\ type\ Enemy\ type\ \r\n
 comment2.params=
 comment2.target=void\ act()
 comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ Melee\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n

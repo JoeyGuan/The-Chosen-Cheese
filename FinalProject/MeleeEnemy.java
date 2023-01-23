@@ -11,7 +11,6 @@ public class MeleeEnemy extends Enemies
     private int meleeRadius = 50;
     public MeleeEnemy(int hp, int spd, double atkDmg){
         super(hp, spd, atkDmg, "Cat");
-        setImage("bee2.png");
         range = 1;
         atkCD = 90;
         atkTimer = atkCD;
@@ -24,6 +23,7 @@ public class MeleeEnemy extends Enemies
     public void act()
     {
         super.act();
+        atkTimer--;
     }
     
     public void attack(){
@@ -35,6 +35,5 @@ public class MeleeEnemy extends Enemies
             System.out.println("dealing damage"); 
             atkTimer = atkCD; 
         }
-        atkTimer--;
     }
 }

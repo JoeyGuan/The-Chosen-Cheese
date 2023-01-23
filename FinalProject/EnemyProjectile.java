@@ -12,7 +12,8 @@ public class EnemyProjectile extends RangedProjectile
     private int pX, pY;
     public EnemyProjectile(double speed, int pX, int pY, Enemies e){
         super(speed);
-        
+        setImage("BirdProjectile.png");
+        getImage().scale(25, 25);
         this.e = e;
         this.pX = pX;
         this.pY = pY;

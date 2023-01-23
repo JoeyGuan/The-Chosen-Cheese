@@ -23,9 +23,12 @@ public abstract class Enemies extends SmoothMover
     protected double spd, atkDmg; 
     protected int range;
     protected int atkCD, atkTimer; // cooldown as a setting, timer to actually count
-    private boolean flipped = false;
     protected SuperStatBar hpBar;
     protected GreenfootImage attack;
+    
+    // animation variables
+    private boolean flipped = false;
+    private int direction = 2;
     
     public Enemies(int hp, int spd, double atkDmg, String type){
         super(type);
@@ -50,6 +53,7 @@ public abstract class Enemies extends SmoothMover
             move(spd);
         }
         setRotation(0);
+        animate(direction - 1);
     }
     
     // Make the world a 12x7 grid (?)
@@ -94,18 +98,29 @@ public abstract class Enemies extends SmoothMover
         int largestGrid = 0, turnToX = 0, turnToY = 0;
         for(int i = enemyY - 1; i < enemyY + 2; i++){
             for(int j = enemyX - 1; j < enemyX + 2; j++){
-                if(roomLayout[i][j] > largestGrid){
-                    turnToY = i;
-                    turnToX = j;
-                    largestGrid = roomLayout[i][j];
+                try{
+                    if(roomLayout[i][j] > largestGrid){
+                        turnToY = i;
+                        turnToX = j;
+                        largestGrid = roomLayout[i][j];
+                    }
+                }
+                catch(ArrayIndexOutOfBoundsException e){
+                    continue;
                 }
             }
         }
         
         turnTowards(getXCoordinate(turnToX), getYCoordinate(turnToY));
         if(((getRotation() > 90  && getRotation() < 270) && !flipped) || (flipped && (getRotation() > 270 || getRotation() < 90))){
-            getImage().mirrorHorizontally();
             flipped = !flipped;
+        }
+        
+        if(flipped){
+            direction = 1; // facing left}
+        }
+        else{
+            direction = 2; // right
         }
     }
     
@@ -141,16 +156,13 @@ public abstract class Enemies extends SmoothMover
     }
     private int getXCoordinate (int cellNumber){
         return (cellNumber * TILE_SIZE);
-    }
-    
+    }    
     private int getXCell(int coordinate){
         return (coordinate) / TILE_SIZE;
     }
-    
     private int getYCoordinate (int cellNumber){
         return (cellNumber * TILE_SIZE);
     }
-    
     private int getYCell(int coordinate){
         return (coordinate) / TILE_SIZE;
     }
