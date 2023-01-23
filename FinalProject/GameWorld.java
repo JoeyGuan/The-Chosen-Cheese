@@ -70,8 +70,6 @@ public class GameWorld extends World
                 currentRoomY = 3;
                 playerX = 6;
                 playerY = 3;
-                
-                trapdoorSpawned = false;
             }
             else
             {
@@ -168,7 +166,7 @@ public class GameWorld extends World
                 cheeseMap[i][j] = Greenfoot.getRandomNumber(4); // generates the room's cheese type that will spawn
                 if(dungeonFloor[i][j] > 0)
                 {
-                    dungeonFloor[i][j] = 1 + Greenfoot.getRandomNumber(7); // sets room layout type (obstacles, etc.)
+                    dungeonFloor[i][j] = Greenfoot.getRandomNumber(8); // sets room layout type (obstacles, etc.)
                     int totalDistance = Math.abs(3 - j) + Math.abs(3 - i);
                     if(totalDistance > farthestTotalDistance)
                     {
@@ -197,8 +195,11 @@ public class GameWorld extends World
 
     public void spawnRoom()
     {
+        trapdoorSpawned = false;
         cheeseSpawned = false;
         enemyNumber = 2 + Greenfoot.getRandomNumber(floorDepth+1);
+        //Clear Screen
+        removeObjects(getObjects(Actor.class));
         //Adds room layout
         int roomType = dungeonFloor[currentRoomY][currentRoomX];
         switch (roomType)
@@ -228,30 +229,24 @@ public class GameWorld extends World
                 room7();
                 break;
         }
-        //Clear Screen
-        removeObjects(getObjects(Actor.class));
         //Adding in Player
         addObject(new Player(values), getXCoordinate(playerX), getYCoordinate(playerY));
         //Adding in walls
         for(int i = 0; i <= 6; i++) //Left Wall
         {
-            Wall wall = new Wall();
-            addObject(new Wall(), getXCoordinate(0), getYCoordinate(i));
+            addObject(new Wall("wall"), getXCoordinate(0), getYCoordinate(i));
         }
         for(int i = 0; i <= 6; i++) //Right Wall
         {
-            Wall wall = new Wall();
-            addObject(new Wall(), getXCoordinate(12), getYCoordinate(i));
+            addObject(new Wall("wall"), getXCoordinate(12), getYCoordinate(i));
         }
         for(int i = 1; i <= 11; i++) //Top Wall
         {
-            Wall wall = new Wall();
-            addObject(new Wall(), getXCoordinate(i), getYCoordinate(0));
+            addObject(new Wall("wall"), getXCoordinate(i), getYCoordinate(0));
         }
         for(int i = 1; i <= 11; i++) //Bottom Wall
         {
-            Wall wall = new Wall();
-            addObject(new Wall(), getXCoordinate(i), getYCoordinate(6));
+            addObject(new Wall("wall"), getXCoordinate(i), getYCoordinate(6));
         }
         //Adding in doors
         if(hasNeighborUp(dungeonFloor, currentRoomX, currentRoomY))
@@ -296,7 +291,7 @@ public class GameWorld extends World
             {
                 x = 1 + Greenfoot.getRandomNumber(11);
                 y = 1 + Greenfoot.getRandomNumber(5);
-                if(getObjectsAt(getXCoordinate(x), getYCoordinate(y), Enemies.class).isEmpty())
+                if(getObjectsAt(getXCoordinate(x), getYCoordinate(y), Actor.class).isEmpty())
                 {
                     coordinateGenerated = true;
                 }
@@ -494,7 +489,11 @@ public class GameWorld extends World
 
     public void room1()
     {
-
+        addObject(new Wall("statue"), getXCoordinate(1), getYCoordinate(1));
+        addObject(new Wall("statue"), getXCoordinate(1), getYCoordinate(5));
+        addObject(new Wall("statue"), getXCoordinate(11), getYCoordinate(1));
+        addObject(new Wall("statue"), getXCoordinate(11), getYCoordinate(5));
+        addObject(new Wall("fountain"), getXCoordinate(6), getYCoordinate(3));
     }
 
     public void room2()
