@@ -1,38 +1,121 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import greenfoot.GreenfootImage;
 
+ 
+
 /**
- * Write a description of class MeleeAttack here.
+ * Melee Attack - This is a sword swing, that damages enemies within the range of the swing.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author (Harishan Ganeshanathan) 
+ * @version (January 17)
  */
-public abstract class MeleeAttack extends Attack
+public class MeleeAttack extends Attack
 {
-    /**
-     * Act - do whatever the MeleeAttack wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    protected int attackRange;
-    protected int animationOffset; 
-    
-    GreenfootImage[] swingAnimation = new GreenfootImage[12];
+    private int attackRange;
+    private int animationOffset;  
+    private Player p; 
+    GreenfootImage[] up = new GreenfootImage[12];
+    GreenfootImage[] left = new GreenfootImage[12];
+    GreenfootImage[] right = new GreenfootImage[12];
+    GreenfootImage[] down = new GreenfootImage[12];
     
     SimpleTimer animationTimer = new SimpleTimer();
 
-    protected boolean animated; 
-    
-    protected int horiOffset =0; 
-    protected int vertiOffset =0; 
-    public MeleeAttack(int attackRange){
+    private boolean animated; 
+
+    private int horiOffset =0; 
+    private int vertiOffset =0; 
+    private int imageIndex = 0;
+    /**
+     * Simple Constructor 
+     * @param attackRange The range of the sword swing
+     * @param p The player that the sword swing belongs to
+     */
+    public MeleeAttack(int attackRange, Player p){
         this.attackRange = attackRange; 
-        /*this.getImage().scale(attackRange, attackRange); 
+        this.p = p; 
+        animationOffset = 0; 
+        
+        animated = false;
+        
         
         animationTimer.mark();
-        for(int i = 0; i <swingAnimation.length; i++){
-            swingAnimation[i] = new GreenfootImage ("swordSwing_"+ i +".png");
-            swingAnimation[i].scale(200,100);
+        if(p.getDirection() == 1){
+            setImage(new GreenfootImage("images/swordSwingLeft/swordSwing_0.png"));
+            this.getImage().scale(attackRange, attackRange); 
+            for(int i = 0; i <left.length; i++){
+            left[i] = new GreenfootImage ("images/swordSwingLeft/swordSwing_"+ i +".png");
+            left[i].scale(200,100);
             //swingAnimation[i].offsetX(100);
-        }*/
+            }
+            
+        }else if(p.getDirection() == 2){
+            setImage(new GreenfootImage("images/swordSwingRight/swordSwing_0.png"));
+            this.getImage().scale(attackRange, attackRange);
+            for(int i = 0; i <right.length; i++){
+            right[i] = new GreenfootImage ("images/swordSwingRight/swordSwing_"+ i +".png");
+            right[i].scale(200,100);
+            //swingAnimation[i].offsetX(100);
+            }
+            
+        }else if(p.getDirection() == 3){
+            setImage(new GreenfootImage("images/swordSwingUp/swordSwing_0.png"));
+            this.getImage().scale(attackRange, attackRange);
+            for(int i = 0; i <up.length; i++){
+            up[i] = new GreenfootImage ("images/swordSwingUp/swordSwing_"+ i +".png");
+            up[i].scale(100,200);
+            //swingAnimation[i].offsetX(100);
+            }
+        }else if(p.getDirection() == 4){
+            setImage(new GreenfootImage("images/swordSwingDown/swordSwing_0.png"));
+            this.getImage().scale(attackRange, attackRange);
+            for(int i = 0; i <down.length; i++){
+            down[i] = new GreenfootImage ("images/swordSwingDown/swordSwing_"+ i +".png");
+            down[i].scale(100,200);
+            //swingAnimation[i].offsetX(100);
+            }
+        }
+    }
+    /**
+     * Simple Act Method - Offsets attack to be in front of the player and also damage enemies
+     */
+    
+    public void animateSwing(){
+        if(animationTimer.millisElapsed() < 30){
+            return;
+        }
+        if(p.getDirection() == 1){
+            setImage(left[imageIndex]);
+            imageIndex = (imageIndex+1)%left.length; 
+        }else if(p.getDirection() ==2){
+            setImage(right[imageIndex]);
+            imageIndex = (imageIndex+1)%right.length; 
+        }else if(p.getDirection() == 3){
+            setImage(up[imageIndex]);
+            imageIndex = (imageIndex+1)%up.length; 
+        }else{
+            setImage(down[imageIndex]);
+            imageIndex = (imageIndex+1)%down.length; 
+        }
+        animationTimer.mark();
+    }
+    public void act()
+    {
+        animateSwing(); 
+        if(p.getDirection() == 4){
+            vertiOffset = 20; 
+        }
+        setLocation(p.getX(), p.getY()+vertiOffset); 
+        animationOffset++;
+        if(animationOffset>=25){
+            for(Enemies e : getObjectsInRange(attackRange, Enemies.class)){
+                GameWorld w = (GameWorld)getWorld();
+                String[] v = w.getArrValues(); 
+                double dmg = Double.parseDouble(v[6]); 
+                e.takeDamage(dmg); 
+            }
+            p.setAttackStatus(false); 
+            getWorld().removeObject(this);
+        }
     }
 }
