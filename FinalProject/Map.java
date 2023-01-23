@@ -26,7 +26,11 @@ public class Map extends Actor
         roomImage.scale(130, 70); 
         currentRoomImage.scale(130,70); 
         generateRoomCoordinates(); 
-        updateMap(); 
+    }
+    
+    public void act()
+    {
+        updateMap();
     }
     
     //updates the map, redraws the map
