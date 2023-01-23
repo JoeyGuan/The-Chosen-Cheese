@@ -107,7 +107,7 @@ public class PlayerMelee extends MeleeAttack
         }
         setLocation(p.getX(), p.getY()+vertiOffset);
         animationOffset++;
-        if(animationOffset>=25){
+        if(animationOffset>=15){
             for(Enemies e : getObjectsInRange(attackRange, Enemies.class)){
                 GameWorld w = (GameWorld)getWorld();
                 String[] v = w.getArrValues();
