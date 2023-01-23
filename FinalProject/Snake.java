@@ -6,12 +6,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class RangedEnemy extends Enemies
+public class Snake extends Enemies
 {
-    
-    public RangedEnemy(int hp, int spd, double atkDmg){
-        super(hp, spd, atkDmg, "Bird");
-        range = 8;
+    public Snake(int hp, int spd, double atkDmg){
+        super(hp, spd, atkDmg, "Snake");
+        range = 1;
         atkCD = 40;
         atkTimer = atkCD;
     }

@@ -160,11 +160,11 @@ public class Player extends SmoothMover
             GameWorld gw = (GameWorld)getWorld();
             if(!attacked){
                 if(ranged){
-                    RangedProjectile rp = new RangedProjectile(projectileSpeed, direction);
+                    PlayerProjectile rp = new PlayerProjectile(projectileSpeed, direction, this);
                     gw.addObject(rp, this.getX(), this.getY()); 
                 }
                 else{
-                    MeleeAttack ma = new MeleeAttack(meleeRadius, this); 
+                    PlayerMelee ma = new PlayerMelee(meleeRadius, this); 
                     if(direction == 1){
                         gw.addObject(ma, this.getX()-10, this.getY()); 
                     } else if(direction == 2){
