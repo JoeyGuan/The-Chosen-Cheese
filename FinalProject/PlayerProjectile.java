@@ -42,7 +42,9 @@ public class PlayerProjectile extends RangedProjectile
            String[] v = w.getArrValues(); 
            double dmg = Double.parseDouble(v[6]); 
             e.takeDamage(dmg); 
-            getWorld().removeObject(e); 
+            if(e.getHp()<=0){
+                getWorld().removeObject(e); 
+            }
             getWorld().removeObject(this);
         }
         else if(this.isTouching(Door.class)||this.isTouching(Wall.class)){  

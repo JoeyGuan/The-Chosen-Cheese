@@ -1,10 +1,10 @@
 #BlueJ class context
 comment0.target=Trapdoor
-comment0.text=\n\ Once\ the\ player\ defeats\ the\ boss\ in\ the\ boss\ room,\ a\ trapdoor\ will\ appear\ and\ the\ player\ can\ move\ down\ to\ the\ next\ floor\n\ \n\ @author\ (Joey\ Guan)\ \n\ @version\ (January\ 16)\n
+comment0.text=\r\n\ Once\ the\ player\ defeats\ the\ boss\ in\ the\ boss\ room,\ a\ trapdoor\ will\ appear\ and\ the\ player\ can\ move\ down\ to\ the\ next\ floor\r\n\ \r\n\ @author\ (Joey\ Guan)\ \r\n\ @version\ (January\ 16)\r\n
 comment1.params=
 comment1.target=void\ Trapdoor()
-comment1.text=\n\ Simple\ Constructor\ for\ Trapdoor\n
+comment1.text=\r\n\ Simple\ Constructor\ for\ Trapdoor\r\n
 comment2.params=
 comment2.target=void\ act()
-comment2.text=\n\ Act\ -\ do\ whatever\ the\ Trapdoor\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ Trapdoor\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
 numComments=3

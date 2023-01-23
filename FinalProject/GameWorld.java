@@ -40,7 +40,7 @@ public class GameWorld extends World
     private int playerX = 6;
     private int playerY = 3;
     
-    private String[] values = {"false", "100", "30", "30", "5", "5", "10", "0", "20"}; 
+    private String[] values = {"false", "100", "30", "30", "5", "4", "8", "0", "25"}; 
     
     /**
      * Constructor for objects of class MyWorld.
@@ -318,9 +318,9 @@ public class GameWorld extends World
             }
             else if(enemyType.equals("ranged"))
             {
-                int hp = 10 + Greenfoot.getRandomNumber(floorDepth+1);
+                int hp = 8 + Greenfoot.getRandomNumber(floorDepth+1);
                 int attack = 2 + Greenfoot.getRandomNumber(floorDepth+1);
-                int speed = 2;
+                int speed = 4;
                 addObject(new RangedEnemy(hp,attack,speed), getXCoordinate(x), getYCoordinate(y));
             }
         }

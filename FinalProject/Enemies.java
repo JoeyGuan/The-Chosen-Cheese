@@ -135,11 +135,10 @@ public abstract class Enemies extends SmoothMover
     }
     
     public void takeDamage(double dmg){
-        System.out.println("enemy hit"); 
         if(hp - dmg > 0){
             hp -= dmg;
             hpBar.update(hp);
-            System.out.println("Enemy: Taking damage"); 
+            System.out.println("Enemy: Taking damage"+dmg); 
         }
         else{
             hp = 0;

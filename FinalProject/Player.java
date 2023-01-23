@@ -39,8 +39,8 @@ public class Player extends SmoothMover
         //player stats
         this.ranged = Boolean.parseBoolean(values[0]);  
         this.meleeRadius = Integer.parseInt(values[1]); //100
-        this.meleeReset = Integer.parseInt(values[2]); //90
-        this.rangeReset = Integer.parseInt(values[3]); //90
+        this.meleeReset = Integer.parseInt(values[2]); //30
+        this.rangeReset = Integer.parseInt(values[3]); //30
         this.projectileSpeed = Double.parseDouble(values[4]); //5 
         this.speed = Double.parseDouble(values[5]); //5
         this.attackPower = Double.parseDouble(values[6]); //10 
@@ -77,7 +77,6 @@ public class Player extends SmoothMover
             if(rangeTimer>=rangeReset){ 
                 attacking = false; 
                 attacked = false; 
-                System.out.println("ranged ready");
                 rangeTimer = 0; 
             }
         }
@@ -85,7 +84,6 @@ public class Player extends SmoothMover
             if(meleeTimer>=meleeReset){
                 attacking = false; 
                 attacked = false;
-                System.out.println("melee ready");
                 meleeTimer = 0;
             }
         }
@@ -192,15 +190,13 @@ public class Player extends SmoothMover
                     ranged = false;
                     String[] v = w.getArrValues(); 
                     v[0] = Boolean.toString(ranged);
-                    w.setArrValues(v);
-                    System.out.println("melee");
+                    w.setArrValues(v);                
                 }
                 else if(!ranged){
                     ranged = true;
                     String[] v = w.getArrValues(); 
                     v[0] = Boolean.toString(ranged);
                     w.setArrValues(v);
-                    System.out.println("Ranged");
                 }
                 attackSwitched = true;
             }
@@ -212,7 +208,6 @@ public class Player extends SmoothMover
      */
     public void takeDamage(double atkDmg){
         System.out.println("health: "+health); 
-        System.out.println("atkDmg: "+atkDmg); 
         if(this.health - atkDmg>0){
             if(armour<atkDmg){
                 GameWorld w = (GameWorld)getWorld();
@@ -220,11 +215,9 @@ public class Player extends SmoothMover
                 this.health -= atkDmg; 
                 v[8] = Double.toString(this.health); 
                 w.setArrValues(v); 
-                System.out.println("takingDamage"); 
             }
         }
         else{
-            System.out.println("died"); 
             Greenfoot.setWorld(new EndScreen()); 
         }
     }

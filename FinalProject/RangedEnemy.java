@@ -33,7 +33,6 @@ public class RangedEnemy extends Enemies
         if(atkTimer<=0){
             EnemyProjectile ep = new EnemyProjectile(spd*2.0, p.getX(), p.getY(), this);
             gw.addObject(ep, this.getX(), this.getY()); 
-            System.out.println("dealing damage"); 
             atkTimer = atkCD; 
         }
         atkTimer--;
