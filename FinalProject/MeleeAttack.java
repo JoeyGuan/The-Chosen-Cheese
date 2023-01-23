@@ -26,17 +26,13 @@ public abstract class MeleeAttack extends Attack
     protected int vertiOffset =0; 
     public MeleeAttack(int attackRange){
         this.attackRange = attackRange; 
-        this.setImage("button-green.png");
-        animationOffset = 0; 
-        
-        animated = false;
-        this.getImage().scale(attackRange, attackRange); 
+        /*this.getImage().scale(attackRange, attackRange); 
         
         animationTimer.mark();
         for(int i = 0; i <swingAnimation.length; i++){
             swingAnimation[i] = new GreenfootImage ("swordSwing_"+ i +".png");
             swingAnimation[i].scale(200,100);
             //swingAnimation[i].offsetX(100);
-        }
+        }*/
     }
 }
