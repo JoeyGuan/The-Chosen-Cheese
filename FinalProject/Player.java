@@ -165,6 +165,7 @@ public class Player extends SmoothMover
                 if(ranged){
                     RangedProjectile rp = new RangedProjectile(projectileSpeed, direction);
                     gw.addObject(rp, this.getX(), this.getY()); 
+                    isAttacking = false;
                 }
                 else{
                     MeleeAttack ma = new MeleeAttack(meleeRadius, this); 
@@ -177,7 +178,6 @@ public class Player extends SmoothMover
                     }else if(direction == 4){
                         gw.addObject(ma, this.getX(), this.getY()+10); 
                     }  
-                    isAttacking = true; 
                 }
                 attacked = true; 
                 attacking = false; //for the smooth mover animation
