@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Story extends World
 {
-    private GreenfootImage[] slides = new GreenfootImage[6]; 
+    private GreenfootImage[] slides = new GreenfootImage[7]; 
     private int actCounter = 0; 
     private int currentSlide = 0; 
     
@@ -23,8 +23,8 @@ public class Story extends World
     //every 200 acts, the image will change 
     public void act() {
         if (actCounter % 200 == 0) {
-            if (currentSlide == 6) {
-                
+            if (currentSlide == slides.length) {
+                //switch to the next world
             } else {
                 setBackground(slides[currentSlide]); 
                 currentSlide++; 
@@ -36,7 +36,7 @@ public class Story extends World
     //fill an array with the pictures used as the slides
     public void initGraphics() {
         for (int i = 0; i < slides.length; i++) {
-            slides[i] = new GreenfootImage("Story" + i + ".png"); 
+            slides[i] = new GreenfootImage("slide" + i + ".png"); 
         }
     }
 }
