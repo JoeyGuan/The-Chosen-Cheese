@@ -219,7 +219,8 @@ public class Player extends SmoothMover
             }
         }
         else{
-            Greenfoot.setWorld(new EndScreen()); 
+            GameWorld gw = (GameWorld) getWorld();
+            Greenfoot.setWorld(new EndScreen(gw.stopTimer())); 
         }
     }
     /**

@@ -8,12 +8,15 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class EndScreen extends World
 {
+    private int score;
+    private UserInfo player;
     private Button b;
+    private ScoreBoard lb;
     /**
      * Constructor for objects of class EndScreen.
      * 
      */
-    public EndScreen()
+    public EndScreen(int time)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1300, 700, 1); 
@@ -21,6 +24,18 @@ public class EndScreen extends World
         
         GreenfootImage background = new GreenfootImage("playAgainButton.png");
         background.scale(background.getWidth()/8, background.getHeight()/8);
+        
+        score = time;
+        if (UserInfo.isStorageAvailable()) {
+            player = UserInfo.getMyInfo();
+            if (score > player.getScore()) {
+                 player.setScore(score);
+                 player.store();  // write back to server
+            }
+        }
+        
+        lb = new ScoreBoard(500, 300);
+        addObject(lb, getWidth()/2, getHeight()/2 + 200);
         
         b = new Button(background, background);
         addObject(b,getWidth()/2,getHeight()/2 + 100);

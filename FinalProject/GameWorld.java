@@ -14,6 +14,7 @@ public class GameWorld extends World
     private static int X_OFFSET = 50;
     private static int Y_OFFSET = 50;
 
+    private SimpleTimer timer = new SimpleTimer();
     private int floorDepth = 0;
     private int maxFloorDepth = 5;
     private int totalRoomAmount = 5 + (3 * floorDepth);
@@ -50,6 +51,7 @@ public class GameWorld extends World
     {    
         super(1300, 700, 1); 
         GreenfootImage background = new GreenfootImage("backgroundnoDoor.png");
+        timer.mark();
         background.scale(1300,700);
         setBackground(background);
         setPaintOrder(UI.class, Player.class, Cheese.class, MeleeAttack.class, RangedProjectile.class, Structures.class);
@@ -73,7 +75,7 @@ public class GameWorld extends World
             }
             else
             {
-                Greenfoot.setWorld(new EndScreen());
+                Greenfoot.setWorld(new EndScreen(stopTimer()));
             }
             goingToNextFloor = false;
         }
@@ -532,4 +534,8 @@ public class GameWorld extends World
 
     }
     
+    public int stopTimer(){
+        int sec = timer.millisElapsed() / 1000;
+        return sec;
+    }
 }
