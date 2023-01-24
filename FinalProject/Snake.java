@@ -27,9 +27,32 @@ public class Snake extends Enemies
     public void act()
     {
         randomMovement();
-        super.act();
+        if(beenAttacked){
+            if(direction == 1){
+                setImage("SnakeLDamage.png"); 
+                getImage().scale(100,100);
+            }else if(direction == 2){
+                setImage("SnakeRDamage.png"); 
+                getImage().scale(100,100);
+            }else if(direction == 3){
+                setImage("SnakeUDamage.png"); 
+                getImage().scale(100,100);
+            }else if(direction == 4){
+                setImage("SnakeDDamage.png"); 
+                getImage().scale(100,100);
+            }
+            damagedTimer++; 
+            if(damagedTimer == 30){
+                damagedTimer = 0;
+                beenAttacked = false;
+            }
+        }
+        else{
+            animate(direction-1); 
+        }
         atkTimer--;
         movementTimer--;
+        super.act();
     }
     
     // Method for the snake to change direction
@@ -49,29 +72,34 @@ public class Snake extends Enemies
         }
         
         // To check if the snake is by the wall
-        if(direction == 1){ // left
-            if(roomLayout[enemyY][enemyX - 1] == 1){
-                movementTimer = 0;
+        try{
+            if(direction == 1){ // left
+                if(roomLayout[enemyY][enemyX - 1] == 1){
+                    movementTimer = 0;
+                }
+                setRotation(179);
             }
-            setRotation(179);
+            else if(direction == 2){ // right
+                if(roomLayout[enemyY][enemyX + 1] == 1){
+                    movementTimer = 0;
+                }
+                setRotation(0);
+            }
+            else if(direction == 3){ // up
+                if(roomLayout[enemyY - 1][enemyX] == 1){
+                    movementTimer = 0;
+                }
+                setRotation(269);
+            }
+            else { // down
+                if(roomLayout[enemyY + 1][enemyX] == 1){
+                    movementTimer = 0;
+                }
+                setRotation(89);
+            }
         }
-        else if(direction == 2){ // right
-            if(roomLayout[enemyY][enemyX + 1] == 1){
-                movementTimer = 0;
-            }
-            setRotation(0);
-        }
-        else if(direction == 3){ // up
-            if(roomLayout[enemyY - 1][enemyX] == 1){
-                movementTimer = 0;
-            }
-            setRotation(269);
-        }
-        else { // down
-            if(roomLayout[enemyY + 1][enemyX] == 1){
-                movementTimer = 0;
-            }
-            setRotation(89);
+        catch(ArrayIndexOutOfBoundsException e){
+            movementTimer = 0;
         }
     }
     

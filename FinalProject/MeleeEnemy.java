@@ -35,9 +35,6 @@ public class MeleeEnemy extends Enemies
             range = 3;
         }
         
-        trackPlayer();
-        super.act();
-        
         if(beenAttacked){
             if(direction == 1){
                 setImage("CatRDamage.png"); 
@@ -61,6 +58,9 @@ public class MeleeEnemy extends Enemies
         else{
             animate(direction - 1);
         }
+        
+        trackPlayer();
+        super.act();
         atkTimer--;
         lungeTimer--;        
     }
@@ -89,19 +89,6 @@ public class MeleeEnemy extends Enemies
             spdUp = true;
             spd *= 3;
             range = 0;
-        }
-    }
-    public void takeDamage(double dmg){
-        if(hp - dmg > 0){
-            hp -= dmg;
-            hpBar.update(hp);
-            System.out.println("Enemy: Taking damage"+dmg); 
-            beenAttacked = true; 
-            
-        }
-        else{
-            hp = 0;
-            hpBar.update(hp);
         }
     }
 }
