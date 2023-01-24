@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author Joey Guan, Marco Luong
  * @version January 19, 2023
  */
-public class PopUp extends Actor
+public class PopUp extends UI
 {
     private int num = 255, numChange;
     private boolean slow;
