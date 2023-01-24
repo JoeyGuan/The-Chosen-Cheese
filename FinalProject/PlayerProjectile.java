@@ -1,10 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class PlayerProjectile here.
+ * Dagger thrown by the player's ranged attack
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Harishan Ganeshanathan
  */
 public class PlayerProjectile extends RangedProjectile
 {

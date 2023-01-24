@@ -44,6 +44,10 @@ public abstract class Enemies extends SmoothMover
         w.addObject(hpBar, getX(), getY()); // Adds health bar
     }
     
+    /**
+     * Main attack method for the enemies. 
+     * Attacks will differ between types of enemies.
+     */
     protected abstract void attack();
     
     // Checks if player is in range and attacks. Otherwise, keep moving
@@ -59,7 +63,8 @@ public abstract class Enemies extends SmoothMover
         setRotation(0);
     }
     
-    /** Look at each room as a 12x7 grid
+    /** 
+     * Look at each room as a 12x7 grid
      * Each grid space will have a value:
      * - Walls/Walls will have a value of 
      * - The player's location will be at a value of 100
@@ -154,6 +159,9 @@ public abstract class Enemies extends SmoothMover
         }return false;
     }
     
+    /**
+     * Method for player to deal dmg to enemies
+     */
     public void takeDamage(double dmg){
         if(hp - dmg > 0){
             hp -= dmg;
@@ -177,7 +185,7 @@ public abstract class Enemies extends SmoothMover
     public double getHp(){
         return hp; 
     }
-    protected void death(){
+    protected void death(){ // Run if hp <= 0
         getWorld().removeObject(this);
     }
     private int getXCoordinate (int cellNumber){

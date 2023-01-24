@@ -1,14 +1,19 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class EnemyMelee here.
+ * Melee attack for the cat
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Marco Luong
  */
 public class EnemyMelee extends MeleeAttack
 {
     private Enemies e;
+    
+    /**
+     * Main constructor
+     * 
+     * @param e Enemy that spawns this attack
+     */
     public EnemyMelee(int attackRange, Enemies e){
         super(attackRange);
         animationOffset = 0; 
@@ -16,10 +21,7 @@ public class EnemyMelee extends MeleeAttack
         this.e = e; 
     }
     
-    /**
-     * Act - do whatever the MeleeAttack wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    
     public void act()
     {
        if(!animated){

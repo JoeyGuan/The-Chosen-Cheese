@@ -1,11 +1,11 @@
 #BlueJ class context
 comment0.target=EnemyProjectile
-comment0.text=\n\ Write\ a\ description\ of\ class\ EnemyProjectile\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
-comment1.params=speed\ pX\ pY\ e
-comment1.target=EnemyProjectile(double,\ int,\ int,\ Enemies)
+comment0.text=\r\n\ Projectile\ for\ ranged\ enemy.\r\n\ \r\n\ @author\ Marco\ Luong\r\n
+comment1.params=speed\ buffed\ pX\ pY\ e
+comment1.target=EnemyProjectile(double,\ boolean,\ int,\ int,\ Enemies)
+comment1.text=\r\n\ Main\ constructor.\r\n\ \r\n\ @param\ buffed\ Projectile\ with\ an\ enlarged\ size\r\n\ @param\ pX\ Player\ x\ coordinate\r\n\ @param\ pY\ Player\ Y\ coordinate\r\n\ @param\ e\ The\ enemy\ that\ shot\ the\ projectile\r\n
 comment2.params=w
 comment2.target=void\ addedToWorld(greenfoot.World)
 comment3.params=
 comment3.target=void\ act()
-comment3.text=\n\ Act\ -\ do\ whatever\ the\ EnemyProjectile\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
 numComments=4

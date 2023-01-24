@@ -2,7 +2,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * A short-ranged enemy that will track the player and swipe/scratch in front 
- * of itself to deal damage.
+ * of itself to deal damage. After a short cooldown, the melee will increase its
+ * range to prepare for a 'lunge'. Lunging will propel the enemy in the player's 
+ * direction once in range of detection, dealing damage if colliding with them.
  * 
  * @author Marco Luong, Harishan Ganeshanathan
  */
@@ -79,7 +81,7 @@ public class MeleeEnemy extends Enemies
             atkTimer = atkCD;
         }
         
-        if(range == 3 && !lunging){
+        if(range == 3 && !lunging){ // Checks if melee enemy is ready to lunge; Prepares variables
             Player p = gw.getObjects(Player.class).get(0);
             lunging = true;
             attacking = true;
@@ -90,6 +92,10 @@ public class MeleeEnemy extends Enemies
         }
     }
     
+    /**
+     * Special attack for melee. Increases movement speed and lets the enemy charge 
+     * in one direction until a wall is met. Reset to previous settings after action done.
+     */
     private void lunge(){
         setRotation(lungeAngle);
         move(spd);
@@ -100,7 +106,7 @@ public class MeleeEnemy extends Enemies
             p.takeDamage(atkDmg);
             atkTimer = atkCD;
         }
-        else if(isTouching(Wall.class) || isTouching(Door.class)){
+        else if(isTouching(Wall.class) || isTouching(Door.class)){ // If hitting a wall
             lunging = false;
             lunged = false;
             attacking = false;

@@ -1,6 +1,7 @@
 #BlueJ class context
 comment0.target=RangedProjectile
-comment0.text=\n\ Write\ a\ description\ of\ class\ RangedProjectile\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\r\n\ Parent\ class\ for\ ranged\ projectiles\r\n\ \r\n\ @author\ Marco\ Luong,\ Harishan\ Ganeshanathan\r\n
 comment1.params=speed
 comment1.target=RangedProjectile(double)
+comment1.text=\r\n\ Main\ cosntructor\r\n\ \r\n\ \r\n
 numComments=2
