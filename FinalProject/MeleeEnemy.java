@@ -12,8 +12,8 @@ public class MeleeEnemy extends Enemies
     private int meleeRadius = 50;
     
     // Lunge attack variables
-    private int lungeCD, lungeTimer;
-    private boolean spdUp = false;
+    private int lungeCD, lungeTimer, lungeAngle;
+    private boolean lunging = false, lunged = false;
     
     // Main constructor
     public MeleeEnemy(int hp, int spd, double atkDmg){
@@ -30,11 +30,6 @@ public class MeleeEnemy extends Enemies
     // needing to be in range of the player.
     public void act()
     {
-        // If lunge is ready, increase range of player detection
-        if(lungeTimer <= 0 && !spdUp){
-            range = 3;
-        }
-        
         if(beenAttacked){
             if(direction == 1){
                 setImage("CatRDamage.png"); 
@@ -59,36 +54,60 @@ public class MeleeEnemy extends Enemies
             animate(direction - 1);
         }
         
-        trackPlayer();
+        if(!lunging){
+            trackPlayer();
+            lungeTimer--; 
+        }
+        else{
+            lunge();
+        }
         super.act();
-        atkTimer--;
-        lungeTimer--;        
+        
+        if(lungeTimer <= 0){
+            range = 3;
+        }
+        atkTimer--;       
     }
     
     // Adds an image in front of the enemy to check if the player has been hit.
     public void attack(){
         GameWorld gw = (GameWorld)getWorld();        
-        if(atkTimer<=0 && range == 0){ // Only attack if in normal range
+        if(atkTimer<=0){ // Only attack if in normal range
             moving = false;
             EnemyMelee em = new EnemyMelee(meleeRadius, this); 
             gw.addObject(em, this.getX(), this.getY());
-            
-            // resetting variables
-            attacking = false;
             atkTimer = atkCD;
-            
-            if(spdUp){ // Reset speeds if attack was a lunge attack
-                spdUp = false;
-                spd /= 3;
-                lungeTimer = lungeCD;
-            }
         }
         
-        if(!spdUp && lungeTimer <= 0){ // Increase the movement speed for a split second
+        if(range == 3 && !lunging){
+            Player p = gw.getObjects(Player.class).get(0);
+            lunging = true;
             attacking = true;
-            spdUp = true;
+            moving = true;
             spd *= 3;
+            turnTowards(p.getX(), p.getY());
+            lungeAngle = getRotation();;
+        }
+    }
+    
+    private void lunge(){
+        setRotation(lungeAngle);
+        move(spd);
+        
+        if(isTouching(Player.class) && !lunged){
+            Player p = (Player)getOneIntersectingObject(Player.class);
+            lunged = true;
+            p.takeDamage(atkDmg);
+            atkTimer = atkCD;
+        }
+        else if(isTouching(Wall.class) || isTouching(Door.class)){
+            lunging = false;
+            lunged = false;
+            attacking = false;
+            lungeTimer = lungeCD;
+            spd /= 3;
             range = 0;
+            trackPlayer();
         }
     }
 }
