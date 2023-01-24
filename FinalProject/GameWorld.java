@@ -40,7 +40,7 @@ public class GameWorld extends World
     private int playerX = 6;
     private int playerY = 3;
     
-    private String[] values = {"false", "100", "90", "90", "5", "5", "10", "0", "20"}; 
+    private String[] values = {"false", "100", "30", "30", "5", "4", "8", "0", "25"}; 
     
     /**
      * Constructor for objects of class MyWorld.
@@ -70,8 +70,6 @@ public class GameWorld extends World
                 currentRoomY = 3;
                 playerX = 6;
                 playerY = 3;
-                
-                trapdoorSpawned = false;
             }
             else
             {
@@ -197,15 +195,15 @@ public class GameWorld extends World
 
     public void spawnRoom()
     {
+        trapdoorSpawned = false;
         cheeseSpawned = false;
         enemyNumber = 2 + Greenfoot.getRandomNumber(floorDepth+1);
+        //Clear Screen
+        removeObjects(getObjects(Actor.class));
         //Adds room layout
         int roomType = dungeonFloor[currentRoomY][currentRoomX];
         switch (roomType)
         {
-            case 0: 
-                room0();
-                break;
             case 1: 
                 room1();
                 break;
@@ -228,30 +226,24 @@ public class GameWorld extends World
                 room7();
                 break;
         }
-        //Clear Screen
-        removeObjects(getObjects(Actor.class));
         //Adding in Player
         addObject(new Player(values), getXCoordinate(playerX), getYCoordinate(playerY));
         //Adding in walls
         for(int i = 0; i <= 6; i++) //Left Wall
         {
-            Wall wall = new Wall();
-            addObject(new Wall(), getXCoordinate(0), getYCoordinate(i));
+            addObject(new Wall("wall"), getXCoordinate(0), getYCoordinate(i));
         }
         for(int i = 0; i <= 6; i++) //Right Wall
         {
-            Wall wall = new Wall();
-            addObject(new Wall(), getXCoordinate(12), getYCoordinate(i));
+            addObject(new Wall("wall"), getXCoordinate(12), getYCoordinate(i));
         }
         for(int i = 1; i <= 11; i++) //Top Wall
         {
-            Wall wall = new Wall();
-            addObject(new Wall(), getXCoordinate(i), getYCoordinate(0));
+            addObject(new Wall("wall"), getXCoordinate(i), getYCoordinate(0));
         }
         for(int i = 1; i <= 11; i++) //Bottom Wall
         {
-            Wall wall = new Wall();
-            addObject(new Wall(), getXCoordinate(i), getYCoordinate(6));
+            addObject(new Wall("wall"), getXCoordinate(i), getYCoordinate(6));
         }
         //Adding in doors
         if(hasNeighborUp(dungeonFloor, currentRoomX, currentRoomY))
@@ -296,7 +288,7 @@ public class GameWorld extends World
             {
                 x = 1 + Greenfoot.getRandomNumber(11);
                 y = 1 + Greenfoot.getRandomNumber(5);
-                if(getObjectsAt(getXCoordinate(x), getYCoordinate(y), Enemies.class).isEmpty())
+                if(getObjectsAt(getXCoordinate(x), getYCoordinate(y), Actor.class).isEmpty())
                 {
                     coordinateGenerated = true;
                 }
@@ -314,14 +306,14 @@ public class GameWorld extends World
                 int hp = 15 + Greenfoot.getRandomNumber(floorDepth+1);
                 int attack = 2 + Greenfoot.getRandomNumber(floorDepth+1);
                 int speed = 3 + Greenfoot.getRandomNumber(floorDepth+1);
-                addObject(new MeleeEnemy(hp,attack,speed), getXCoordinate(x), getYCoordinate(y));
+                addObject(new MeleeEnemy(hp,speed,attack), getXCoordinate(x), getYCoordinate(y));
             }
             else if(enemyType.equals("ranged"))
             {
-                int hp = 10 + Greenfoot.getRandomNumber(floorDepth+1);
-                int attack = 2 + Greenfoot.getRandomNumber(floorDepth+1);
-                int speed = 2;
-                addObject(new RangedEnemy(hp,attack,speed), getXCoordinate(x), getYCoordinate(y));
+                int hp = 8 + Greenfoot.getRandomNumber(floorDepth+1);
+                double attack = 2 + Greenfoot.getRandomNumber(floorDepth+1);
+                int speed = 4;
+                addObject(new RangedEnemy(hp,speed,attack), getXCoordinate(x), getYCoordinate(y));
             }
         }
     }
@@ -487,14 +479,14 @@ public class GameWorld extends World
     /**
      * Methods for adding room layouts into the world
      */
-    public void room0()
-    {
-
-    }
 
     public void room1()
     {
-
+        addObject(new Wall("statue"), getXCoordinate(1), getYCoordinate(1));
+        addObject(new Wall("statue"), getXCoordinate(1), getYCoordinate(5));
+        addObject(new Wall("statue"), getXCoordinate(11), getYCoordinate(1));
+        addObject(new Wall("statue"), getXCoordinate(11), getYCoordinate(5));
+        addObject(new Wall("fountain"), getXCoordinate(6), getYCoordinate(3));
     }
 
     public void room2()

@@ -67,4 +67,28 @@ public class MeleeEnemy extends Enemies
             range = 0;
         }
     }
+    public void takeDamage(double dmg){
+        if(hp - dmg > 0){
+            hp -= dmg;
+            hpBar.update(hp);
+            System.out.println("Enemy: Taking damage"+dmg); 
+            if(direction == 1){
+                setImage("CatLDamage.png"); 
+                getImage().scale(100,100);
+            }else if(direction == 2){
+                setImage("CatRDamage.png"); 
+                getImage().scale(100,100);
+            }else if(direction == 3){
+                setImage("CatUDamage.png"); 
+                getImage().scale(100,100);
+            }else if(direction == 4){
+                setImage("CatDDamage.png"); 
+                getImage().scale(100,100);
+            }
+        }
+        else{
+            hp = 0;
+            hpBar.update(hp);
+        }
+    }
 }

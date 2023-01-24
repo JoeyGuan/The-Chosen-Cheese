@@ -40,15 +40,14 @@ public class PlayerProjectile extends RangedProjectile
             Enemies e = (Enemies)getOneIntersectingObject(Enemies.class);
             GameWorld w = (GameWorld)getWorld();
            String[] v = w.getArrValues(); 
-           double dmg = Double.parseDouble(v[6]); 
+           double dmg = Double.parseDouble(v[4]); 
             e.takeDamage(dmg); 
+            if(e.getHp()<=0){
+                getWorld().removeObject(e); 
+            }
             getWorld().removeObject(this);
         }
         else if(this.isTouching(Door.class)||this.isTouching(Wall.class)){  
-            /**
-             * running into a problem where since there are two removeObject methods being called, the game returns an error
-             * use try catch?
-             */
             getWorld().removeObject(this);
         }
     }
