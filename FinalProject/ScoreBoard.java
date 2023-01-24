@@ -16,11 +16,11 @@ import java.util.List;
  * @author Neil Brown 
  * @version 1.0
  */
-public class ScoreBoard extends Actor
+public class ScoreBoard extends UI
 {
     // The vertical gap between user images in the scoreboard:
     private static final int GAP = 10;
-    // The height of the "All Players"/"Near Me" text at the top:
+    // The height of the text at the top:
     private static final int HEADER_TEXT_HEIGHT = 25;
     // The main text color:
     private static final Color MAIN_COLOR = new Color(0x60, 0x60, 0x60); // dark grey
@@ -59,8 +59,8 @@ public class ScoreBoard extends Actor
         getImage().setColor(BACKGROUND_COLOR);
         getImage().fill();
 
-        drawString("All Players", 100, topSpace - HEADER_TEXT_HEIGHT - 5, MAIN_COLOR, HEADER_TEXT_HEIGHT);
-        drawString("Near You", 100 + getImage().getWidth() / 2, topSpace - HEADER_TEXT_HEIGHT - 5, MAIN_COLOR, HEADER_TEXT_HEIGHT);        
+        drawString("Online", 100, topSpace - HEADER_TEXT_HEIGHT - 5, MAIN_COLOR, HEADER_TEXT_HEIGHT);
+        drawString("Local", 100 + getImage().getWidth() / 2, topSpace - HEADER_TEXT_HEIGHT - 5, MAIN_COLOR, HEADER_TEXT_HEIGHT);        
         
         drawUserPanel(GAP, topSpace, (getImage().getWidth() / 2) - GAP, topSpace + numUsers * pixelsPerUser, UserInfo.getTop(numUsers));
         drawUserPanel(GAP + getImage().getWidth() / 2, topSpace, getImage().getWidth() - GAP, topSpace + numUsers * pixelsPerUser, UserInfo.getNearby(numUsers));

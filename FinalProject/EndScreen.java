@@ -29,16 +29,16 @@ public class EndScreen extends World
         if (UserInfo.isStorageAvailable()) {
             player = UserInfo.getMyInfo();
             if (score > player.getScore()) {
-                 player.setScore(score);
-                 player.store();  // write back to server
+                 //player.setScore(score);
+                 //player.store();  // write back to server
             }
         }
         
-        lb = new ScoreBoard(500, 300);
-        addObject(lb, getWidth()/2, getHeight()/2 + 200);
+        lb = new ScoreBoard(500, 325);
+        addObject(lb, getWidth()/2, getHeight()/2 + 150);
         
         b = new Button(background, background);
-        addObject(b,getWidth()/2,getHeight()/2 + 100);
+        addObject(b,getWidth()/2,getHeight()/2 + 90);
         b.setLocation(650,300);
     }
     
