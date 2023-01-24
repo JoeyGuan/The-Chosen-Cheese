@@ -1,18 +1,17 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 /**
- * Write a description of class Enemies here.
+ * Main class for enemies.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Marco Luong
  */
 public abstract class Enemies extends SmoothMover
 {
     // Player tracking variables
     protected int playerX = 0, playerY = 0, enemyX = 0, enemyY = 0;
-    private int NUM_TILES_X = 24, NUM_TILES_Y = 14;
-    private int[][] roomLayout = new int[NUM_TILES_Y][NUM_TILES_X];
-    private int TILE_SIZE = 50;
+    private int NUM_TILES_X = 12, NUM_TILES_Y = 7;
+    protected int[][] roomLayout = new int[NUM_TILES_Y][NUM_TILES_X];
+    private int TILE_SIZE = 100;
     
     // Bar settings
     private int hpBarHeight = 10;
@@ -26,28 +25,28 @@ public abstract class Enemies extends SmoothMover
     protected SuperStatBar hpBar;
     protected GreenfootImage attack;
     
-    // animation variables
+    // Animation variables
     private boolean flipped = false;
     protected int direction = 2;
     
+    // Main constructor
     public Enemies(int hp, int spd, double atkDmg, String type){
         super(type);
-        this.hp = hp;
-        this.spd = spd;
-        this.atkDmg = atkDmg; 
+        this.hp = hp; // health
+        this.spd = spd; // movement speed
+        this.atkDmg = atkDmg; // damage
         hpBar = new SuperStatBar(hp, hp, this, getImage().getWidth(), hpBarHeight, - getImage().getHeight() / 2 - hpBarHeight, fillColor, barColor, false, barColor, 3);
     }
     
     public void addedToWorld(World w){
-        w.addObject(hpBar, getX(), getY());
+        w.addObject(hpBar, getX(), getY()); // Adds health bar
     }
     
     protected abstract void attack();
     
+    // Checks if player is in range and attacks. Otherwise, keep moving
     public void act(){
-        trackPlayer();
         if(isInRange()){
-            moving = false;
             attack();
         }
         else{
@@ -59,14 +58,16 @@ public abstract class Enemies extends SmoothMover
         animate(direction - 1);
     }
     
-    // Make the world a 12x7 grid (?)
-    // Each grid space will have a value:
-    // Walls/Obstacles will have a value of 1
-    // The player's location is will be a value of 100
-    // The grid value will decrease as it goes further from the player
-    // Enemies will move towards coordinates of a higher value, checking
-    // in a one tile radius around themselves.
-    protected void trackPlayer(){
+    /** Look at each room as a 12x7 grid
+     * Each grid space will have a value:
+     * - Walls/Obstacles will have a value of 
+     * - The player's location will be at a value of 100
+     * - The grid value will decrease as it goes further from the player
+     * i.e. 98 99  98
+     *      99 100 99
+     *      98 99  98
+     */
+    protected void enemyWorldSetup(){
         World w = (GameWorld) getWorld();
         Player player = (Player) ((ArrayList) w.getObjects(Player.class)).get(0);
         playerX = getXCell(player.getX());
@@ -97,7 +98,14 @@ public abstract class Enemies extends SmoothMover
         enemyX = getXCell(getX());
         enemyY = getYCell(getY());
         roomLayout[enemyY][enemyX] = 2;
-        
+    }
+    
+    /** 
+     * Enemies will move towards coordinates of a higher value, checking
+     * in a one tile radius around themselves for the highest value.
+     */ 
+    protected void trackPlayer(){
+        enemyWorldSetup();
         int largestGrid = 0, turnToX = 0, turnToY = 0;
         for(int i = enemyY - 1; i < enemyY + 2; i++){
             for(int j = enemyX - 1; j < enemyX + 2; j++){
@@ -120,7 +128,7 @@ public abstract class Enemies extends SmoothMover
         }
         
         if(flipped){
-            direction = 1; // facing left}
+            direction = 1; // facing left
         }
         else{
             direction = 2; // right
