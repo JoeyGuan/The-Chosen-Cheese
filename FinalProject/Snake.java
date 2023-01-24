@@ -1,40 +1,85 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Ranged here.
+ * A snake enemy that moves around the room randomly. 
+ * Damage will be done on contact.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Marco Luong
  */
 public class Snake extends Enemies
 {
+    // Critical variables
+    private int movementCD, movementTimer, prevDirect;
+    
+    // Main constructor
     public Snake(int hp, int spd, double atkDmg){
-        super(hp, spd, atkDmg, "Snake");
-        range = 1;
+        super(hp, spd, atkDmg, "Snake"); // super
+        range = 0; // Will deal damage on contact
         atkCD = 40;
         atkTimer = atkCD;
+        movementCD = 150; // Countdown for how often the snake changes direction
+        movementTimer = movementCD; // Actual timer
     }
     
     /**
-     * Act - do whatever the Ranged wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * 
      */
     public void act()
     {
+        randomMovement();
         super.act();
+        atkTimer--;
+        movementTimer--;
     }
     
-    public void attack(){
-        attacking = true;
-        GameWorld gw = (GameWorld)getWorld(); 
-        Player p = gw.getObjects(Player.class).get(0);
+    // Method for the snake to change direction
+    private void randomMovement(){
+        enemyWorldSetup();
+        if(movementTimer <= 0){
+            prevDirect = direction;
+            direction = Greenfoot.getRandomNumber(4) + 1;
+            // Ensures that the snake doesnt keep turning in 1 dimension (L/R & U/D)
+            if(prevDirect < 3 && direction < 3){
+                direction = Greenfoot.getRandomNumber(2) + 3;
+            }
+            else if(prevDirect > 2 && direction > 2){
+                direction = Greenfoot.getRandomNumber(2) + 1;
+            }
+            movementTimer = movementCD;
+        }
         
-        if(atkTimer<=0){
-            EnemyProjectile ep = new EnemyProjectile(spd*2.0, p.getX(), p.getY(), this);
-            gw.addObject(ep, this.getX(), this.getY()); 
-            System.out.println("dealing damage"); 
+        // To check if the snake is by the wall
+        if(direction == 1){ // left
+            if(roomLayout[enemyY][enemyX - 1] == 1){
+                movementTimer = 0;
+            }
+            setRotation(179);
+        }
+        else if(direction == 2){ // right
+            if(roomLayout[enemyY][enemyX + 1] == 1){
+                movementTimer = 0;
+            }
+            setRotation(0);
+        }
+        else if(direction == 3){ // up
+            if(roomLayout[enemyY - 1][enemyX] == 1){
+                movementTimer = 0;
+            }
+            setRotation(269);
+        }
+        else { // down
+            if(roomLayout[enemyY + 1][enemyX] == 1){
+                movementTimer = 0;
+            }
+            setRotation(89);
+        }
+    }
+    
+    public void attack(){ // If touching player, deal damage
+        if(isTouching(Player.class) && atkTimer<=0){
+            Player p = (Player) getOneIntersectingObject(Player.class);
+            p.takeDamage(atkDmg);
             atkTimer = atkCD; 
         }
-        atkTimer--;
     }
 }

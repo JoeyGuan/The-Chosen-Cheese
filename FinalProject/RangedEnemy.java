@@ -1,28 +1,25 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Ranged here.
+ * A ranged enemy that will shoot projectiles in the player's direction.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Marco Luong
  */
 public class RangedEnemy extends Enemies
 {
-    
+    // Main constructor
     public RangedEnemy(int hp, int spd, double atkDmg){
         super(hp, spd, atkDmg, "Bird");
         range = 8;
-        atkCD = 40;
+        atkCD = 90;
         atkTimer = atkCD;
     }
     
-    /**
-     * Act - do whatever the Ranged wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    // Tracks and attacks the player
     public void act()
     {
-        super.act();if(beenAttacked){
+        super.act();
+        if(beenAttacked){
             if(direction == 1){
                 setImage("BirdLDamage.png"); 
                 getImage().scale(100,100);
@@ -45,10 +42,13 @@ public class RangedEnemy extends Enemies
         else{
             animate(direction-1); 
         }
+        trackPlayer();
     }
     
+    // Shoot a projectile once attack cooldown is up
     public void attack(){
         attacking = true;
+        moving = false;
         GameWorld gw = (GameWorld)getWorld(); 
         Player p = gw.getObjects(Player.class).get(0);
         
