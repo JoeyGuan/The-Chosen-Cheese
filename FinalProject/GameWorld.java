@@ -295,9 +295,13 @@ public class GameWorld extends World
                     coordinateGenerated = true;
                 }
             }
-            if(Greenfoot.getRandomNumber(2) == 1)
+            if(Greenfoot.getRandomNumber(3) == 1)
             {
                 enemyType = "melee";
+            }
+            else if(Greenfoot.getRandomNumber(3) == 2)
+            {
+                enemyType = "snake";
             }
             else
             {
@@ -316,6 +320,12 @@ public class GameWorld extends World
                 double attack = 2 + Greenfoot.getRandomNumber(floorDepth+1);
                 int speed = 4;
                 addObject(new RangedEnemy(hp,speed,attack), getXCoordinate(x), getYCoordinate(y));
+            }else if(enemyType.equals("snake"))
+            {
+                int hp = 8 + Greenfoot.getRandomNumber(floorDepth+1);
+                double attack = 2 + Greenfoot.getRandomNumber(floorDepth+1);
+                int speed = 4;
+                addObject(new Snake(hp,speed,attack), getXCoordinate(x), getYCoordinate(y));
             }
         }
     }

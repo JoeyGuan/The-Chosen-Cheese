@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=RangedEnemy
-comment0.text=\n\ A\ ranged\ enemy\ that\ will\ shoot\ projectiles\ in\ the\ player's\ direction.\n\ \n\ @author\ Marco\ Luong\n
+comment0.text=\r\n\ A\ ranged\ enemy\ that\ will\ shoot\ projectiles\ in\ the\ player's\ direction.\r\n\ \r\n\ @author\ Marco\ Luong\r\n
 comment1.params=hp\ spd\ atkDmg
 comment1.target=RangedEnemy(int,\ int,\ double)
 comment2.params=
