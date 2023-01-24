@@ -29,7 +29,7 @@ public class StartScreen extends World
     
     public void act(){
         if (b.getClick()){
-            Greenfoot.setWorld(new Instructions());
+            Greenfoot.setWorld(new Story());
         }
     }
     

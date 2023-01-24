@@ -10,7 +10,7 @@ public class RangedEnemy extends Enemies
     // Main constructor
     public RangedEnemy(int hp, int spd, double atkDmg){
         super(hp, spd, atkDmg, "Bird");
-        range = 8;
+        range = 5;
         atkCD = 90;
         atkTimer = atkCD;
     }
@@ -18,7 +18,6 @@ public class RangedEnemy extends Enemies
     // Tracks and attacks the player
     public void act()
     {
-        super.act();
         if(beenAttacked){
             if(direction == 1){
                 setImage("BirdLDamage.png"); 
@@ -43,6 +42,7 @@ public class RangedEnemy extends Enemies
             animate(direction-1); 
         }
         trackPlayer();
+        super.act();
     }
     
     // Shoot a projectile once attack cooldown is up
@@ -58,18 +58,5 @@ public class RangedEnemy extends Enemies
             atkTimer = atkCD; 
         }
         atkTimer--;
-    }
-    
-    public void takeDamage(double dmg){
-        if(hp - dmg > 0){
-            hp -= dmg;
-            hpBar.update(hp);
-            System.out.println("Enemy: Taking damage"+dmg); 
-            beenAttacked = true; 
-        }
-        else{
-            hp = 0;
-            hpBar.update(hp);
-        }
     }
 }

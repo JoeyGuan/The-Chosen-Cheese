@@ -23,8 +23,7 @@ public class Player extends SmoothMover
     private double projectilePower;
     private double attackPower; 
     private double armour; //damage reduction variable
-    private double health; 
-    
+    private double health;
     private double projectileSpeed = 5; 
     private int meleeRadius; 
     private int meleeReset; //attack resets every .5 seconds
