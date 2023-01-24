@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class EndScreen extends World
 {
+    private Button b;
     /**
      * Constructor for objects of class EndScreen.
      * 
@@ -15,7 +16,22 @@ public class EndScreen extends World
     public EndScreen()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1200, 700, 1); 
-        getBackground().drawString("YOU DIED", 50, 50);
+        super(1300, 700, 1); 
+        setBackground(new GreenfootImage("LoseScreen.png")); 
+        
+        GreenfootImage background = new GreenfootImage("playAgainButton.png");
+        background.scale(background.getWidth()/8, background.getHeight()/8);
+        
+        b = new Button(background, background);
+        addObject(b,getWidth()/2,getHeight()/2 + 100);
+        b.setLocation(650,300);
     }
+    
+    public void act(){
+        if (b.getClick()){
+            Greenfoot.setWorld(new StartScreen());
+        }
+    }
+    
+    
 }

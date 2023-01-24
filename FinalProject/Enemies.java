@@ -1,17 +1,17 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 /**
- * Enemies will pathfind around the room to attack the player. There are ranged enemies and 
- * melee enemies. 
+ * Main class for enemies.
  * 
- * @author (Marco Luong) 
- * @version (January 20)
+ * @author Marco Luong
  */
 public abstract class Enemies extends SmoothMover
 {
-    private int NUM_TILES_X = 24, NUM_TILES_Y = 14;
-    private int[][] roomLayout = new int[NUM_TILES_Y][NUM_TILES_X];
-    private int TILE_SIZE = 50;
+    // Player tracking variables
+    protected int playerX = 0, playerY = 0, enemyX = 0, enemyY = 0;
+    private int NUM_TILES_X = 12, NUM_TILES_Y = 7;
+    protected int[][] roomLayout = new int[NUM_TILES_Y][NUM_TILES_X];
+    private int TILE_SIZE = 100;
     
     // Bar settings
     private int hpBarHeight = 10;
@@ -24,38 +24,34 @@ public abstract class Enemies extends SmoothMover
     protected int attackTimer;
     protected int atkTimer = 90;
     protected GreenfootImage attack;
-    /**
-     * Constructor for setting enemy values 
-     * @param hp Health of the enemy 
-     * @param spd Speed of the enemy 
-     * @param atkDmg Attack Damage of the enemy 
-     * @param type Enemy type 
-     */
+    
+    // Animation variables
+    private boolean flipped = false;
+    protected int direction = 2;
+    protected int damagedTimer = 0; 
+    protected boolean beenAttacked = false;
+    
+    // Main constructor
     public Enemies(int hp, int spd, double atkDmg, String type){
         super(type);
-        this.hp = hp;
-        this.spd = spd;
-        this.atkDmg = atkDmg; 
-        this.attackTimer = 90; 
-        moving = false; //animation variable 
-        attacking = false; //animation variable
+        this.hp = hp; // health
+        this.spd = spd; // movement speed
+        this.atkDmg = atkDmg; // damage
         hpBar = new SuperStatBar(hp, hp, this, getImage().getWidth(), hpBarHeight, - getImage().getHeight() / 2 - hpBarHeight, fillColor, barColor, false, barColor, 3);
     }
     /**
      * Added to World method
      */
     public void addedToWorld(World w){
-        w.addObject(hpBar, getX(), getY());
+        w.addObject(hpBar, getX(), getY()); // Adds health bar
     }
     
-    //protected abstract void attack();
-    /**
-     * Attack method for enemies 
-     */
-    protected void attack(){
-        if(isTouching(Player.class) && atkTimer == 0){
-            atkTimer = 90;
-            // return atkDmg ?
+    protected abstract void attack();
+    
+    // Checks if player is in range and attacks. Otherwise, keep moving
+    public void act(){
+        if(isInRange()){
+            attack();
         }
         else{
             atkTimer--;
@@ -98,19 +94,19 @@ public abstract class Enemies extends SmoothMover
                 attacking = true; 
             }
         }
+        setRotation(0);
     }
     
-    // Make the world a 12x7 grid (?)
-    // Each grid space will have a value:
-    // Walls/Obstacles will have a value of 1
-    // The player's location is will be a value of 100
-    // The grid value will decrease as it goes further from the player
-    // Enemies will move towards coordinates of a higher value, checking
-    // in a one tile radius around themselves.
-    /**
-     * Method for tracking player 
+    /** Look at each room as a 12x7 grid
+     * Each grid space will have a value:
+     * - Walls/Obstacles will have a value of 
+     * - The player's location will be at a value of 100
+     * - The grid value will decrease as it goes further from the player
+     * i.e. 98 99  98
+     *      99 100 99
+     *      98 99  98
      */
-    protected void trackPlayer(){
+    protected void enemyWorldSetup(){
         World w = (GameWorld) getWorld();
         Player player = (Player) ((ArrayList) w.getObjects(Player.class)).get(0);
         int playerX = getXCell(player.getX()), playerY = getYCell(player.getY());
@@ -137,9 +133,22 @@ public abstract class Enemies extends SmoothMover
         }
         */
         
-        int enemyX = getXCell(getX()), enemyY = getYCell(getY());
-        roomLayout[enemyY][enemyX] = 2;
-        
+        enemyX = getXCell(getX());
+        enemyY = getYCell(getY());
+        try{
+            roomLayout[enemyY][enemyX] = 2;
+        }
+        catch(ArrayIndexOutOfBoundsException e){
+            roomLayout[enemyY - 1][enemyX - 1] = 2;
+        }
+    }
+    
+    /** 
+     * Enemies will move towards coordinates of a higher value, checking
+     * in a one tile radius around themselves for the highest value.
+     */ 
+    protected void trackPlayer(){
+        enemyWorldSetup();
         int largestGrid = 0, turnToX = 0, turnToY = 0;
         for(int i = enemyY - 1; i < enemyY + 2; i++){
             for(int j = enemyX - 1; j < enemyX + 2; j++){
@@ -152,6 +161,16 @@ public abstract class Enemies extends SmoothMover
         }
         
         turnTowards(getXCoordinate(turnToX), getYCoordinate(turnToY));
+        if(((getRotation() > 90  && getRotation() < 270) && !flipped) || (flipped && (getRotation() > 270 || getRotation() < 90))){
+            flipped = !flipped;
+        }
+        
+        if(flipped){
+            direction = 1; // facing left
+        }
+        else{
+            direction = 2; // right
+        }
     }
     /**
      * Take damage method for enemy 
@@ -161,12 +180,12 @@ public abstract class Enemies extends SmoothMover
         if(hp - dmg > 0){
             hp -= dmg;
             hpBar.update(hp);
-            System.out.println("Enemy: Taking damage"); 
+            System.out.println("Enemy: Taking damage"+dmg); 
+            beenAttacked = true; 
         }
         else{
             hp = 0;
             hpBar.update(hp);
-            death();
         }
     }
     /**
@@ -183,9 +202,9 @@ public abstract class Enemies extends SmoothMover
     public void setAttackDamage(double atkDmg){
         this.atkDmg = atkDmg; 
     }
-    /**
-     * Death method for enemy (removes from world)
-     */
+    public double getHp(){
+        return hp; 
+    }
     protected void death(){
         getWorld().removeObject(this);
     }

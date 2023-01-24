@@ -20,14 +20,24 @@ public class Player extends SmoothMover
     
     //upgradable stats
     private double speed;
-    private int meleeRadius; 
-    private double projectileSpeed;
-    private int meleeReset; //attack resets every 4 seconds
-    private int rangeReset; 
+    private double projectilePower;
     private double attackPower; 
     private double armour; //damage reduction variable
-    private double health; 
+    private double health;
+    private double projectileSpeed = 5; 
+    private int meleeRadius; 
+    private int meleeReset; //attack resets every .5 seconds
+    private int rangeReset; 
     
+    //dash variables 
+    private boolean isDashing = false; 
+    private boolean dashReady = false;
+    private boolean dashed = false;
+    private int dashTimer = 0; 
+    private int dashCooldown = 0; 
+    
+    private SuperStatBar cooldown;  
+
     //public Player(boolean ranged, int meleeRadius, int meleeSpeed, int rangeSpeed, double projectileSpeed, double speed,  double attackPower, double armour, double health)
     /**
      * Simple Constructor for Player to set values through parsing a String into integers, booleans and/or doubles
@@ -39,19 +49,22 @@ public class Player extends SmoothMover
         //player stats
         this.ranged = Boolean.parseBoolean(values[0]);  
         this.meleeRadius = Integer.parseInt(values[1]); //100
-        this.meleeReset = Integer.parseInt(values[2]); //90
-        this.rangeReset = Integer.parseInt(values[3]); //90
-        this.projectileSpeed = Double.parseDouble(values[4]); //5 
+        this.meleeReset = Integer.parseInt(values[2]); //30
+        this.rangeReset = Integer.parseInt(values[3]); //30
+        this.projectilePower = Double.parseDouble(values[4]); //5
         this.speed = Double.parseDouble(values[5]); //5
-        this.attackPower = Double.parseDouble(values[6]); //10 
+        this.attackPower = Double.parseDouble(values[6]); //8 
         this.armour = Double.parseDouble(values[7]); //0
-        this.health = Double.parseDouble(values[8]); //20
-        
+        this.health = Double.parseDouble(values[8]); //25
+        this.dashCooldown = Integer.parseInt(values[9]); //0
+
         attacked = false;
         isAttacking = false;
         rangeTimer = 0;
         meleeTimer = 0; 
         attackSwitchTimer = 0;
+        
+        cooldown = new SuperStatBar(90, 0, null, 180, 60, 0, Color.WHITE, Color.GREEN, false, Color.BLACK, 3);
     }
     
     /**
@@ -60,11 +73,66 @@ public class Player extends SmoothMover
      */
     public void act()
     {
+        GameWorld gw = (GameWorld)getWorld(); 
+        gw.addObject(cooldown, 80, 700); 
         moving = false; 
-        movement();
-        attack();
-        switchAttack();
-        //checkWall();
+        if(dashReady){
+            if(Greenfoot.isKeyDown("N")){
+                isDashing = true;
+            }
+        }
+        if(!isDashing){
+            movement(); 
+            switchAttack();
+        }
+        if(!dashReady){
+            dashCooldown++;
+            String[] v = gw.getArrValues(); 
+            v[9] = Integer.toString(dashCooldown);
+            gw.setArrValues(v); 
+        }
+        if(isDashing){
+            if(direction == 1){
+                Wall wall = (Wall) getOneObjectAtOffset(-25, getImage().getHeight()/-2, Wall.class);
+                Door door = (Door) getOneObjectAtOffset(-25, getImage().getHeight()/-2, Door.class);
+                if(wall == null && (door == null || door.getIsOpen())){
+                    setLocation(getX()-25, getY());
+                }
+            }else if(direction == 2){
+                Wall wall = (Wall) getOneObjectAtOffset(25, getImage().getHeight()/-2, Wall.class);
+                Door door = (Door) getOneObjectAtOffset(25, getImage().getHeight()/-2, Door.class);
+                if(wall == null && (door == null || door.getIsOpen())){
+                    setLocation(getX()+25, getY());
+                }
+            }else if(direction == 3){
+                Wall wall = (Wall) getOneObjectAtOffset(getImage().getWidth()/-2, -25, Wall.class);
+                Door door = (Door) getOneObjectAtOffset(getImage().getWidth()/-2, -25, Door.class);
+                if(wall == null && (door == null || door.getIsOpen())){
+                    setLocation(getX(), getY()-25);
+                }
+            }else if(direction == 4){
+                Wall wall = (Wall) getOneObjectAtOffset(getImage().getWidth()/-2, 25, Wall.class);
+                Door door = (Door) getOneObjectAtOffset(getImage().getWidth()/-2, 25, Door.class);
+                if(wall == null && (door == null || door.getIsOpen())){
+                    setLocation(getX(), getY()+25);
+                }
+            }
+            dashTimer++;
+            if(dashTimer == 15){
+                dashTimer = 0;
+                isDashing = false;
+                dashReady = false;
+                dashed = false; 
+            }
+        }
+        if(dashCooldown == 90){
+            dashReady = true;
+            dashCooldown = 0; 
+            String[] v = gw.getArrValues(); 
+            v[9] = Integer.toString(dashCooldown);
+            gw.setArrValues(v);
+        }
+        attack(); 
         //timer for attacks
         if(attacked){
             if(ranged){
@@ -78,7 +146,6 @@ public class Player extends SmoothMover
             if(rangeTimer>=rangeReset){ 
                 attacking = false; 
                 attacked = false; 
-                System.out.println("ranged ready");
                 rangeTimer = 0; 
             }
         }
@@ -86,7 +153,6 @@ public class Player extends SmoothMover
             if(meleeTimer>=meleeReset){
                 attacking = false; 
                 attacked = false;
-                System.out.println("melee ready");
                 meleeTimer = 0;
             }
         }
@@ -94,11 +160,13 @@ public class Player extends SmoothMover
         if(attackSwitched){
             attackSwitchTimer++;
         }
-        if(attackSwitchTimer>=150){
+        if(attackSwitchTimer>=60){
             attackSwitched = false;
             attackSwitchTimer = 0;
         }
         animate (direction - 1); 
+        String[] v = gw.getArrValues(); 
+        cooldown.update(Integer.parseInt(v[9]));  
         actCounter++; 
     }
     /**
@@ -195,15 +263,13 @@ public class Player extends SmoothMover
                     ranged = false;
                     String[] v = w.getArrValues(); 
                     v[0] = Boolean.toString(ranged);
-                    w.setArrValues(v);
-                    System.out.println("melee");
+                    w.setArrValues(v);                
                 }
                 else if(!ranged){
                     ranged = true;
                     String[] v = w.getArrValues(); 
                     v[0] = Boolean.toString(ranged);
                     w.setArrValues(v);
-                    System.out.println("Ranged");
                 }
                 attackSwitched = true;
             }
@@ -215,19 +281,16 @@ public class Player extends SmoothMover
      */
     public void takeDamage(double atkDmg){
         System.out.println("health: "+health); 
-        System.out.println("atkDmg: "+atkDmg); 
         if(this.health - atkDmg>0){
             if(armour<atkDmg){
                 GameWorld w = (GameWorld)getWorld();
                 String[] v = w.getArrValues(); 
-                this.health -= atkDmg; 
+                this.health -= (atkDmg-armour); 
                 v[8] = Double.toString(this.health); 
                 w.setArrValues(v); 
-                System.out.println("takingDamage"); 
             }
         }
         else{
-            System.out.println("died"); 
             Greenfoot.setWorld(new EndScreen()); 
         }
     }

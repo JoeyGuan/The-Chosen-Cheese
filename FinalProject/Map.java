@@ -7,7 +7,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (Clara) 
  * @version (Jan 17th)
  */
-public class Map extends Actor
+public class Map extends UI
 {
     private GreenfootImage map = new GreenfootImage (1500, 900); //the map graphic
     private int[][] numMap; 

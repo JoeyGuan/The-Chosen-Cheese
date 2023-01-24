@@ -1,10 +1,10 @@
 #BlueJ class context
 comment0.target=RangedEnemy
-comment0.text=\r\n\ Ranged\ Enemies\ are\ enemies\ with\ ranged\ attacks.\ \r\n\ \r\n\ @author\ (Marco\ Luong)\ \r\n\ @version\ (January\ 20)\r\n
+comment0.text=\r\n\ A\ ranged\ enemy\ that\ will\ shoot\ projectiles\ in\ the\ player's\ direction.\r\n\ \r\n\ @author\ Marco\ Luong\r\n
 comment1.params=hp\ spd\ atkDmg
 comment1.target=RangedEnemy(int,\ int,\ double)
-comment1.text=\r\n\ Simple\ Constructor\ for\ Melee\ Enemy\ \r\n\ @param\ hp\ Health\ of\ the\ enemy\ \r\n\ @param\ spd\ Speed\ of\ the\ enemy\ \r\n\ @param\ atkDmg\ Attack\ Damage\ of\ the\ enemy\ \r\n\ @param\ type\ Enemy\ type\ \r\n
 comment2.params=
 comment2.target=void\ act()
-comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ Ranged\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
-numComments=3
+comment3.params=
+comment3.target=void\ attack()
+numComments=4
