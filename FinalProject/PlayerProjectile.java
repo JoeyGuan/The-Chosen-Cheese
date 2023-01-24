@@ -40,7 +40,7 @@ public class PlayerProjectile extends RangedProjectile
             Enemies e = (Enemies)getOneIntersectingObject(Enemies.class);
             GameWorld w = (GameWorld)getWorld();
            String[] v = w.getArrValues(); 
-           double dmg = Double.parseDouble(v[6]); 
+           double dmg = Double.parseDouble(v[4]); 
             e.takeDamage(dmg); 
             if(e.getHp()<=0){
                 getWorld().removeObject(e); 

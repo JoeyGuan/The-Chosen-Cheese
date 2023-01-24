@@ -37,4 +37,29 @@ public class RangedEnemy extends Enemies
         }
         atkTimer--;
     }
+    
+    public void takeDamage(double dmg){
+        if(hp - dmg > 0){
+            hp -= dmg;
+            hpBar.update(hp);
+            System.out.println("Enemy: Taking damage"+dmg); 
+            if(direction == 1){
+                setImage("BirdLDamage.png"); 
+                getImage().scale(100,100);
+            }else if(direction == 2){
+                setImage("BirdRDamage.png"); 
+                getImage().scale(100,100);
+            }else if(direction == 3){
+                setImage("BirdUDamage.png"); 
+                getImage().scale(100,100);
+            }else if(direction == 4){
+                setImage("BirdDDamage.png"); 
+                getImage().scale(100,100);
+            }
+        }
+        else{
+            hp = 0;
+            hpBar.update(hp);
+        }
+    }
 }

@@ -66,6 +66,7 @@ public class Cheese extends Actor
                 GameWorld w = (GameWorld)getWorld(); 
                 String[] v = w.getArrValues(); 
                 v[6] = Double.toString(Double.parseDouble(v[6])+2); 
+                v[4] = Double.toString(Double.parseDouble(v[4])+1.5); 
                 w.setArrValues(v); 
                 
                 w.markCheeseMap();

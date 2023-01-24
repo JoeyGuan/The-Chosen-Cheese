@@ -20,13 +20,15 @@ public class Player extends SmoothMover
 
     //upgradable stats
     private double speed;
-    private int meleeRadius; 
-    private double projectileSpeed;
-    private int meleeReset; //attack resets every 4 seconds
-    private int rangeReset; 
+    private double projectilePower;
     private double attackPower; 
     private double armour; //damage reduction variable
     private double health; 
+    
+    private double projectileSpeed = 5; 
+    private int meleeRadius; 
+    private int meleeReset; //attack resets every .5 seconds
+    private int rangeReset; 
 
     //public Player(boolean ranged, int meleeRadius, int meleeSpeed, int rangeSpeed, double projectileSpeed, double speed,  double attackPower, double armour, double health)
     /**
@@ -41,11 +43,11 @@ public class Player extends SmoothMover
         this.meleeRadius = Integer.parseInt(values[1]); //100
         this.meleeReset = Integer.parseInt(values[2]); //30
         this.rangeReset = Integer.parseInt(values[3]); //30
-        this.projectileSpeed = Double.parseDouble(values[4]); //5 
+        this.projectilePower = Double.parseDouble(values[4]); //5
         this.speed = Double.parseDouble(values[5]); //5
-        this.attackPower = Double.parseDouble(values[6]); //10 
+        this.attackPower = Double.parseDouble(values[6]); //8 
         this.armour = Double.parseDouble(values[7]); //0
-        this.health = Double.parseDouble(values[8]); //20
+        this.health = Double.parseDouble(values[8]); //25
 
         attacked = false;
         isAttacking = false;
