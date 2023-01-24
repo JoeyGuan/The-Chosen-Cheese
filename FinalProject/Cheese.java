@@ -84,14 +84,9 @@ public class Cheese extends Actor
             if(this.isTouching(Player.class)){
                 GameWorld w = (GameWorld)getWorld(); 
                 String[] v = w.getArrValues(); 
-                if((Double.parseDouble(v[8])+3)<=16){
-                    v[8] = Double.toString(Double.parseDouble(v[8])+3); 
-                    w.setArrValues(v); 
-                    System.out.println(v[8]);
-                }else if(Double.parseDouble(v[8])+3==16){
-                    v[8] = Double.toString(16); 
-                    w.setArrValues(v); 
-                }
+                v[8] = Double.toString(Double.parseDouble(v[8])+3); 
+                w.setArrValues(v); 
+                System.out.println(v[8]);
                 w.markCheeseMap();
                 
                 Color color = new Color(0, 255, 0);
@@ -103,9 +98,14 @@ public class Cheese extends Actor
         {
             if(this.isTouching(Player.class)){
                 GameWorld w = (GameWorld)getWorld(); 
-                String[] v = w.getArrValues(); 
-                v[5] = Double.toString(Double.parseDouble(v[5])+0.5); 
-                w.setArrValues(v);
+                String[] v = w.getArrValues();
+                if((Double.parseDouble(v[5])+0.5)<=8){
+                    v[5] = Double.toString(Double.parseDouble(v[5])+0.5); 
+                    w.setArrValues(v);
+                }else if((Double.parseDouble(v[5])+0.5 == 8)){
+                    v[5] = Double.toString(8);
+                    w.setArrValues(v); 
+                }
                 
                 w.markCheeseMap();
                 

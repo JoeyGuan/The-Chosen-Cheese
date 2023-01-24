@@ -52,7 +52,7 @@ public class Player extends SmoothMover
         this.meleeReset = Integer.parseInt(values[2]); //30
         this.rangeReset = Integer.parseInt(values[3]); //30
         this.projectilePower = Double.parseDouble(values[4]); //5
-        this.speed = Double.parseDouble(values[5]); //5
+        this.speed = Double.parseDouble(values[5]); //3
         this.attackPower = Double.parseDouble(values[6]); //8 
         this.armour = Double.parseDouble(values[7]); //0
         this.health = Double.parseDouble(values[8]); //25
@@ -64,7 +64,7 @@ public class Player extends SmoothMover
         meleeTimer = 0; 
         attackSwitchTimer = 0;
         
-        cooldown = new SuperStatBar(90, 0, null, 180, 60, 0, Color.WHITE, Color.GREEN, false, Color.BLACK, 3);
+        cooldown = new SuperStatBar(120, 0, null, 180, 60, 0, Color.WHITE, Color.GREEN, false, Color.BLACK, 3);
     }
 
     /**
@@ -118,14 +118,14 @@ public class Player extends SmoothMover
                 }
             }
             dashTimer++;
-            if(dashTimer == 15){
+            if(dashTimer == 8){
                 dashTimer = 0;
                 isDashing = false;
                 dashReady = false;
                 dashed = false; 
             }
         }
-        if(dashCooldown == 90){
+        if(dashCooldown == 120){
             dashReady = true;
             dashCooldown = 0; 
             String[] v = gw.getArrValues(); 

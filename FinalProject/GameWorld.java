@@ -40,7 +40,7 @@ public class GameWorld extends World
     private int playerX = 6;
     private int playerY = 3;
     
-    private String[] values = {"false", "100", "30", "30", "5.5", "4", "8", "0", "100", "0"}; 
+    private String[] values = {"false", "100", "30", "30", "5.5", "3", "8", "0", "50", "0"}; 
     
     /**
      * Constructor for objects of class MyWorld.
@@ -311,14 +311,14 @@ public class GameWorld extends World
             }
             if(enemyType.equals("melee"))
             {
-                int hp = 15 + Greenfoot.getRandomNumber(floorDepth+1);
+                int hp = 15 + floorDepth*3;
                 int attack = 2 + Greenfoot.getRandomNumber(floorDepth+1);
                 int speed = 3 + Greenfoot.getRandomNumber(floorDepth+1);
                 addObject(new MeleeEnemy(hp,speed,attack), getXCoordinate(x), getYCoordinate(y));
             }
             else if(enemyType.equals("ranged"))
             {
-                int hp = 8 + Greenfoot.getRandomNumber(floorDepth+1);
+                int hp = 8 + floorDepth*3;
                 double attack = 2 + Greenfoot.getRandomNumber(floorDepth+1);
                 int speed = 4;
                 addObject(new RangedEnemy(hp,speed,attack), getXCoordinate(x), getYCoordinate(y));

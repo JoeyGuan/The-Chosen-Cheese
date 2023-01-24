@@ -1,27 +1,27 @@
 #BlueJ class context
 comment0.target=Player
-comment0.text=\n\ The\ main\ player\ can\ move\ around,\ attack\ and\ switch\ their\ attack\ type\n\ \n\ @author\ (Harishan\ Ganeshanathan,\ Anthony\ Ung,\ Joey\ Guan)\ \n\ @version\ (January\ 22th,\ 2023)\n
+comment0.text=\r\n\ The\ main\ player\ can\ move\ around,\ attack\ and\ switch\ their\ attack\ type\r\n\ \r\n\ @author\ (Harishan\ Ganeshanathan,\ Anthony\ Ung,\ Joey\ Guan)\ \r\n\ @version\ (January\ 22th,\ 2023)\r\n
 comment1.params=values
 comment1.target=Player(java.lang.String[])
-comment1.text=\n\ Simple\ Constructor\ for\ Player\ to\ set\ values\ through\ parsing\ a\ String\ into\ integers,\ booleans\ and/or\ doubles\n\ @param\ values\ A\ string\ array\ that\ holds\ the\ values\ for\ the\ players\ attack\ type,\ attack\ radius,\ attack\ timer,\ attack\ speed,\ player\ speed,\ attack\ power,\ armour\ and\ health\n
+comment1.text=\r\n\ Simple\ Constructor\ for\ Player\ to\ set\ values\ through\ parsing\ a\ String\ into\ integers,\ booleans\ and/or\ doubles\r\n\ @param\ values\ A\ string\ array\ that\ holds\ the\ values\ for\ the\ players\ attack\ type,\ attack\ radius,\ attack\ timer,\ attack\ speed,\ player\ speed,\ attack\ power,\ armour\ and\ health\r\n
 comment2.params=
 comment2.target=void\ act()
-comment2.text=\n\ Act\ -\ do\ whatever\ the\ Player\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ Player\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
 comment3.params=
 comment3.target=void\ movement()
-comment3.text=\n\ Method\ for\ player\ movement\ -\ Note\ that\ players\ cannot\ move\ when\ melee\ attacking\n
+comment3.text=\r\n\ Method\ for\ player\ movement\ -\ Note\ that\ players\ cannot\ move\ when\ melee\ attacking\r\n
 comment4.params=
 comment4.target=void\ attack()
 comment5.params=
 comment5.target=void\ switchAttack()
-comment5.text=\n\ Method\ for\ switching\ between\ ranged\ attack\ and\ melee\ attack\n
+comment5.text=\r\n\ Method\ for\ switching\ between\ ranged\ attack\ and\ melee\ attack\r\n
 comment6.params=atkDmg
 comment6.target=void\ takeDamage(double)
-comment6.text=\n\ Method\ for\ taking\ damage\n\ @param\ atkDmg\ Damage\ dealt\ to\ player\n
+comment6.text=\r\n\ Method\ for\ taking\ damage\r\n\ @param\ atkDmg\ Damage\ dealt\ to\ player\r\n
 comment7.params=
 comment7.target=int\ getDirection()
-comment7.text=\n\ Gets\ the\ direction\ that\ the\ player\ is\ facing\ \n\ @return\ int\ Returns\ the\ direction\ as\ an\ int\ value\:\ 1\ \=\ left,\ 2\ \=\ right,\ 3\ \=\ up,\ 4\ \=\ down\n
+comment7.text=\r\n\ Gets\ the\ direction\ that\ the\ player\ is\ facing\ \r\n\ @return\ int\ Returns\ the\ direction\ as\ an\ int\ value\:\ 1\ \=\ left,\ 2\ \=\ right,\ 3\ \=\ up,\ 4\ \=\ down\r\n
 comment8.params=b
 comment8.target=void\ setAttackStatus(boolean)
-comment8.text=\n\ Sets\ the\ melee\ attack\ status\ of\ the\ player\n\ @param\ b\ Boolean\ that\ determines\ if\ the\ player\ is\ attacking\ or\ not\ \n
+comment8.text=\r\n\ Sets\ the\ melee\ attack\ status\ of\ the\ player\r\n\ @param\ b\ Boolean\ that\ determines\ if\ the\ player\ is\ attacking\ or\ not\ \r\n
 numComments=9
