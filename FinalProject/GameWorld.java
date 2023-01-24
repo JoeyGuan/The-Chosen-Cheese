@@ -295,11 +295,12 @@ public class GameWorld extends World
                     coordinateGenerated = true;
                 }
             }
-            if(Greenfoot.getRandomNumber(3) == 1)
+            int random = Greenfoot.getRandomNumber(3);
+            if(random == 1)
             {
                 enemyType = "melee";
             }
-            else if(Greenfoot.getRandomNumber(3) == 2)
+            else if(random == 2)
             {
                 enemyType = "snake";
             }
