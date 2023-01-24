@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Structures
-comment0.text=\n\ Structures\ include\ walls,\ doors\ and\ trapdoors\n\ \n\ @author\ (Joey\ Guan)\ \n\ @version\ (January\ 13)\n
+comment0.text=\r\n\ Structures\ include\ walls,\ doors\ and\ trapdoors\r\n\ \r\n\ @author\ (Joey\ Guan)\ \r\n\ @version\ (January\ 13)\r\n
 comment1.params=
 comment1.target=void\ act()
-comment1.text=\n\ Act\ -\ do\ whatever\ the\ Structures\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ Structures\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
 numComments=2
