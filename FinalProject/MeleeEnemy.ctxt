@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=MeleeEnemy
-comment0.text=\r\n\ A\ short-ranged\ enemy\ that\ will\ track\ the\ player\ and\ swipe/scratch\ in\ front\ \r\n\ of\ itself\ to\ deal\ damage.\ After\ a\ short\ cooldown,\ the\ melee\ will\ increase\ its\r\n\ range\ to\ prepare\ for\ a\ 'lunge'.\ Lunging\ will\ propel\ the\ enemy\ in\ the\ player's\ \r\n\ \r\n\ \r\n\ @author\ Marco\ Luong,\ Harishan\ Ganeshanathan\r\n
+comment0.text=\r\n\ A\ short-ranged\ enemy\ that\ will\ track\ the\ player\ and\ swipe/scratch\ in\ front\ \r\n\ of\ itself\ to\ deal\ damage.\ After\ a\ short\ cooldown,\ the\ melee\ will\ increase\ its\r\n\ range\ to\ prepare\ for\ a\ 'lunge'.\ Lunging\ will\ propel\ the\ enemy\ in\ the\ player's\ \r\n\ direction\ once\ in\ range\ of\ detection,\ dealing\ damage\ if\ colliding\ with\ them.\r\n\ \r\n\ @author\ Marco\ Luong,\ Harishan\ Ganeshanathan\r\n
 comment1.params=hp\ spd\ atkDmg
 comment1.target=MeleeEnemy(int,\ int,\ double)
 comment2.params=

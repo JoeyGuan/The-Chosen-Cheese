@@ -3,5 +3,5 @@ comment0.target=RangedProjectile
 comment0.text=\r\n\ Parent\ class\ for\ ranged\ projectiles\r\n\ \r\n\ @author\ Marco\ Luong,\ Harishan\ Ganeshanathan\r\n
 comment1.params=speed
 comment1.target=RangedProjectile(double)
-comment1.text=\r\n\ Main\ cosntructor\r\n\ \r\n\ \r\n
+comment1.text=\r\n\ Main\ cosntructor\r\n\ \r\n\ @param\ speed\ Speed\ of\ which\ the\ projectile\ travels\ at\r\n
 numComments=2
