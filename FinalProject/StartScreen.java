@@ -17,7 +17,7 @@ public class StartScreen extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1300, 700, 1); 
-        setBackground(new GreenfootImage("StartScreen.png"));
+        setBackground(new GreenfootImage("startScreen.png"));
         
         GreenfootImage background = new GreenfootImage("startButton.png");
         background.scale(background.getWidth()/8, background.getHeight()/8);
@@ -29,7 +29,7 @@ public class StartScreen extends World
     
     public void act(){
         if (b.getClick()){
-            Greenfoot.setWorld(new Instructions());
+            Greenfoot.setWorld(new Story());
         }
     }
     

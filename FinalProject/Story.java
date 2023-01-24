@@ -31,6 +31,10 @@ public class Story extends World
             }
         }
         actCounter++; 
+        if(Greenfoot.isKeyDown("SPACE")) // left
+            {
+                Greenfoot.setWorld(new Instructions());
+            } 
     }
     
     //fill an array with the pictures used as the slides
