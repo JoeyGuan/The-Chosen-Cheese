@@ -1,12 +1,10 @@
 #BlueJ class context
 comment0.target=MeleeEnemy
-comment0.text=\n\ A\ short-ranged\ enemy\ that\ will\ track\ the\ player\ and\ swipe/scratch\ in\ front\ \n\ of\ itself\ to\ deal\ damage.\n\ \n\ @author\ Marco\ Luong\n
+comment0.text=\n\ A\ short-ranged\ enemy\ that\ will\ track\ the\ player\ and\ swipe/scratch\ in\ front\ \n\ of\ itself\ to\ deal\ damage.\n\ \n\ @author\ Marco\ Luong,\ Harishan\ Ganeshanathan\n
 comment1.params=hp\ spd\ atkDmg
 comment1.target=MeleeEnemy(int,\ int,\ double)
 comment2.params=
 comment2.target=void\ act()
 comment3.params=
 comment3.target=void\ attack()
-comment4.params=dmg
-comment4.target=void\ takeDamage(double)
-numComments=5
+numComments=4
