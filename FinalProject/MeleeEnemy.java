@@ -18,11 +18,11 @@ public class MeleeEnemy extends Enemies
     // Main constructor
     public MeleeEnemy(int hp, int spd, double atkDmg){
         super(hp, spd, atkDmg, "Cat");
-        range = 1;
+        range = 0;
         atkCD = 90;
         atkTimer = atkCD;
         
-        lungeCD = 180;
+        lungeCD = 240;
         lungeTimer = lungeCD;
     }
     
@@ -30,6 +30,7 @@ public class MeleeEnemy extends Enemies
     // needing to be in range of the player.
     public void act()
     {
+        // If lunge is ready, increase range of player detection
         if(lungeTimer <= 0 && !spdUp){
             range = 3;
         }
@@ -43,7 +44,7 @@ public class MeleeEnemy extends Enemies
     // Adds an image in front of the enemy to check if the player has been hit.
     public void attack(){
         GameWorld gw = (GameWorld)getWorld();        
-        if(atkTimer<=0 && range == 1){
+        if(atkTimer<=0 && range == 0){ // Only attack if in normal range
             moving = false;
             EnemyMelee em = new EnemyMelee(meleeRadius, this); 
             gw.addObject(em, this.getX(), this.getY());
@@ -52,18 +53,18 @@ public class MeleeEnemy extends Enemies
             attacking = false;
             atkTimer = atkCD;
             
-            if(spdUp){
+            if(spdUp){ // Reset speeds if attack was a lunge attack
                 spdUp = false;
                 spd /= 3;
                 lungeTimer = lungeCD;
             }
         }
         
-        if(!spdUp && lungeTimer <= 0){
+        if(!spdUp && lungeTimer <= 0){ // Increase the movement speed for a split second
             attacking = true;
             spdUp = true;
             spd *= 3;
-            range = 1;
+            range = 0;
         }
     }
 }

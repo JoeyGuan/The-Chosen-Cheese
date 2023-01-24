@@ -11,7 +11,7 @@ public class RangedEnemy extends Enemies
     public RangedEnemy(int hp, int spd, double atkDmg){
         super(hp, spd, atkDmg, "Bird");
         range = 8;
-        atkCD = 60;
+        atkCD = 90;
         atkTimer = atkCD;
     }
     
