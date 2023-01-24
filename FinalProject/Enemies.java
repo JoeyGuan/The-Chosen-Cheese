@@ -61,7 +61,7 @@ public abstract class Enemies extends SmoothMover
     
     /** Look at each room as a 12x7 grid
      * Each grid space will have a value:
-     * - Walls/Obstacles will have a value of 
+     * - Walls/Walls will have a value of 
      * - The player's location will be at a value of 100
      * - The grid value will decrease as it goes further from the player
      * i.e. 98 99  98
@@ -76,7 +76,6 @@ public abstract class Enemies extends SmoothMover
         roomLayout[playerY][playerX] = 100;
         
         for(int i = 0; i < NUM_TILES_Y; i++){
-            roomLayout[i][0] = 1;
             for(int j = 1; j < NUM_TILES_X - 1; j++){
                 if(i == 0 || i == NUM_TILES_Y - 1){
                     roomLayout[i][j] = 1;
@@ -85,16 +84,23 @@ public abstract class Enemies extends SmoothMover
                     roomLayout[i][j] = 100 - (Math.abs(i - playerY) + Math.abs(j - playerX));
                 }
             }
-            roomLayout[i][NUM_TILES_X - 1] = 1;
         }
         
-        /* When obstacles are implemented
-        ArrayList<Obstacle> obstacles = (ArrayList) w.getObjects(Obstacle.class);
-        for(Obstacle o: obstacles){
-            obstacleX = getXCell(o.getX()), obstacleY = getYCell(o.getY());
-            roomLayout[obstacleY][obstacleX] = 1;
+        ArrayList<Wall> walls = (ArrayList) w.getObjects(Wall.class);
+        for(Wall wl: walls){
+            int wallX = getXCell(wl.getX()), wallY = getYCell(wl.getY());
+            try{
+                roomLayout[wallY][wallX] = 1;
+            }
+            catch(ArrayIndexOutOfBoundsException e){
+                if(wallY == NUM_TILES_Y){
+                    roomLayout[wallY - 1][wallX] = 1;
+                }
+                else if(wallX == NUM_TILES_X){
+                    roomLayout[wallY][wallX - 1] = 1;
+                }
+            }
         }
-        */
         
         enemyX = getXCell(getX());
         enemyY = getYCell(getY());
