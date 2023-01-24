@@ -214,7 +214,7 @@ public class Player extends SmoothMover
             if(armour<atkDmg){
                 GameWorld w = (GameWorld)getWorld();
                 String[] v = w.getArrValues(); 
-                this.health -= atkDmg; 
+                this.health -= (atkDmg-armour); 
                 v[8] = Double.toString(this.health); 
                 w.setArrValues(v); 
             }

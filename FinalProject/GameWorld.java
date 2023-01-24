@@ -40,7 +40,7 @@ public class GameWorld extends World
     private int playerX = 6;
     private int playerY = 3;
     
-    private String[] values = {"false", "100", "30", "30", "5", "4", "8", "0", "25"}; 
+    private String[] values = {"false", "100", "30", "30", "5.5", "4", "8", "0", "100"}; 
     
     /**
      * Constructor for objects of class MyWorld.

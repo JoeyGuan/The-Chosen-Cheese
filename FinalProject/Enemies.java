@@ -29,6 +29,8 @@ public abstract class Enemies extends SmoothMover
     // animation variables
     private boolean flipped = false;
     protected int direction = 2;
+    protected int damagedTimer = 0; 
+    protected boolean beenAttacked = false;
     
     public Enemies(int hp, int spd, double atkDmg, String type){
         super(type);
@@ -56,7 +58,7 @@ public abstract class Enemies extends SmoothMover
             move(spd);
         }
         setRotation(0);
-        animate(direction - 1);
+        
     }
     
     // Make the world a 12x7 grid (?)

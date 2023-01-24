@@ -22,7 +22,29 @@ public class RangedEnemy extends Enemies
      */
     public void act()
     {
-        super.act();
+        super.act();if(beenAttacked){
+            if(direction == 1){
+                setImage("BirdLDamage.png"); 
+                getImage().scale(100,100);
+            }else if(direction == 2){
+                setImage("BirdRDamage.png"); 
+                getImage().scale(100,100);
+            }else if(direction == 3){
+                setImage("BirdUDamage.png"); 
+                getImage().scale(100,100);
+            }else if(direction == 4){
+                setImage("BirdDDamage.png"); 
+                getImage().scale(100,100);
+            }
+            damagedTimer++; 
+            if(damagedTimer == 30){
+                damagedTimer = 0;
+                beenAttacked = false;
+            }
+        }
+        else{
+            animate(direction-1); 
+        }
     }
     
     public void attack(){
@@ -43,19 +65,7 @@ public class RangedEnemy extends Enemies
             hp -= dmg;
             hpBar.update(hp);
             System.out.println("Enemy: Taking damage"+dmg); 
-            if(direction == 1){
-                setImage("BirdLDamage.png"); 
-                getImage().scale(100,100);
-            }else if(direction == 2){
-                setImage("BirdRDamage.png"); 
-                getImage().scale(100,100);
-            }else if(direction == 3){
-                setImage("BirdUDamage.png"); 
-                getImage().scale(100,100);
-            }else if(direction == 4){
-                setImage("BirdDDamage.png"); 
-                getImage().scale(100,100);
-            }
+            beenAttacked = true; 
         }
         else{
             hp = 0;

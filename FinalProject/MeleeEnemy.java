@@ -23,6 +23,30 @@ public class MeleeEnemy extends Enemies
     public void act()
     {
         super.act();
+        
+        if(beenAttacked){
+            if(direction == 1){
+                setImage("CatRDamage.png"); 
+                getImage().scale(100,100);
+            }else if(direction == 2){
+                setImage("CatLDamage.png"); 
+                getImage().scale(100,100);
+            }else if(direction == 3){
+                setImage("CatUDamage.png"); 
+                getImage().scale(100,100);
+            }else if(direction == 4){
+                setImage("CatDDamage.png"); 
+                getImage().scale(100,100);
+            }
+            damagedTimer++; 
+            if(damagedTimer == 15){
+                damagedTimer = 0;
+                beenAttacked = false;
+            }
+        }
+        else{
+            animate(direction - 1);
+        }
         atkTimer--;
     }
     
@@ -42,19 +66,8 @@ public class MeleeEnemy extends Enemies
             hp -= dmg;
             hpBar.update(hp);
             System.out.println("Enemy: Taking damage"+dmg); 
-            if(direction == 1){
-                setImage("CatLDamage.png"); 
-                getImage().scale(100,100);
-            }else if(direction == 2){
-                setImage("CatRDamage.png"); 
-                getImage().scale(100,100);
-            }else if(direction == 3){
-                setImage("CatUDamage.png"); 
-                getImage().scale(100,100);
-            }else if(direction == 4){
-                setImage("CatDDamage.png"); 
-                getImage().scale(100,100);
-            }
+            beenAttacked = true; 
+            
         }
         else{
             hp = 0;

@@ -49,9 +49,12 @@ public class Cheese extends Actor
             if(this.isTouching(Player.class)){
                 GameWorld w = (GameWorld)getWorld(); 
                 String[] v = w.getArrValues(); 
-                v[7] = Double.toString(Double.parseDouble(v[7])+0.5);
-                System.out.println("armour added: "+ v[7]); 
-                w.setArrValues(v); 
+                if(!(Double.parseDouble(v[7])>=2.5)){
+                    v[7] = Double.toString(Double.parseDouble(v[7])+0.5);
+                    System.out.println("armour added: "+ v[7]); 
+                    w.setArrValues(v); 
+                }
+                
                 
                 w.markCheeseMap();
                 
@@ -66,7 +69,7 @@ public class Cheese extends Actor
                 GameWorld w = (GameWorld)getWorld(); 
                 String[] v = w.getArrValues(); 
                 v[6] = Double.toString(Double.parseDouble(v[6])+2); 
-                v[4] = Double.toString(Double.parseDouble(v[4])+1.5); 
+                v[4] = Double.toString(Double.parseDouble(v[4])+2); 
                 w.setArrValues(v); 
                 
                 w.markCheeseMap();
@@ -81,7 +84,7 @@ public class Cheese extends Actor
             if(this.isTouching(Player.class)){
                 GameWorld w = (GameWorld)getWorld(); 
                 String[] v = w.getArrValues(); 
-                v[8] = Double.toString(Double.parseDouble(v[8])+6); 
+                v[8] = Double.toString(Double.parseDouble(v[8])+5); 
                 w.setArrValues(v); 
                 System.out.println(v[8]);
                 
