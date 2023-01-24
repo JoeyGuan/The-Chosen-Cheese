@@ -4,7 +4,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Map Class can take a 2D number array and generate a graphic where there are rooms and hallways connecting adjacent 
  * rooms. 
  * 
- * @author (Clara) 
+ * @author (Clara Hong) 
  * @version (Jan 17th)
  */
 public class Map extends UI
@@ -23,7 +23,7 @@ public class Map extends UI
      */
     public Map(int[][] map) {
         numMap = map; 
-        roomImage.scale(130, 70); 
+        roomImage.scale(130, 70); //keeping the same ratio as an actual room
         currentRoomImage.scale(130,70); 
         generateRoomCoordinates(); 
     }
@@ -57,8 +57,9 @@ public class Map extends UI
      */
     public void drawRooms() {
         GameWorld w =  (GameWorld) getWorld(); 
-        int y = w.getCurrentRoomY(); 
-        int x =  w.getCurrentRoomX(); 
+        //y and x are used to decide which room to make red (player's current room)
+        int y = w.getCurrentRoomY(); //player's current room y
+        int x =  w.getCurrentRoomX(); //player's current room x
         map.scale(1500, 900); 
         map.clear(); 
         for (int i = 0; i < numMap.length; i++) {
@@ -75,14 +76,24 @@ public class Map extends UI
      * Draws a hallway that connects rooms if a hallway exists 
      */
     public void drawHallways() {
-        for (int i = 0; i < numMap.length - 1; i++) {
-            for (int j = 0; j < numMap[i].length - 1; j++) {
+        //for loop to go through every part of the map
+        for (int i = 0; i < numMap.length; i++) {
+            for (int j = 0; j < numMap[i].length; j++) {
+                //if the current reference point is a room
                 if (numMap[i][j] != 0) {
-                    if (numMap[i][j + 1] != 0) { 
-                        map.fillRect(xCoordinates[j] + roomImage.getWidth(), yCoordinates[i] + roomImage.getHeight()/2, hallwayLength, hallwayLength/2); 
+                    //if it's not the last row 
+                    if (i < numMap.length - 1) {
+                        //if there's a room below it, add a hallway
+                        if (numMap[i + 1][j] != 0) {
+                            map.fillRect(xCoordinates[j] + roomImage.getWidth()/2, yCoordinates[i] + roomImage.getHeight(), hallwayLength / 2, hallwayLength); 
+                        }
                     }
-                    if (numMap[i + 1][j] != 0) {
-                        map.fillRect(xCoordinates[j] + roomImage.getWidth()/2, yCoordinates[i] + roomImage.getHeight(), hallwayLength / 2, hallwayLength); 
+                    //if it's not the last column
+                    if (j < numMap[i].length - 1) {
+                        ///if there's a room to its left, add a hallway
+                        if (numMap[i][j + 1] != 0) { 
+                            map.fillRect(xCoordinates[j] + roomImage.getWidth(), yCoordinates[i] + roomImage.getHeight()/2, hallwayLength, hallwayLength/2); 
+                        }
                     }
                 }
             }

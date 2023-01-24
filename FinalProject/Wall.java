@@ -1,9 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Walls surround the room. Players cannot go into or past a wall. 
+ * Walls surround the room. Players cannot go into or past a wall. Obstacles are also
+ * considered walls. 
  * 
- * @author (Joey Guan) 
+ * @author (Joey Guan), Clara Hong 
  * @version (January 13)
  */
 public class Wall extends Structures
