@@ -20,18 +20,10 @@ public class Player extends SmoothMover
 
     //upgradable stats
     private double speed;
-<<<<<<< Updated upstream
     private double projectilePower;
-=======
-    private int meleeRadius; 
-    private double projectileSpeed;
-    private int meleeReset;
-    private int rangeReset; 
->>>>>>> Stashed changes
     private double attackPower; 
     private double armour; //damage reduction variable
-    private double health; 
-    
+    private double health;
     private double projectileSpeed = 5; 
     private int meleeRadius; 
     private int meleeReset; //attack resets every .5 seconds
