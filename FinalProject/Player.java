@@ -28,6 +28,15 @@ public class Player extends SmoothMover
     private int meleeRadius; 
     private int meleeReset; //attack resets every .5 seconds
     private int rangeReset; 
+    
+    //dash variables 
+    private boolean isDashing = false; 
+    private boolean dashReady = false;
+    private boolean dashed = false;
+    private int dashTimer = 0; 
+    private int dashCooldown = 0; 
+    
+    private SuperStatBar cooldown;  
 
     //public Player(boolean ranged, int meleeRadius, int meleeSpeed, int rangeSpeed, double projectileSpeed, double speed,  double attackPower, double armour, double health)
     /**
@@ -47,12 +56,15 @@ public class Player extends SmoothMover
         this.attackPower = Double.parseDouble(values[6]); //8 
         this.armour = Double.parseDouble(values[7]); //0
         this.health = Double.parseDouble(values[8]); //25
+        this.dashCooldown = Integer.parseInt(values[9]); //0
 
         attacked = false;
         isAttacking = false;
         rangeTimer = 0;
         meleeTimer = 0; 
         attackSwitchTimer = 0;
+        
+        cooldown = new SuperStatBar(90, 0, null, 180, 60, 0, Color.WHITE, Color.GREEN, false, Color.BLACK, 3);
     }
 
     /**
@@ -61,10 +73,66 @@ public class Player extends SmoothMover
      */
     public void act()
     {
+        GameWorld gw = (GameWorld)getWorld(); 
+        gw.addObject(cooldown, 80, 700); 
         moving = false; 
-        movement();
-        attack();
-        switchAttack();
+        if(dashReady){
+            if(Greenfoot.isKeyDown("N")){
+                isDashing = true;
+            }
+        }
+        if(!isDashing){
+            movement(); 
+            switchAttack();
+        }
+        if(!dashReady){
+            dashCooldown++;
+            String[] v = gw.getArrValues(); 
+            v[9] = Integer.toString(dashCooldown);
+            gw.setArrValues(v); 
+        }
+        if(isDashing){
+            if(direction == 1){
+                Wall wall = (Wall) getOneObjectAtOffset(-25, getImage().getHeight()/-2, Wall.class);
+                Door door = (Door) getOneObjectAtOffset(-25, getImage().getHeight()/-2, Door.class);
+                if(wall == null && (door == null || door.getIsOpen())){
+                    setLocation(getX()-25, getY());
+                }
+            }else if(direction == 2){
+                Wall wall = (Wall) getOneObjectAtOffset(25, getImage().getHeight()/-2, Wall.class);
+                Door door = (Door) getOneObjectAtOffset(25, getImage().getHeight()/-2, Door.class);
+                if(wall == null && (door == null || door.getIsOpen())){
+                    setLocation(getX()+25, getY());
+                }
+            }else if(direction == 3){
+                Wall wall = (Wall) getOneObjectAtOffset(getImage().getWidth()/-2, -25, Wall.class);
+                Door door = (Door) getOneObjectAtOffset(getImage().getWidth()/-2, -25, Door.class);
+                if(wall == null && (door == null || door.getIsOpen())){
+                    setLocation(getX(), getY()-25);
+                }
+            }else if(direction == 4){
+                Wall wall = (Wall) getOneObjectAtOffset(getImage().getWidth()/-2, 25, Wall.class);
+                Door door = (Door) getOneObjectAtOffset(getImage().getWidth()/-2, 25, Door.class);
+                if(wall == null && (door == null || door.getIsOpen())){
+                    setLocation(getX(), getY()+25);
+                }
+            }
+            dashTimer++;
+            if(dashTimer == 15){
+                dashTimer = 0;
+                isDashing = false;
+                dashReady = false;
+                dashed = false; 
+            }
+        }
+        if(dashCooldown == 90){
+            dashReady = true;
+            dashCooldown = 0; 
+            String[] v = gw.getArrValues(); 
+            v[9] = Integer.toString(dashCooldown);
+            gw.setArrValues(v);
+        }
+        attack(); 
         //timer for attacks
         if(attacked){
             if(ranged){
@@ -97,6 +165,8 @@ public class Player extends SmoothMover
             attackSwitchTimer = 0;
         }
         animate (direction - 1); 
+        String[] v = gw.getArrValues(); 
+        cooldown.update(Integer.parseInt(v[9]));  
         actCounter++; 
     }
     /**

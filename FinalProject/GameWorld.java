@@ -40,7 +40,7 @@ public class GameWorld extends World
     private int playerX = 6;
     private int playerY = 3;
     
-    private String[] values = {"false", "100", "30", "30", "5.5", "4", "8", "0", "100"}; 
+    private String[] values = {"false", "100", "30", "30", "5.5", "4", "8", "0", "100", "0"}; 
     
     /**
      * Constructor for objects of class MyWorld.
@@ -202,6 +202,7 @@ public class GameWorld extends World
         removeObjects(getObjects(Actor.class));
         //Adding UI elements
         addObject(new AttackTypeIndicator(), 50, 50);
+        
         //Adds room layout
         int roomType = dungeonFloor[currentRoomY][currentRoomX];
         switch (roomType)
@@ -295,9 +296,14 @@ public class GameWorld extends World
                     coordinateGenerated = true;
                 }
             }
-            if(Greenfoot.getRandomNumber(2) == 1)
+            int random = Greenfoot.getRandomNumber(3);
+            if(random == 1)
             {
                 enemyType = "melee";
+            }
+            else if(random == 2)
+            {
+                enemyType = "snake";
             }
             else
             {
@@ -316,6 +322,12 @@ public class GameWorld extends World
                 double attack = 2 + Greenfoot.getRandomNumber(floorDepth+1);
                 int speed = 4;
                 addObject(new RangedEnemy(hp,speed,attack), getXCoordinate(x), getYCoordinate(y));
+            }else if(enemyType.equals("snake"))
+            {
+                int hp = 8 + Greenfoot.getRandomNumber(floorDepth+1);
+                double attack = 2 + Greenfoot.getRandomNumber(floorDepth+1);
+                int speed = 4;
+                addObject(new Snake(hp,speed,attack), getXCoordinate(x), getYCoordinate(y));
             }
         }
     }

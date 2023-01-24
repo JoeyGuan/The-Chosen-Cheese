@@ -57,7 +57,6 @@ public abstract class Enemies extends SmoothMover
             move(spd);
         }
         setRotation(0);
-        
     }
     
     /** Look at each room as a 12x7 grid
@@ -99,7 +98,12 @@ public abstract class Enemies extends SmoothMover
         
         enemyX = getXCell(getX());
         enemyY = getYCell(getY());
-        roomLayout[enemyY][enemyX] = 2;
+        try{
+            roomLayout[enemyY][enemyX] = 2;
+        }
+        catch(ArrayIndexOutOfBoundsException e){
+            roomLayout[enemyY - 1][enemyX - 1] = 2;
+        }
     }
     
     /** 
@@ -149,6 +153,7 @@ public abstract class Enemies extends SmoothMover
             hp -= dmg;
             hpBar.update(hp);
             System.out.println("Enemy: Taking damage"+dmg); 
+            beenAttacked = true; 
         }
         else{
             hp = 0;
