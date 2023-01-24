@@ -166,7 +166,7 @@ public class GameWorld extends World
                 cheeseMap[i][j] = Greenfoot.getRandomNumber(4); // generates the room's cheese type that will spawn
                 if(dungeonFloor[i][j] > 0)
                 {
-                    dungeonFloor[i][j] = Greenfoot.getRandomNumber(8); // sets room layout type (obstacles, etc.)
+                    dungeonFloor[i][j] = 1 + Greenfoot.getRandomNumber(7); // sets room layout type (obstacles, etc.)
                     int totalDistance = Math.abs(3 - j) + Math.abs(3 - i);
                     if(totalDistance > farthestTotalDistance)
                     {
@@ -204,9 +204,6 @@ public class GameWorld extends World
         int roomType = dungeonFloor[currentRoomY][currentRoomX];
         switch (roomType)
         {
-            case 0: 
-                room0();
-                break;
             case 1: 
                 room1();
                 break;
@@ -482,10 +479,6 @@ public class GameWorld extends World
     /**
      * Methods for adding room layouts into the world
      */
-    public void room0()
-    {
-
-    }
 
     public void room1()
     {
