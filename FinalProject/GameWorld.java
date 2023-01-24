@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Write a description of class MyWorld here.
  * 
- * @author Joey Guan, Harishan Ganeshanathan, Marco Luong, Anthony Ung
+ * @author Joey Guan, Harishan Ganeshanathan, Marco Luong, Anthony Ung, Clara Hong
  * @version January 19, 2023
  */
 public class GameWorld extends World
@@ -508,31 +508,69 @@ public class GameWorld extends World
     public void room2()
     {
 
+        addObject(new Wall("cart"), getXCoordinate(3), getYCoordinate(1));
+        addObject(new Wall("cart"), getXCoordinate(8), getYCoordinate(5));
+        addObject(new Wall("cart"), getXCoordinate(2), getYCoordinate(5));
+        
+        addObject(new Wall("suitcase"), getXCoordinate(5), getYCoordinate(2));
+        addObject(new Wall("suitcase"), getXCoordinate(6), getYCoordinate(3));
+        addObject(new Wall("suitcase"), getXCoordinate(7), getYCoordinate(5));
+        addObject(new Wall("suitcase"), getXCoordinate(3), getYCoordinate(4));
+        addObject(new Wall("suitcase"), getXCoordinate(9), getYCoordinate(4));
+        addObject(new Wall("suitcase"), getXCoordinate(7), getYCoordinate(2));
     }
 
     public void room3()
     {
-
+        addObject(new Wall("smallTable"), getXCoordinate(1), getYCoordinate(1));
+        addObject(new Wall("smallTable"), getXCoordinate(4), getYCoordinate(5));
+        addObject(new Wall("cart"), getXCoordinate(5), getYCoordinate(2));
+        addObject(new Wall("cart"), getXCoordinate(2), getYCoordinate(4));
+        addObject(new Wall("chair"), getXCoordinate(6), getYCoordinate(3));
+        addObject(new Wall("couch"), getXCoordinate(8), getYCoordinate(3));
+        addObject(new Wall("fountain"), getXCoordinate(11), getYCoordinate(1));
+        addObject(new Wall("vaseTable"), getXCoordinate(11), getYCoordinate(5));
     }
 
     public void room4()
     {
-
+        addObject(new Wall("fountain"), getXCoordinate(6), getYCoordinate(3));
+        addObject(new Wall("longTable"), getXCoordinate(2), getYCoordinate(1));
+        addObject(new Wall("statue"), getXCoordinate(8), getYCoordinate(1));
+        addObject(new Wall("statue"), getXCoordinate(10), getYCoordinate(4));
+        addObject(new Wall("vaseTable"), getXCoordinate(9), getYCoordinate(2));
+        addObject(new Wall("chair"), getXCoordinate(2), getYCoordinate(4));
     }
 
     public void room5()
     {
-
+        addObject(new Wall("vaseTable"), getXCoordinate(1), getYCoordinate(1));
+        addObject(new Wall("suitcase"), getXCoordinate(2), getYCoordinate(4));
+        addObject(new Wall("longTable"), getXCoordinate(6), getYCoordinate(3));
+        addObject(new Wall("vase"), getXCoordinate(11), getYCoordinate(5));
+        addObject(new Wall("cart"), getXCoordinate(10), getYCoordinate(2));
+        addObject(new Wall("statue"), getXCoordinate(3), getYCoordinate(1));
     }
 
     public void room6()
     {
-
+        addObject(new Wall("bedSide"), getXCoordinate(3), getYCoordinate(1));
+        addObject(new Wall("nightTable"), getXCoordinate(1), getYCoordinate(1));
+        addObject(new Wall("wardrobe"), getXCoordinate(10), getYCoordinate(4));
+        addObject(new Wall("couch"), getXCoordinate(7), getYCoordinate(3));
+        addObject(new Wall("chair"), getXCoordinate(1), getYCoordinate(5));
+        addObject(new Wall("vase"), getXCoordinate(9), getYCoordinate(1));
+        addObject(new Wall("suitcase"), getXCoordinate(3), getYCoordinate(3));
     }
 
     public void room7()
     {
-
+        addObject(new Wall("bedFront"), getXCoordinate(2), getYCoordinate(4));
+        addObject(new Wall("suitcase"), getXCoordinate(4), getYCoordinate(3));
+        addObject(new Wall("nightTable"), getXCoordinate(1), getYCoordinate(1));
+        addObject(new Wall("wardrobe"), getXCoordinate(10), getYCoordinate(4));
+        addObject(new Wall("vase"), getXCoordinate(7), getYCoordinate(3));
+        addObject(new Wall("chair"), getXCoordinate(9), getYCoordinate(1));
     }
     
     public int stopTimer(){

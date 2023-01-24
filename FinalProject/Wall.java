@@ -9,13 +9,21 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Wall extends Structures
 {
     private String obstacleType;
+    //all the possible types: wall, statue, cart, couch, chair, fountain, bedFront, bedSide, wardrobe, smallTable, longTable
+    //vase, vaseTable, nightTable, suitcase
+    
+    /**
     private GreenfootImage statue = new GreenfootImage("statue.png");
     private GreenfootImage cart = new GreenfootImage("cart.png");
     private GreenfootImage couch = new GreenfootImage("couch.png");
     private GreenfootImage chair = new GreenfootImage("chair.png");
     private GreenfootImage fountain = new GreenfootImage("fountain.png");
+    private GreenfootImage bedFront = new GreenfootImage("statue.png");
+    private GreenfootImage bedSide = new GreenfootImage("cart.png");
+    */
+    
     /**
-     * Simple Constructor for Wall 
+     * Simple Constructor for Wall
      * 
      * @param type Type of obstacle, decides image and dimensions
      */
@@ -28,7 +36,14 @@ public class Wall extends Structures
             image.setTransparency(0);
             image.scale(100, 100);
             setImage(image);
+        } else {
+            GreenfootImage image = new GreenfootImage(obstacleType + ".png"); 
+            image.setTransparency(250); 
+            setImage(image); 
         }
+        
+        
+        /**
         if(type.equals("statue"))
         {
             GreenfootImage image = statue;
@@ -60,6 +75,7 @@ public class Wall extends Structures
             image.scale(100, 100);
             setImage(image);
         }
+        */
     }
     /**
      * Act - do whatever the Wall wants to do. This method is called whenever
