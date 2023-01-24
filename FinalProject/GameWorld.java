@@ -309,14 +309,14 @@ public class GameWorld extends World
                 int hp = 15 + Greenfoot.getRandomNumber(floorDepth+1);
                 int attack = 2 + Greenfoot.getRandomNumber(floorDepth+1);
                 int speed = 3 + Greenfoot.getRandomNumber(floorDepth+1);
-                addObject(new MeleeEnemy(hp,attack,speed), getXCoordinate(x), getYCoordinate(y));
+                addObject(new MeleeEnemy(hp,speed,attack), getXCoordinate(x), getYCoordinate(y));
             }
             else if(enemyType.equals("ranged"))
             {
                 int hp = 8 + Greenfoot.getRandomNumber(floorDepth+1);
-                int attack = 2 + Greenfoot.getRandomNumber(floorDepth+1);
+                double attack = 2 + Greenfoot.getRandomNumber(floorDepth+1);
                 int speed = 4;
-                addObject(new RangedEnemy(hp,attack,speed), getXCoordinate(x), getYCoordinate(y));
+                addObject(new RangedEnemy(hp,speed,attack), getXCoordinate(x), getYCoordinate(y));
             }
         }
     }
