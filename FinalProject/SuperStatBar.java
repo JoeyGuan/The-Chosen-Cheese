@@ -42,7 +42,7 @@ import java.util.Arrays;
  * @author Jordan Cohen
  * @version 2.1.1 - Nov 2021
  */
-public class SuperStatBar extends Actor
+public class SuperStatBar extends UI
 {
 
     // Declare Instance Variables

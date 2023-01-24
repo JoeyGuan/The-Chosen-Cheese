@@ -20,7 +20,14 @@ public class Player extends SmoothMover
 
     //upgradable stats
     private double speed;
+<<<<<<< Updated upstream
     private double projectilePower;
+=======
+    private int meleeRadius; 
+    private double projectileSpeed;
+    private int meleeReset;
+    private int rangeReset; 
+>>>>>>> Stashed changes
     private double attackPower; 
     private double armour; //damage reduction variable
     private double health; 
@@ -93,7 +100,7 @@ public class Player extends SmoothMover
         if(attackSwitched){
             attackSwitchTimer++;
         }
-        if(attackSwitchTimer>=150){
+        if(attackSwitchTimer>=60){
             attackSwitched = false;
             attackSwitchTimer = 0;
         }
