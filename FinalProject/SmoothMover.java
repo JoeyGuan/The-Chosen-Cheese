@@ -6,9 +6,14 @@ import java.util.LinkedList;
  * instead of ints).  This allows small precise movements (e.g. movements of 1 pixel or less)
  * that do not lose precision.
  * 
+ * There are also animation methods added for walk cycles and graphics. 
+ * This allows for cool movement for the characters each with their own graphics 
+ * that cycle through as they move or attack. 
+ * 
  * @author Poul Henriksen
  * @author Michael Kolling
  * @author Neil Brown
+ * @author Clara Hong
  * 
  * @version 3.0
  */
@@ -32,6 +37,7 @@ public abstract class SmoothMover extends Actor
     protected boolean hasAttackFrame; 
     
     public SmoothMover(String type) {
+        //initialising variables
         actorType = type; 
         hasAttackFrame = false; 
         initGraphics(); 
@@ -98,9 +104,17 @@ public abstract class SmoothMover extends Actor
         return exactY;
     }
     
+    //The start of the animation methods 
+    /** 
+     * The initGraphics method helps set all the images that the actor needs for 
+     * its animation frames. More complex characters like the player, cat, and bird 
+     * need to have their walk cycles as well as their attack frames initiated. 
+     */
     public void initGraphics() {
-        String[] directions = {"L", "R", "U", "D"}; 
+        String[] directions = {"L", "R", "U", "D"}; //array used to easily find files 
+        //only runs if there's a valid actor type 
         if (!actorType.equals("")) {
+            //player, cat, and bird have more frames per direction, while the snake just has 1
             if (actorType.equals("Player") || actorType.equals("Cat") || actorType.equals("Bird")) {
                 framesPerDirection = 4; 
                 hasAttackFrame = true; 
@@ -108,15 +122,19 @@ public abstract class SmoothMover extends Actor
                 framesPerDirection = 1; 
                 hasAttackFrame = false; 
             }
+            //2d array of frames, frames[# of directions][frames per direction]
             frames = new GreenfootImage[4][framesPerDirection]; 
+            //filling in walk cycle
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < frames[i].length; j++) {
                     GreenfootImage image = new GreenfootImage(actorType + directions[i] + "Walk" + j + ".png"); 
-                    image.scale(100,100); 
+                    image.scale(100,100); //scale it down to cell size
                     frames[i][j] = image; 
                 }
             }
+            //initial pose 
             setImage(frames[1][0]); 
+            //filling in attack frames
             if (hasAttackFrame) {
                 attackFrames = new GreenfootImage[4]; 
                 for (int i = 0; i < 4; i++) {
@@ -138,25 +156,39 @@ public abstract class SmoothMover extends Actor
     }
     
     //players and enemies need to call on this in their respective act methods
+    /**
+     * The animate method decides when to add frames to the queue AKA the animation 
+     * timeline. 
+     * Takes the direction that the character is supposed to be facing as a parameter 
+     * (0 - left, 1 - right, 2 - up, 3 - down).
+     */
     public void animate(int d) {
         currentDirection = d; 
         if (attacking) {
+            //if it's attacking, it'll clear the queue and put the attack frames
             animation.clear(); 
             animation.add(attackFrames[direction]); 
         } else if (currentDirection != direction) {
+            //if it has changed directions, it'll clear the queue and put 
+            //in the walk cycle for the new direction
             direction = currentDirection; 
             animation.clear(); 
             addFrames(); 
         } else if (moving && animation.peek() == null) {
+            //if it's moving but there's nothing in the queue, add frames
             addFrames(); 
         }
+        //change frames every 5 acts 
         if (actCounter % 5 == 0) {
+            //if it's not doing anything
             if (!moving && !attacking) {
                 animation.clear(); 
             }
+            //if there's nothing in the queue: put a idle frame 
             if (animation.peek() == null) {
                 setImage(frames[direction][0]); 
             } else{
+                //else set the next image in the queue, then remove it 
                 setImage(animation.peek()); 
                 animation.remove(); 
             }
