@@ -52,7 +52,7 @@ public class GameWorld extends World
         GreenfootImage background = new GreenfootImage("backgroundnoDoor.png");
         background.scale(1300,700);
         setBackground(background);
-        setPaintOrder(Map.class, PopUp.class, SuperStatBar.class, Player.class, Cheese.class, MeleeAttack.class, RangedProjectile.class, Structures.class);
+        setPaintOrder(UI.class, Player.class, Cheese.class, MeleeAttack.class, RangedProjectile.class, Structures.class);
     }
 
     public void act()
@@ -65,7 +65,7 @@ public class GameWorld extends World
                 floorDepth++;
                 totalRoomAmount = 5 + (3 * floorDepth);
 
-                generateDungeonFloor(); 
+                generateDungeonFloor();
                 currentRoomX = 3;
                 currentRoomY = 3;
                 playerX = 6;
@@ -200,6 +200,8 @@ public class GameWorld extends World
         enemyNumber = 2 + Greenfoot.getRandomNumber(floorDepth+1);
         //Clear Screen
         removeObjects(getObjects(Actor.class));
+        //Adding UI elements
+        addObject(new AttackTypeIndicator(), 50, 50);
         //Adds room layout
         int roomType = dungeonFloor[currentRoomY][currentRoomX];
         switch (roomType)
