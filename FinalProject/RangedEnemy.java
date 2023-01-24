@@ -10,7 +10,7 @@ public class RangedEnemy extends Enemies
     // Main constructor
     public RangedEnemy(int hp, int spd, double atkDmg){
         super(hp, spd, atkDmg, "Bird");
-        range = 8;
+        range = 5;
         atkCD = 90;
         atkTimer = atkCD;
     }

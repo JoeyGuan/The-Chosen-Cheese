@@ -4,7 +4,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * A short-ranged enemy that will track the player and swipe/scratch in front 
  * of itself to deal damage.
  * 
- * @author Marco Luong
+ * @author Marco Luong, Harishan Ganeshanathan
  */
 public class MeleeEnemy extends Enemies
 {
