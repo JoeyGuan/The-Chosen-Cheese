@@ -63,7 +63,7 @@ public class GameWorld extends World
             if(floorDepth != maxFloorDepth)
             {
                 floorDepth++;
-                totalRoomAmount = 5 + (3 * floorDepth);
+                totalRoomAmount = 5 + (2 * floorDepth);
 
                 generateDungeonFloor();
                 currentRoomX = 3;
