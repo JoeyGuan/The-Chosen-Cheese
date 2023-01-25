@@ -382,6 +382,6 @@ public class Player extends SmoothMover
      * @param health New health of player. 
      */
     public void setHealth(double health){
-        health = health; 
+        this.health = health; 
     }
 }

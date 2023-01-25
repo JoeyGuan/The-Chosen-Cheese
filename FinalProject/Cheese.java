@@ -85,17 +85,24 @@ public class Cheese extends Actor
                 GameWorld w = (GameWorld)getWorld(); 
                 String[] v = w.getArrValues(); 
                 int maxHp = Integer.parseInt(v[10]); 
-                if((Double.parseDouble(v[8])+3)<=maxHp){
-                    double x = Double.parseDouble(v[8])+3; 
+                if((Double.parseDouble(v[8])+10)<=maxHp){
+                    double x = Double.parseDouble(v[8])+10; 
                     v[8] = Double.toString(x); 
                     w.setArrValues(v); 
                     Player player = w.getObjects(Player.class).get(0);
                     player.setHealth(x); 
+                    player.updateHealthBar();
+                }
+                else
+                {
+                    v[8] = Double.toString(50.0); 
+                    w.setArrValues(v); 
+                    Player player = w.getObjects(Player.class).get(0);
+                    player.setHealth(50.0); 
+                    player.updateHealthBar();
                 }
                 System.out.println(v[8]);
                 w.markCheeseMap();
-                
-                
                 
                 Color color = new Color(0, 255, 0);
                 w.addObject(new PopUp("+Health", color), getX(), getY());
