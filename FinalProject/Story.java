@@ -24,7 +24,18 @@ public class Story extends World
     public void act() {
         if (actCounter % 200 == 0) {
             if (currentSlide == slides.length) {
-                Greenfoot.setWorld(new Instructions()); 
+                Greenfoot.setWorld(new Instructions());
+                stopped();
+            } else {
+                setBackground(slides[currentSlide]); 
+                currentSlide++; 
+            }
+        }
+        if (b.getClick()){
+            actCounter = 0;
+            if (currentSlide == slides.length) {
+                Greenfoot.setWorld(new Instructions());
+                stopped();
             } else {
                 setBackground(slides[currentSlide]); 
                 currentSlide++; 
@@ -32,9 +43,11 @@ public class Story extends World
         }
         actCounter++; 
         if(Greenfoot.isKeyDown("SPACE")) // left
-        {
-            Greenfoot.setWorld(new Instructions());
-        } 
+            {
+                Greenfoot.setWorld(new Instructions());
+                stopped();
+            }
+        **/
     }
     
     //fill an array with the pictures used as the slides
