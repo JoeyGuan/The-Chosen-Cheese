@@ -24,7 +24,7 @@ public class Story extends World
     public void act() {
         if (actCounter % 200 == 0) {
             if (currentSlide == slides.length) {
-                //switch to the next world
+                Greenfoot.setWorld(new Instructions()); 
             } else {
                 setBackground(slides[currentSlide]); 
                 currentSlide++; 
@@ -32,9 +32,9 @@ public class Story extends World
         }
         actCounter++; 
         if(Greenfoot.isKeyDown("SPACE")) // left
-            {
-                Greenfoot.setWorld(new Instructions());
-            } 
+        {
+            Greenfoot.setWorld(new Instructions());
+        } 
     }
     
     //fill an array with the pictures used as the slides
