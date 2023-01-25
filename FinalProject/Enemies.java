@@ -9,7 +9,7 @@ public abstract class Enemies extends SmoothMover
 {
     // Player tracking variables
     protected int playerX = 0, playerY = 0, enemyX = 0, enemyY = 0;
-    private int NUM_TILES_X = 12, NUM_TILES_Y = 7;
+    private int NUM_TILES_X = 13, NUM_TILES_Y = 7;
     protected int[][] roomLayout = new int[NUM_TILES_Y][NUM_TILES_X];
     private int TILE_SIZE = 100;
     
@@ -20,7 +20,7 @@ public abstract class Enemies extends SmoothMover
     // Stats - will need to implement a stat scaling system based on the 'level'
     protected int level, hp, def;
     protected double spd, atkDmg; 
-    protected int range;
+    protected int range, obsDectCD = 30, obsDectTimer = 30;
     protected int atkCD, atkTimer; // cooldown as a setting, timer to actually count
     protected SuperStatBar hpBar;
     protected GreenfootImage attack;
@@ -58,13 +58,22 @@ public abstract class Enemies extends SmoothMover
         else{
             attacking = false;
             moving = true;
+            
+            int oldX = getX(), oldY = getY();
             move(spd);
+            if(isTouching(Wall.class)){
+                if(obsDectTimer <= 0){
+                    setLocation(oldX, oldY);
+                    obsDectTimer = obsDectCD;
+                }
+            }
         }
         setRotation(0);
+        obsDectTimer--;
     }
     
     /** 
-     * Look at each room as a 12x7 grid
+     * Look at each room as a 13x7 grid
      * Each grid space will have a value:
      * - Walls/Walls will have a value of 
      * - The player's location will be at a value of 100
@@ -78,9 +87,10 @@ public abstract class Enemies extends SmoothMover
         Player player = (Player) ((ArrayList) w.getObjects(Player.class)).get(0);
         playerX = getXCell(player.getX());
         playerY = getYCell(player.getY());
-        roomLayout[playerY][playerX] = 100;
+        roomLayout[playerY][playerX] = 100;        
         
         for(int i = 0; i < NUM_TILES_Y; i++){
+            roomLayout[i][0] = 1;
             for(int j = 1; j < NUM_TILES_X - 1; j++){
                 if(i == 0 || i == NUM_TILES_Y - 1){
                     roomLayout[i][j] = 1;
@@ -89,6 +99,7 @@ public abstract class Enemies extends SmoothMover
                     roomLayout[i][j] = 100 - (Math.abs(i - playerY) + Math.abs(j - playerX));
                 }
             }
+            roomLayout[i][NUM_TILES_X - 1] = 1;
         }
         
         ArrayList<Wall> walls = (ArrayList) w.getObjects(Wall.class);
@@ -115,6 +126,13 @@ public abstract class Enemies extends SmoothMover
         catch(ArrayIndexOutOfBoundsException e){
             roomLayout[enemyY - 1][enemyX - 1] = 2;
         }
+        for(int i = 0; i < roomLayout.length; i++){
+            for(int j = 0; j < roomLayout[i].length; j++){
+                System.out.print(roomLayout[i][j] + " ");
+            }
+            System.out.println();
+        }
+        
     }
     
     /** 
@@ -166,7 +184,6 @@ public abstract class Enemies extends SmoothMover
         if(hp - dmg > 0){
             hp -= dmg;
             hpBar.update(hp);
-            System.out.println("Enemy: Taking damage"+dmg); 
             beenAttacked = true; 
         }
         else{

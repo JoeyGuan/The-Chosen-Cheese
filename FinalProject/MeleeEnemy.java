@@ -77,7 +77,7 @@ public class MeleeEnemy extends Enemies
         if(atkTimer<=0){ // Only attack if in normal range
             moving = false;
             EnemyMelee em = new EnemyMelee(meleeRadius, this); 
-            gw.addObject(em, this.getX(), this.getY());
+            gw.addObject(em, getX(), getY());
             atkTimer = atkCD;
         }
         
