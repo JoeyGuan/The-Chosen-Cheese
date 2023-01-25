@@ -54,12 +54,9 @@ public class Cheese extends Actor
             if(this.isTouching(Player.class)){
                 GameWorld w = (GameWorld)getWorld(); 
                 String[] v = w.getArrValues(); 
-                Enemies e = w.getObjects(Enemies.class).get(0);
-                if(!(Double.parseDouble(v[7])>=e.getAttackDamage())){
-                    v[7] = Double.toString(Double.parseDouble(v[7])+0.5);
-                    System.out.println("armour added: "+ v[7]); 
-                    w.setArrValues(v); 
-                }
+                v[7] = Double.toString(Double.parseDouble(v[7])+0.5);
+                System.out.println("armour added: "+ v[7]); 
+                w.setArrValues(v); 
 
                 w.markCheeseMap();
                 Color color = new Color(220, 220, 220);

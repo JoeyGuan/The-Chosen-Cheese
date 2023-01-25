@@ -39,6 +39,12 @@ import java.util.List;
  * The Start Screen, End Screen, Story Slides, and all obstacles (vase, tableVase, bed, suitcase, cart, etc) were also drawn by Clara Hong. 
  * DashIcon - https://commons.wikimedia.org/wiki/File:Running_icon_-_Noun_Project_17825.svg 
  * 
+ * Sound credits: 
+ * Main Music (start screen and game world): https://www.youtube.com/watch?v=OWXuChSmpjw&t=304s&ab_channel=ElmostritoOO7 
+ * Story Music: https://www.youtube.com/watch?v=FitRzyV2jw8&ab_channel=WaveJam
+ * 
+ * 
+ * 
  * @author Joey Guan, Harishan Ganeshanathan, Marco Luong, Anthony Ung, Clara Hong
  * @version January 24, 2023
  */
