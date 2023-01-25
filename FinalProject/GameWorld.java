@@ -287,7 +287,6 @@ public class GameWorld extends World
         dungeonFloor[farthestY][farthestX] = -2;
 
         dungeonGenerated = true;
-
     }
 
     /**
