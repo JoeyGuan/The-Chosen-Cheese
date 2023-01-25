@@ -320,22 +320,32 @@ public class Player extends SmoothMover
         if(gw.getKillCount() == 8){
             String[] v = gw.getArrValues();
             v[11] = Integer.toString(1); 
+            //update max health
+            v[10] = Integer.toString(Integer.parseInt(v[10]+10)); 
             gw.setArrValues(v); 
         }else if(gw.getKillCount() == 16){
             String[] v = gw.getArrValues();
             v[11] = Integer.toString(2); 
+            //update max health
+            v[10] = Integer.toString(Integer.parseInt(v[10]+10)); 
             gw.setArrValues(v); 
         }else if(gw.getKillCount() == 32){
             String[] v = gw.getArrValues();
             v[11] = Integer.toString(3); 
+            //update max health
+            v[10] = Integer.toString(Integer.parseInt(v[10]+10)); 
             gw.setArrValues(v); 
         }else if(gw.getKillCount() == 64){
             String[] v = gw.getArrValues();
             v[11] = Integer.toString(4); 
+            //update max health
+            v[10] = Integer.toString(Integer.parseInt(v[10]+10)); 
             gw.setArrValues(v); 
         }else if(gw.getKillCount() == 128){
             String[] v = gw.getArrValues();
             v[11] = Integer.toString(5); 
+            //update max health
+            v[10] = Integer.toString(Integer.parseInt(v[10]+10)); 
             gw.setArrValues(v); 
         }
         
@@ -348,7 +358,6 @@ public class Player extends SmoothMover
         world.removeObject(healthBar);
         world.addObject(healthBar, 200, 30);
     }
-    
     /**
      * Gets the direction that the player is facing 
      * @return int Returns the direction as an int value: 1 = left, 2 = right, 3 = up, 4 = down
@@ -362,5 +371,12 @@ public class Player extends SmoothMover
      */
     public void setAttackStatus(boolean b){
         isAttacking = b; 
+    }
+    /**
+     * Sets the health of the player - useful for updating health after picking up heal cheeses
+     * @param health New health of player. 
+     */
+    public void setHealth(double health){
+        health = health; 
     }
 }

@@ -84,13 +84,18 @@ public class Cheese extends Actor
             if(this.isTouching(Player.class)){
                 GameWorld w = (GameWorld)getWorld(); 
                 String[] v = w.getArrValues(); 
-                v[8] = Double.toString(Double.parseDouble(v[8])+3); 
-                w.setArrValues(v); 
+                int maxHp = Integer.parseInt(v[10]); 
+                if((Double.parseDouble(v[8])+3)<=maxHp){
+                    double x = Double.parseDouble(v[8])+3; 
+                    v[8] = Double.toString(x); 
+                    w.setArrValues(v); 
+                    Player player = w.getObjects(Player.class).get(0);
+                    player.setHealth(x); 
+                }
                 System.out.println(v[8]);
                 w.markCheeseMap();
                 
-                Player player = w.getObjects(Player.class).get(0);
-                player.updateHealthBar();
+                
                 
                 Color color = new Color(0, 255, 0);
                 w.addObject(new PopUp("+Health", color), getX(), getY());
