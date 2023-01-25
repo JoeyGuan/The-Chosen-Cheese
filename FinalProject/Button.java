@@ -1,24 +1,29 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * A clickable Button (made in group simulation project)
+ * A clickable Button (made in/borrowed from previous group simulation project)
  * 
- * @author Anthony Ung,  Gary Niu
+ * @author Anthony Ung,  Gary Niu, Arsham Zare Moayedi
  * @version December 1
  */
 public class Button extends Actor
 {
-    /**
-     * Act - do whatever the Button wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
     protected GreenfootImage background, nameImage, greyBackground; 
+    private GreenfootSound Click;
     private boolean click;
     //protected width, height;
     private int timer = 0;
-
+    /**
+     * Constructor for Button
+     * <p>
+     * Creates a new Button object with a normal state and hover state
+     * 
+     * @param a The normal image of the button
+     * @param b The hover image of the button
+     */
     public Button(GreenfootImage a, GreenfootImage b)
     {
+        Click = new GreenfootSound ("Click.mp3");
         /*
         background = new GreenfootImage(width, height); 
         background.setColor(Color.BLACK); 
@@ -44,7 +49,11 @@ public class Button extends Actor
         timer++;
         click = listenForClick();
     }    
-
+    /**
+     * Returns if the button is clicked
+     * 
+     * @return Button clicked
+     */
     public boolean listenForClick()
     {
         if(Greenfoot.mousePressed(this))
@@ -55,7 +64,7 @@ public class Button extends Actor
             greyBackground.scale(greyBackground.getWidth()+5, greyBackground.getHeight()+5);
             Greenfoot.delay(10);
             greyBackground.scale(greyBackground.getWidth()-5, greyBackground.getHeight()-5);
-            
+            Click.play();
             
             return true;
         } 
@@ -69,7 +78,10 @@ public class Button extends Actor
         return false;
 
     }
-    
+    /**
+     * Returns Click
+     * @return boolean Click
+     */
     public boolean getClick(){
         return click;
     }
