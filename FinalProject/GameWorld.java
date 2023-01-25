@@ -3,28 +3,62 @@ import java.lang.Math.*;
 import java.util.List;
 
 /**
- * Write a description of class MyWorld here.
+ * The Rat Race: The Chosen Cheese
+ * is a rogue-like, dungeon-crawling game inspired by Binding of Isaac.
+ * Playing as the rodential protagonist, skilled in the arts of swords 
+ * and throwing daggers, you must fight through 5 floors of enemies in a
+ * procedurally generated hotel in order to claim the legendary Chosen Cheese.
+ * 
+ * At the end of your game, you will be scored based on the total amount of 
+ * enemies you killed, and the amount of time it took for you to finish.
+ * 
+ * Controls:
+ * Movement: WASD
+ * Attack: SPACE
+ * Weapon Switch: Q
+ * Dash: N
+ * Map: M
+ * 
+ * The controls are for your left hand to use WASD and Q, 
+ * your right hand for M and N, and one of your thumbs for SPACE.
+ * 
+ * Key Features:
+ * - Player Movement + Dashing Power
+ * - Ranged + Melee Weapons (Sword and throwable dagger)
+ * - Cheese Powerups (Instant Health, Speed Upgrade, Attack Upgrade, Armour)
+ * - Ranged + Melee Enemies
+ * - Obstacles
+ * - UI (Attack Type Indicator in the top left which changes based on attack type, health bar, dash cooldown indicator)
+ * - Story
+ * - Procedural Generation
+ * 
+ * Image Credits: 
+ * All characters (Player, Cat, Bird, Snake) and their appearances (walking, attacking, damaged) were drawn by Clara Hong. 
+ * The Start Screen, End Screen, Story Slides, and all obstacles (vase, tableVase, bed, suitcase, cart, etc) were also drawn by Clara Hong. 
  * 
  * @author Joey Guan, Harishan Ganeshanathan, Marco Luong, Anthony Ung, Clara Hong
- * @version January 19, 2023
+ * @version January 24, 2023
  */
 public class GameWorld extends World
 {
+    //Room grid variables
     private static int BLOCK_SIZE = 100;
     private static int X_OFFSET = 50;
     private static int Y_OFFSET = 50;
 
     private SimpleTimer timer = new SimpleTimer();
+
+    //Game metadata
     private int floorDepth = 0;
     private int maxFloorDepth = 5;
-    private int totalRoomAmount = 5 + (3 * floorDepth);
+    private int totalRoomAmount = 5 + (3 * floorDepth); //Room amount of a floor
+    private int enemyNumber; //Enemy amount in a room
 
-    private int enemyNumber;
-    //0 is empty, 1 is a room, -1 is starting room, -2 is boss room
+    //Maps of a floor
     private int[][] dungeonFloor;
-    private int[][] dungeonMap = new int[7][7]; // keeps track of rooms that are clear. 1 for not cleared, 2 for cleared
+    private int[][] dungeonMap = new int[7][7]; // keeps track of rooms that are clear. Cleared means no enemies will spawn again. 1 for not cleared, 2 for cleared
     private int[][] cheeseMap = new int[7][7]; // -1 for no cheese, other numbers means there's that number type of cheese, set to -1 by Cheese object when it gets picked up
-    
+
     //Booleans to make sure certain events only happen once
     private boolean dungeonGenerated = false;
     private boolean doneSpawning = false;
@@ -32,7 +66,7 @@ public class GameWorld extends World
     private boolean trapdoorSpawned = false; 
     private boolean goingToNextFloor = false; 
     private boolean mapAdded = false;
-    
+
     //The room player is currently in (starting location is dungeonFloor[3][3])
     private int currentRoomX = 3;
     private int currentRoomY = 3;
@@ -41,12 +75,12 @@ public class GameWorld extends World
     private int playerX = 6;
     private int playerY = 3;
     
+    //Player stats; kept in world because the player would otherwise be reset each time you move rooms/floors
     private String[] values = {"false", "100", "30", "30", "5.5", "4", "8", "0", "50", "0", "50"}; 
-    
+
     private int killCount = 0; 
     /**
-     * Constructor for objects of class MyWorld.
-     * 
+     * Constructor for objects of class GameWorld.
      */
     public GameWorld()
     {    
@@ -61,9 +95,10 @@ public class GameWorld extends World
     public void act()
     {
         if(!dungeonGenerated) generateDungeonFloor();
+        //goingToNextFloor set to true by Player touching a trapdoor
         if(goingToNextFloor)
         {
-            if(floorDepth != maxFloorDepth)
+            if(floorDepth != maxFloorDepth) //If not on the final floor, go down a floor and generate it
             {
                 floorDepth++;
                 totalRoomAmount = 5 + (2 * floorDepth);
@@ -74,20 +109,20 @@ public class GameWorld extends World
                 playerX = 6;
                 playerY = 3;
             }
-            else
+            else //If on the final floor, win the game
             {
                 Greenfoot.setWorld(new EndScreen(stopTimer()));
             }
             goingToNextFloor = false;
         }
-        if(dungeonGenerated && !doneSpawning) 
+        if(dungeonGenerated && !doneSpawning) //If the floor has been generated, and room hasn't been spawned, then spawn room
         {
-            spawnRoom();
+            spawnRoom(); //Clears the world of previous room's Actors, adds in all Actors of current room
         }
-        roomStatusCheck();
-        displayMap();
+        roomStatusCheck(); //Adds cheese + trapdoor when there are no enemies in room, also locks/unlocks doors
+        displayMap(); //Press M for map method
     }
-    
+
     public void roomStatusCheck()
     {
         List<Door> doors = getObjects(Door.class);
@@ -117,7 +152,13 @@ public class GameWorld extends World
             }
         }
     }
-    
+
+    /**
+     * Generates a floor of hotel consisting of a 7x7 grid
+     * of integers, which represent different types of rooms.
+     * -1 is the starting room; -2 is the room containing the trapdoor; 
+     * 0 means there's no room present in the grid; all positive numbers are room layouts
+     */
     public void generateDungeonFloor()
     {
         dungeonFloor = new int[][]{
@@ -134,7 +175,7 @@ public class GameWorld extends World
         int roomAmount = 1;
         while(roomAmount < totalRoomAmount) // generates floor in a randomly moving, snake-like way
         { 
-            int direction = Greenfoot.getRandomNumber(4);
+            int direction = Greenfoot.getRandomNumber(4); //randomly picks a direction to move in
             switch (direction){
                 case 0: //up
                     if(y != 0) y -= 1;
@@ -149,7 +190,7 @@ public class GameWorld extends World
                     if(x != 0) x -= 1;
                     break;
             }
-            if(dungeonFloor[y][x] == 0)
+            if(dungeonFloor[y][x] == 0) //If current spot is empty, add a room there
             {
                 dungeonFloor[y][x] = 1;
                 roomAmount++;
@@ -169,7 +210,7 @@ public class GameWorld extends World
                 cheeseMap[i][j] = Greenfoot.getRandomNumber(4); // generates the room's cheese type that will spawn
                 if(dungeonFloor[i][j] > 0)
                 {
-                    dungeonFloor[i][j] = 1 + Greenfoot.getRandomNumber(7); // sets room layout type (obstacles, etc.)
+                    dungeonFloor[i][j] = 1 + Greenfoot.getRandomNumber(7); // sets room layout type (where wall obstacles are placed in the room)
                     int totalDistance = Math.abs(3 - j) + Math.abs(3 - i);
                     if(totalDistance > farthestTotalDistance)
                     {
@@ -196,8 +237,13 @@ public class GameWorld extends World
         System.out.println();
     }
 
+    /**
+     * Simulates moving between rooms by clearing the screen, then 
+     * adding all the Actors present in the new room into the World
+     */
     public void spawnRoom()
     {
+        //Reset variables
         trapdoorSpawned = false;
         cheeseSpawned = false;
         enemyNumber = 2 + Greenfoot.getRandomNumber(floorDepth+1);
@@ -250,23 +296,23 @@ public class GameWorld extends World
         {
             addObject(new Wall("wall"), getXCoordinate(i), getYCoordinate(6));
         }
-        //Adding in doors
-        if(hasNeighborUp(dungeonFloor, currentRoomX, currentRoomY))
+        //Adding in doors, if there is a room neighboring this one in that direction
+        if(currentRoomY > 0 && dungeonFloor[currentRoomY-1][currentRoomX] != 0) //Up
         {
             Door doorUp = new Door();
             addObject(doorUp, getXCoordinate(6), getYCoordinate(0));
         }
-        if(hasNeighborDown(dungeonFloor, currentRoomX, currentRoomY))
+        if(currentRoomY < 6 && dungeonFloor[currentRoomY+1][currentRoomX] != 0) //Down
         {
             Door doorDown = new Door();
             addObject(doorDown, getXCoordinate(6), getYCoordinate(6));
         }
-        if(hasNeighborRight(dungeonFloor, currentRoomX, currentRoomY))
+        if(currentRoomX < 6 && dungeonFloor[currentRoomY][currentRoomX+1] != 0) //Right
         {
             Door doorRight = new Door();
             addObject(doorRight, getXCoordinate(12), getYCoordinate(3));
         }
-        if(hasNeighborLeft(dungeonFloor, currentRoomX, currentRoomY))
+        if(currentRoomX > 0 && dungeonFloor[currentRoomY][currentRoomX-1] != 0) //Left
         {
             Door doorLeft = new Door();
             addObject(doorLeft, getXCoordinate(0), getYCoordinate(3));
@@ -278,6 +324,7 @@ public class GameWorld extends World
         }
         doneSpawning = true;
     }
+
     /**
      * Spawns enemies into the world 
      */
@@ -289,7 +336,7 @@ public class GameWorld extends World
             String enemyType;
             int x = 0;
             int y = 0;
-            while(!coordinateGenerated)
+            while(!coordinateGenerated) //Generates coordinates until it finds a valid empty grid spot
             {
                 x = 1 + Greenfoot.getRandomNumber(11);
                 y = 1 + Greenfoot.getRandomNumber(5);
@@ -298,7 +345,7 @@ public class GameWorld extends World
                     coordinateGenerated = true;
                 }
             }
-            int random = Greenfoot.getRandomNumber(3);
+            int random = Greenfoot.getRandomNumber(3); //Randomly choose 1 of 3 enemy types
             if(random == 1)
             {
                 enemyType = "melee";
@@ -333,7 +380,10 @@ public class GameWorld extends World
             }
         }
     }
-    
+
+    /**
+     * Displays a map of the floor when "M" is pressed down
+     */
     public void displayMap()
     {
         removeObjects(getObjects(Map.class));
@@ -344,7 +394,10 @@ public class GameWorld extends World
             mapAdded = true;
         }
     }
-    
+
+    /**
+     * Facilitates movement between rooms
+     */
     public void moveRooms(int direction)
     {
         switch (direction){
@@ -362,6 +415,7 @@ public class GameWorld extends World
                 break;
         }
     }
+
     /**
      * Set doneSpawning variable
      * @param b Boolean for doneSpawning variables to be set to 
@@ -370,6 +424,7 @@ public class GameWorld extends World
     {
         doneSpawning = b;
     }
+
     /**
      * Set goingToNextFloor variable 
      * @param b Boolean to set goingToNextFloor variable to
@@ -378,6 +433,7 @@ public class GameWorld extends World
     {
         goingToNextFloor = b;
     }
+
     /**
      * Set player x coordinate
      * @param x New x coordinate for player 
@@ -386,6 +442,7 @@ public class GameWorld extends World
     {
         playerX = x;
     }
+
     /**
      * Set player y coordinate 
      * @param y New y coordinate for player 
@@ -395,41 +452,6 @@ public class GameWorld extends World
         playerY = y;
     }
 
-    public boolean hasNeighborUp(int[][] floor, int x, int y)
-    {
-        if(y > 0 && floor[y-1][x] != 0)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean hasNeighborDown(int[][] floor, int x, int y)
-    {
-        if(y < 6 && floor[y+1][x] != 0)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean hasNeighborRight(int[][] floor, int x, int y)
-    {
-        if(x < 6 && floor[y][x+1] != 0)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean hasNeighborLeft(int[][] floor, int x, int y)
-    {
-        if(x > 0 && floor[y][x-1] != 0)
-        {
-            return true;
-        }
-        return false;
-    }
     /**
      * Marks if the cheese in the room is taken on the map 
      */
@@ -453,6 +475,7 @@ public class GameWorld extends World
     public static int getYCell(int coordinate){
         return (coordinate - Y_OFFSET) % BLOCK_SIZE;
     }
+
     /**
      * Get the BLOCK_SIZE variable
      * return int Return the BLOCK_SIZE variable 
@@ -461,6 +484,7 @@ public class GameWorld extends World
     {
         return BLOCK_SIZE;
     }
+
     /**
      * Get the currentRoomY variable
      * return int Return the currentRoomY variable 
@@ -468,6 +492,7 @@ public class GameWorld extends World
     public int getCurrentRoomY() {
         return currentRoomY; 
     }
+
     /**
      * Get the currentRoomX variable
      * return int Return the currentRoomX variable 
@@ -475,6 +500,7 @@ public class GameWorld extends World
     public int getCurrentRoomX() {
         return currentRoomX; 
     }
+
     /**
      * Get the array holding the player values 
      * @return String[] Returns the string array holding player values
@@ -482,6 +508,7 @@ public class GameWorld extends World
     public String[] getArrValues(){
         return values;
     }
+
     /**
      * Set the array holding the player values 
      * @param v String array with the updated player values 
@@ -491,11 +518,10 @@ public class GameWorld extends World
             values[i] = v[i]; 
         }
     }
-    
+
     /**
      * Methods for adding room layouts into the world
      */
-
     public void room1()
     {
         addObject(new Wall("statue"), getXCoordinate(1), getYCoordinate(1));
@@ -511,7 +537,7 @@ public class GameWorld extends World
         addObject(new Wall("cart"), getXCoordinate(3), getYCoordinate(1));
         addObject(new Wall("cart"), getXCoordinate(8), getYCoordinate(5));
         addObject(new Wall("cart"), getXCoordinate(2), getYCoordinate(5));
-        
+
         addObject(new Wall("suitcase"), getXCoordinate(5), getYCoordinate(2));
         addObject(new Wall("suitcase"), getXCoordinate(6), getYCoordinate(3));
         addObject(new Wall("suitcase"), getXCoordinate(7), getYCoordinate(5));
@@ -572,14 +598,16 @@ public class GameWorld extends World
         addObject(new Wall("vase"), getXCoordinate(7), getYCoordinate(3));
         addObject(new Wall("chair"), getXCoordinate(9), getYCoordinate(1));
     }
-    
+
     public int stopTimer(){
         int sec = timer.millisElapsed() / 1000;
         return sec;
     }
+
     public int getKillCount(){
         return killCount;
     }
+
     public void setKillCount(int kc){
         killCount = kc; 
     }

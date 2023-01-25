@@ -43,13 +43,13 @@ public class EnemyProjectile extends RangedProjectile
     public void act()
     {
         move(speed);
-        //if the arrow hits the end of the world, it removes itself
+        //if the projectily hits a wall or door, it removes itself
         if(getOneIntersectingObject(Player.class)!=null){
             Player p = (Player)getOneIntersectingObject(Player.class);
             p.takeDamage(e.getAttackDamage()); 
             getWorld().removeObject(this);
         }
-        else if(this.getX() > getWorld().getWidth() -5 || this.getX()<5 || this.getY() < 5 || this.getY() > 695){ 
+        else if(this.isTouching(Door.class)||this.isTouching(Wall.class)){ 
             getWorld().removeObject(this);
         }
     }
