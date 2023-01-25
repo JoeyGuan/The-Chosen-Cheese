@@ -89,6 +89,9 @@ public class Cheese extends Actor
                 System.out.println(v[8]);
                 w.markCheeseMap();
                 
+                Player player = w.getObjects(Player.class).get(0);
+                player.updateHealthBar();
+                
                 Color color = new Color(0, 255, 0);
                 w.addObject(new PopUp("+Health", color), getX(), getY());
                 getWorld().removeObject(this); 
