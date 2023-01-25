@@ -137,13 +137,6 @@ public abstract class Enemies extends SmoothMover
         catch(ArrayIndexOutOfBoundsException e){
             roomLayout[enemyY - 1][enemyX - 1] = 2;
         }
-        for(int i = 0; i < roomLayout.length; i++){
-            for(int j = 0; j < roomLayout[i].length; j++){
-                System.out.print(roomLayout[i][j] + " ");
-            }
-            System.out.println();
-        }
-        
     }
     
     /** 
