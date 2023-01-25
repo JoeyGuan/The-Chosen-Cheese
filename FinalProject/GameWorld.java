@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Write a description of class MyWorld here.
  * 
- * @author Joey Guan, Harishan Ganeshanathan, Marco Luong, Anthony Ung
+ * @author Joey Guan, Harishan Ganeshanathan, Marco Luong, Anthony Ung, Clara Hong
  * @version January 19, 2023
  */
 public class GameWorld extends World
@@ -14,6 +14,7 @@ public class GameWorld extends World
     private static int X_OFFSET = 50;
     private static int Y_OFFSET = 50;
 
+    private SimpleTimer timer = new SimpleTimer();
     private int floorDepth = 0;
     private int maxFloorDepth = 5;
     private int totalRoomAmount = 5 + (3 * floorDepth);
@@ -40,8 +41,9 @@ public class GameWorld extends World
     private int playerX = 6;
     private int playerY = 3;
     
-    private String[] values = {"false", "100", "30", "30", "5.5", "4", "8", "0", "30", "0", "30"}; 
+    private String[] values = {"false", "100", "30", "30", "5.5", "4", "8", "0", "50", "0", "50", "1"}; 
     
+    private int killCount = 0; 
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -50,6 +52,7 @@ public class GameWorld extends World
     {    
         super(1300, 700, 1); 
         GreenfootImage background = new GreenfootImage("backgroundnoDoor.png");
+        timer.mark();
         background.scale(1300,700);
         setBackground(background);
         setPaintOrder(UI.class, Player.class, Cheese.class, MeleeAttack.class, RangedProjectile.class, Structures.class);
@@ -73,7 +76,7 @@ public class GameWorld extends World
             }
             else
             {
-                Greenfoot.setWorld(new EndScreen());
+                Greenfoot.setWorld(new EndScreen(stopTimer()));
             }
             goingToNextFloor = false;
         }
@@ -310,14 +313,14 @@ public class GameWorld extends World
             }
             if(enemyType.equals("melee"))
             {
-                int hp = 15 + Greenfoot.getRandomNumber(floorDepth+1);
+                int hp = 15 + floorDepth*3;
                 int attack = 2 + Greenfoot.getRandomNumber(floorDepth+1);
                 int speed = 3 + Greenfoot.getRandomNumber(floorDepth+1);
                 addObject(new MeleeEnemy(hp,speed,attack), getXCoordinate(x), getYCoordinate(y));
             }
             else if(enemyType.equals("ranged"))
             {
-                int hp = 8 + Greenfoot.getRandomNumber(floorDepth+1);
+                int hp = 8 + floorDepth*3;
                 double attack = 2 + Greenfoot.getRandomNumber(floorDepth+1);
                 int speed = 4;
                 addObject(new RangedEnemy(hp,speed,attack), getXCoordinate(x), getYCoordinate(y));
@@ -505,31 +508,79 @@ public class GameWorld extends World
     public void room2()
     {
 
+        addObject(new Wall("cart"), getXCoordinate(3), getYCoordinate(1));
+        addObject(new Wall("cart"), getXCoordinate(8), getYCoordinate(5));
+        addObject(new Wall("cart"), getXCoordinate(2), getYCoordinate(5));
+        
+        addObject(new Wall("suitcase"), getXCoordinate(5), getYCoordinate(2));
+        addObject(new Wall("suitcase"), getXCoordinate(6), getYCoordinate(3));
+        addObject(new Wall("suitcase"), getXCoordinate(7), getYCoordinate(5));
+        addObject(new Wall("suitcase"), getXCoordinate(3), getYCoordinate(4));
+        addObject(new Wall("suitcase"), getXCoordinate(9), getYCoordinate(4));
+        addObject(new Wall("suitcase"), getXCoordinate(7), getYCoordinate(2));
     }
 
     public void room3()
     {
-
+        addObject(new Wall("smallTable"), getXCoordinate(1), getYCoordinate(1));
+        addObject(new Wall("smallTable"), getXCoordinate(4), getYCoordinate(5));
+        addObject(new Wall("cart"), getXCoordinate(5), getYCoordinate(2));
+        addObject(new Wall("cart"), getXCoordinate(2), getYCoordinate(4));
+        addObject(new Wall("chair"), getXCoordinate(6), getYCoordinate(3));
+        addObject(new Wall("couch"), getXCoordinate(8), getYCoordinate(3));
+        addObject(new Wall("fountain"), getXCoordinate(11), getYCoordinate(1));
+        addObject(new Wall("vaseTable"), getXCoordinate(11), getYCoordinate(5));
     }
 
     public void room4()
     {
-
+        addObject(new Wall("fountain"), getXCoordinate(6), getYCoordinate(3));
+        addObject(new Wall("longTable"), getXCoordinate(2), getYCoordinate(1));
+        addObject(new Wall("statue"), getXCoordinate(8), getYCoordinate(1));
+        addObject(new Wall("statue"), getXCoordinate(10), getYCoordinate(4));
+        addObject(new Wall("vaseTable"), getXCoordinate(9), getYCoordinate(2));
+        addObject(new Wall("chair"), getXCoordinate(2), getYCoordinate(4));
     }
 
     public void room5()
     {
-
+        addObject(new Wall("vaseTable"), getXCoordinate(1), getYCoordinate(1));
+        addObject(new Wall("suitcase"), getXCoordinate(2), getYCoordinate(4));
+        addObject(new Wall("longTable"), getXCoordinate(6), getYCoordinate(3));
+        addObject(new Wall("vase"), getXCoordinate(11), getYCoordinate(5));
+        addObject(new Wall("cart"), getXCoordinate(10), getYCoordinate(2));
+        addObject(new Wall("statue"), getXCoordinate(3), getYCoordinate(1));
     }
 
     public void room6()
     {
-
+        addObject(new Wall("bedSide"), getXCoordinate(3), getYCoordinate(1));
+        addObject(new Wall("nightTable"), getXCoordinate(1), getYCoordinate(1));
+        addObject(new Wall("wardrobe"), getXCoordinate(10), getYCoordinate(4));
+        addObject(new Wall("couch"), getXCoordinate(7), getYCoordinate(3));
+        addObject(new Wall("chair"), getXCoordinate(1), getYCoordinate(5));
+        addObject(new Wall("vase"), getXCoordinate(9), getYCoordinate(1));
+        addObject(new Wall("suitcase"), getXCoordinate(3), getYCoordinate(3));
     }
 
     public void room7()
     {
-
+        addObject(new Wall("bedFront"), getXCoordinate(2), getYCoordinate(4));
+        addObject(new Wall("suitcase"), getXCoordinate(4), getYCoordinate(3));
+        addObject(new Wall("nightTable"), getXCoordinate(1), getYCoordinate(1));
+        addObject(new Wall("wardrobe"), getXCoordinate(10), getYCoordinate(4));
+        addObject(new Wall("vase"), getXCoordinate(7), getYCoordinate(3));
+        addObject(new Wall("chair"), getXCoordinate(9), getYCoordinate(1));
     }
     
+    public int stopTimer(){
+        int sec = timer.millisElapsed() / 1000;
+        return sec;
+    }
+    public int getKillCount(){
+        return killCount;
+    }
+    public void setKillCount(int kc){
+        killCount = kc; 
+    }
 }

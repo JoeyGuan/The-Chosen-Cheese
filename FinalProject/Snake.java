@@ -21,9 +21,7 @@ public class Snake extends Enemies
         movementTimer = movementCD; // Actual timer
     }
     
-    /**
-     * 
-     */
+    // Main movement controls
     public void act()
     {
         randomMovement();
@@ -55,12 +53,15 @@ public class Snake extends Enemies
         super.act();
     }
     
-    // Method for the snake to change direction
+    /**
+     * Changes the snake's direction of movement. 
+     * Ensures that the snake doesn't keep moving L/R & U/D repeatedly
+     */
     private void randomMovement(){
         enemyWorldSetup();
         if(movementTimer <= 0){
             prevDirect = direction;
-            direction = Greenfoot.getRandomNumber(4) + 1;
+            direction = Greenfoot.getRandomNumber(4) + 1; // Randomizer
             // Ensures that the snake doesnt keep turning in 1 dimension (L/R & U/D)
             if(prevDirect < 3 && direction < 3){
                 direction = Greenfoot.getRandomNumber(2) + 3;
@@ -71,7 +72,7 @@ public class Snake extends Enemies
             movementTimer = movementCD;
         }
         
-        // To check if the snake is by the wall
+        // To check if the snake is approaching the wall, resets timer if so
         try{
             if(direction == 1){ // left
                 if(roomLayout[enemyY][enemyX - 1] == 1){

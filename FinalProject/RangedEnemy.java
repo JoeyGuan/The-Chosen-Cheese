@@ -7,6 +7,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class RangedEnemy extends Enemies
 {
+    private int shootCount = 0;
     // Main constructor
     public RangedEnemy(int hp, int spd, double atkDmg){
         super(hp, spd, atkDmg, "Bird");
@@ -53,7 +54,17 @@ public class RangedEnemy extends Enemies
         Player p = gw.getObjects(Player.class).get(0);
         
         if(atkTimer<=0){
-            EnemyProjectile ep = new EnemyProjectile(spd*2.0, p.getX(), p.getY(), this);
+            shootCount++;
+            EnemyProjectile ep;
+            // After 5 shots are fired, the fifth projectile size will increase slightly
+            if(shootCount >= 5){
+                ep = new EnemyProjectile(spd*2.0, true, p.getX(), p.getY(), this);
+                shootCount = 0;
+            }
+            else{
+                ep = new EnemyProjectile(spd*2.0, false, p.getX(), p.getY(), this);
+            }
+            
             gw.addObject(ep, this.getX(), this.getY()); 
             atkTimer = atkCD; 
         }
