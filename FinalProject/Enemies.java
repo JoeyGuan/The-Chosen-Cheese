@@ -183,6 +183,7 @@ public abstract class Enemies extends SmoothMover
             beenAttacked = true; 
         }
         else{
+            getWorld().addObject(new Skull(), getX(), getY()); 
             hp = 0;
             hpBar.update(hp);
         }

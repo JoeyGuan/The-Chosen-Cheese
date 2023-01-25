@@ -34,7 +34,7 @@ import java.util.List;
  * 
  * Image Credits: 
  * All characters (Player, Cat, Bird, Snake) and their appearances (walking, attacking, damaged) were drawn by Clara Hong. 
- * The Start Screen, End Screen, Story Slides, and all obstacles (vase, tableVase, bed, suitcase, cart, etc) were also drawn by Clara Hong. 
+ * The Start Screen, End Screen, Story Slides, skull, and all obstacles (vase, tableVase, bed, suitcase, cart, etc) were also drawn by Clara Hong. 
  * 
  * @author Joey Guan, Harishan Ganeshanathan, Marco Luong, Anthony Ung, Clara Hong
  * @version January 24, 2023
