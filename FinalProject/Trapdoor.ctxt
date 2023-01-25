@@ -1,8 +1,9 @@
 #BlueJ class context
 comment0.target=Trapdoor
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ TrapDoor\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\n\ Gateway\ between\ Floors\ that\ open\ up\ once\ a\ player\ defeats\ all\ the\ enemies\ in\ the\ room\ \n\ \n\ @author\ Joey\ Guan\n\ @version\ January\ 11\n
 comment1.params=
 comment1.target=Trapdoor()
 comment2.params=
 comment2.target=void\ act()
+comment2.text=\n\ Act\ -\ do\ whatever\ the\ TrapDoor\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
 numComments=3

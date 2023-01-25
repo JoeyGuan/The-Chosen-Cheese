@@ -16,8 +16,13 @@ public class MeleeEnemy extends Enemies
     // Lunge attack variables
     private int lungeCD, lungeTimer, lungeAngle;
     private boolean lunging = false, lunged = false;
-    
-    // Main constructor
+    /**
+     * Constructor for Melee Enemies
+     * 
+     * @param hp HP of enemy 
+     * @param spd Speed of enemy 
+     * @param atkDmg Attack Damage of enemy
+     */
     public MeleeEnemy(int hp, int spd, double atkDmg){
         super(hp, spd, atkDmg, "Cat");
         range = 0;
@@ -70,8 +75,9 @@ public class MeleeEnemy extends Enemies
         }
         atkTimer--;       
     }
-    
-    // Adds an image in front of the enemy to check if the player has been hit.
+    /**
+     * Attack Method for Melee Enemies
+     */
     public void attack(){
         GameWorld gw = (GameWorld)getWorld();        
         if(atkTimer<=0){ // Only attack if in normal range

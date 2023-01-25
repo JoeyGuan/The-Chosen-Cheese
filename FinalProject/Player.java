@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * The main player can move around, attack and switch their attack type
+ * The main player can move around, dash, attack and switch their attack type
  * 
- * @author (Harishan Ganeshanathan, Anthony Ung, Joey Guan) 
- * @version (January 22th, 2023)
+ * @author Harishan Ganeshanathan, Anthony Ung, Joey Guan
+ * @version January 22th, 2023
  */
 public class Player extends SmoothMover
 {
@@ -25,11 +25,14 @@ public class Player extends SmoothMover
     private double attackPower; 
     private double armour; //damage reduction variable
     private double health;
+
+    //extra values
     private double maxHealth;
     private double projectileSpeed = 5; 
     private int meleeRadius; 
     private int meleeReset; //attack resets every .5 seconds
     private int rangeReset; 
+    private int level; 
     
     //dash variables 
     private boolean isDashing = false; 
@@ -60,6 +63,8 @@ public class Player extends SmoothMover
         this.health = Double.parseDouble(values[8]); //25
         this.dashCooldown = Integer.parseInt(values[9]); //0
         this.maxHealth = Double.parseDouble(values[10]); 
+
+        
         
         
         attacked = false;
@@ -68,7 +73,7 @@ public class Player extends SmoothMover
         meleeTimer = 0; 
         attackSwitchTimer = 0;
         
-        cooldown = new SuperStatBar(120, 0, null, 180, 60, 0, Color.WHITE, Color.GREEN, false, Color.BLACK, 3);
+        cooldown = new SuperStatBar(120, 0, null, 200, 20, 0, Color.WHITE, Color.YELLOW, false, Color.BLACK, 0);
     }
 
     public void addedToWorld()
@@ -83,7 +88,7 @@ public class Player extends SmoothMover
     public void act()
     {
         GameWorld gw = (GameWorld)getWorld(); 
-        gw.addObject(cooldown, 80, 700); 
+        gw.addObject(cooldown, 300, 60); 
         moving = false; 
         if(!healthBarAdded)
         {
@@ -236,7 +241,9 @@ public class Player extends SmoothMover
             }
         }
     }
-
+    /**
+     * Attack method for Player
+     */
     public void attack(){
         if(Greenfoot.isKeyDown("SPACE"))//attack
         {
@@ -309,15 +316,16 @@ public class Player extends SmoothMover
         }
         updateHealthBar();
     }
-
+    /**
+     * Method for updating HealthBar
+     */
     public void updateHealthBar()
     {
         GameWorld world = (GameWorld) getWorld();
         healthBar = new SuperStatBar((int)maxHealth, (int)health, null, 200, 20, 0);
         world.removeObject(healthBar);
-        world.addObject(healthBar, 200, 30);
+        world.addObject(healthBar, 300, 30);
     }
-    
     /**
      * Gets the direction that the player is facing 
      * @return int Returns the direction as an int value: 1 = left, 2 = right, 3 = up, 4 = down
@@ -331,5 +339,12 @@ public class Player extends SmoothMover
      */
     public void setAttackStatus(boolean b){
         isAttacking = b; 
+    }
+    /**
+     * Sets the health of the player - useful for updating health after picking up heal cheeses
+     * @param health New health of player. 
+     */
+    public void setHealth(double health){
+        health = health; 
     }
 }

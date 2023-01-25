@@ -8,15 +8,22 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class RangedEnemy extends Enemies
 {
     private int shootCount = 0;
-    // Main constructor
+    /**
+     * Constructor for Ranged Enemy
+     * 
+     * @param hp HP of enemy 
+     * @param spd Speed of enemy 
+     * @param atkDmg Attack Damage of enemy
+     */
     public RangedEnemy(int hp, int spd, double atkDmg){
         super(hp, spd, atkDmg, "Bird");
         range = 5;
         atkCD = 90;
         atkTimer = atkCD;
     }
-    
-    // Tracks and attacks the player
+    /**
+     * Act Method for Ranged Enemy
+     */
     public void act()
     {
         if(beenAttacked){
@@ -46,7 +53,9 @@ public class RangedEnemy extends Enemies
         super.act();
     }
     
-    // Shoot a projectile once attack cooldown is up
+    /**
+     * Shoot a projectile after attack cooldown is over
+     */
     public void attack(){
         attacking = true;
         moving = false;

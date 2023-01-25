@@ -56,7 +56,9 @@ public class PopUp extends UI
         img.setColor(c);
         img.drawString(line, getImage().getWidth() / 2 - (line.length() * fontSize / 4), getImage().getHeight() / 2);
     }
-    
+    /**
+     * Act Method for PopUp
+     */
     public void act()
     {
         num -= numChange;
