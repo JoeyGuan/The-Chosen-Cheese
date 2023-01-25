@@ -39,6 +39,10 @@ import java.util.List;
  * The Start Screen, End Screen, Story Slides, and all obstacles (vase, tableVase, bed, suitcase, cart, etc) were also drawn by Clara Hong. 
  * DashIcon - https://commons.wikimedia.org/wiki/File:Running_icon_-_Noun_Project_17825.svg 
  * 
+ * Sound Credits: 
+ * Slash sound is from mixkit - "Dagger Woosh" - https://mixkit.co/free-sound-effects/sword/
+ * Munching sound is from pixabay by Maugusto sfx : https://pixabay.com/sound-effects/eatingsfxwav-14588/
+ * 
  * @author Joey Guan, Harishan Ganeshanathan, Marco Luong, Anthony Ung, Clara Hong
  * @version January 24, 2023
  */

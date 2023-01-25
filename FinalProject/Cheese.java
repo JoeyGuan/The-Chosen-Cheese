@@ -60,7 +60,7 @@ public class Cheese extends Actor
                     System.out.println("armour added: "+ v[7]); 
                     w.setArrValues(v); 
                 }
-
+                
                 w.markCheeseMap();
                 Color color = new Color(220, 220, 220);
                 w.addObject(new PopUp("+Armor", color), getX(), getY());

@@ -16,6 +16,7 @@ public class MeleeEnemy extends Enemies
     // Lunge attack variables
     private int lungeCD, lungeTimer, lungeAngle;
     private boolean lunging = false, lunged = false;
+
     /**
      * Constructor for Melee Enemies
      * 
