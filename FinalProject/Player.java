@@ -45,6 +45,9 @@ public class Player extends SmoothMover
     private DashIcon di; 
     private HpIcon hi; 
     private SuperStatBar healthBar;
+    
+    private GreenfootSound slash = new GreenfootSound("slash.wav"); 
+    
     //public Player(boolean ranged, int meleeRadius, int meleeSpeed, int rangeSpeed, double projectileSpeed, double speed,  double attackPower, double armour, double health)
     /**
      * Simple Constructor for Player to set values through parsing a String into integers, booleans and/or doubles
@@ -66,7 +69,7 @@ public class Player extends SmoothMover
         this.dashCooldown = Integer.parseInt(values[9]); //0
         this.maxHealth = Double.parseDouble(values[10]); 
 
-        
+        slash.setVolume(50); 
         
         
         attacked = false;
@@ -256,6 +259,7 @@ public class Player extends SmoothMover
             attacking = true; 
             GameWorld gw = (GameWorld)getWorld();
             if(!attacked){
+                slash.play(); 
                 if(ranged){
                     PlayerProjectile rp = new PlayerProjectile(projectileSpeed, direction, this);
                     gw.addObject(rp, this.getX(), this.getY()); 

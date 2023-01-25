@@ -44,6 +44,9 @@ import java.util.List;
  * Story Music: https://www.youtube.com/watch?v=FitRzyV2jw8&ab_channel=WaveJam
  * 
  * 
+ * Sound Credits: 
+ * Slash sound is from mixkit - "Dagger Woosh" - https://mixkit.co/free-sound-effects/sword/
+ * Munching sound is from pixabay by Maugusto sfx : https://pixabay.com/sound-effects/eatingsfxwav-14588/
  * 
  * @author Joey Guan, Harishan Ganeshanathan, Marco Luong, Anthony Ung, Clara Hong
  * @version January 24, 2023
