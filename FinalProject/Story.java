@@ -34,7 +34,7 @@ public class Story extends World
         b.setLocation(1200,100);
     }
    
-        public void started(){
+    public void started(){
         story.playLoop();
     }
    

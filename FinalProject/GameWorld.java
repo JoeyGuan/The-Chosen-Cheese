@@ -79,6 +79,7 @@ public class GameWorld extends World
     //Player stats; kept in world because the player would otherwise be reset each time you move rooms/floors
     private String[] values = {"false", "100", "30", "30", "5.5", "4", "8", "0", "50", "0", "50"}; 
 
+    private GreenfootSound Theme; 
     /**
      * Constructor for objects of class GameWorld.
      */
@@ -89,9 +90,18 @@ public class GameWorld extends World
         timer.mark();
         background.scale(1300,700);
         setBackground(background);
+        Theme = new GreenfootSound ("Theme.mp3");
+        Theme.setVolume(20);
+        started();
         setPaintOrder(UI.class, Player.class, Cheese.class, MeleeAttack.class, RangedProjectile.class, Structures.class);
     }
-
+    public void started(){
+        Theme.playLoop();
+    }
+   
+    public void stopped(){
+        Theme.stop();
+    }
     public void act()
     {
         if(!dungeonGenerated) generateDungeonFloor();
