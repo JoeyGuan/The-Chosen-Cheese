@@ -24,10 +24,13 @@ public class Player extends SmoothMover
     private double attackPower; 
     private double armour; //damage reduction variable
     private double health;
+    
+    //extra values/stats
     private double projectileSpeed = 5; 
     private int meleeRadius; 
     private int meleeReset; //attack resets every .5 seconds
     private int rangeReset; 
+    private int level; 
     
     //dash variables 
     private boolean isDashing = false; 
@@ -57,6 +60,7 @@ public class Player extends SmoothMover
         this.armour = Double.parseDouble(values[7]); //0
         this.health = Double.parseDouble(values[8]); //25
         this.dashCooldown = Integer.parseInt(values[9]); //0
+        this.level = Integer.parseInt(values[10]); //1
 
         attacked = false;
         isAttacking = false;
@@ -292,6 +296,31 @@ public class Player extends SmoothMover
             GameWorld gw = (GameWorld) getWorld();
             Greenfoot.setWorld(new EndScreen(gw.stopTimer())); 
         }
+    }
+    public void updateLevel(){
+        GameWorld gw = (GameWorld)getWorld(); 
+        if(gw.getKillCount() == 8){
+            String[] v = gw.getArrValues();
+            v[9] = Integer.toString(1); 
+            gw.setArrValues(v); 
+        }else if(gw.getKillCount() == 16){
+            String[] v = gw.getArrValues();
+            v[9] = Integer.toString(2); 
+            gw.setArrValues(v); 
+        }else if(gw.getKillCount() == 32){
+            String[] v = gw.getArrValues();
+            v[9] = Integer.toString(3); 
+            gw.setArrValues(v); 
+        }else if(gw.getKillCount() == 64){
+            String[] v = gw.getArrValues();
+            v[9] = Integer.toString(4); 
+            gw.setArrValues(v); 
+        }else if(gw.getKillCount() == 128){
+            String[] v = gw.getArrValues();
+            v[9] = Integer.toString(5); 
+            gw.setArrValues(v); 
+        }
+        
     }
     /**
      * Gets the direction that the player is facing 

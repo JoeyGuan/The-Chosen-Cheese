@@ -73,13 +73,14 @@ public class PlayerProjectile extends RangedProjectile
         if(getOneIntersectingObject(Enemies.class)!=null){
             Enemies e = (Enemies)getOneIntersectingObject(Enemies.class);
             GameWorld w = (GameWorld)getWorld();
-           String[] v = w.getArrValues(); 
-           double dmg = Double.parseDouble(v[4]); 
+            String[] v = w.getArrValues(); 
+            double dmg = Double.parseDouble(v[4]); 
             e.takeDamage(dmg); 
             if(e.getHp()<=0){
-                getWorld().removeObject(e); 
+                w.setKillCount(w.getKillCount()+1); 
+                w.removeObject(e); 
             }
-            getWorld().removeObject(this);
+            w.removeObject(this);
         }
         else if(this.isTouching(Door.class)||this.isTouching(Wall.class)){  
             getWorld().removeObject(this);

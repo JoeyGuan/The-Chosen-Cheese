@@ -41,8 +41,9 @@ public class GameWorld extends World
     private int playerX = 6;
     private int playerY = 3;
     
-    private String[] values = {"false", "100", "30", "30", "5.5", "3", "8", "0", "50", "0"}; 
+    private String[] values = {"false", "100", "30", "30", "5.5", "3", "8", "0", "50", "0", "1"}; 
     
+    private int killCount = 0; 
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -576,5 +577,11 @@ public class GameWorld extends World
     public int stopTimer(){
         int sec = timer.millisElapsed() / 1000;
         return sec;
+    }
+    public int getKillCount(){
+        return killCount;
+    }
+    public void setKillCount(int kc){
+        killCount = kc; 
     }
 }
