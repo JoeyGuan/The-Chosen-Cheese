@@ -20,8 +20,9 @@ public class Snake extends Enemies
         movementCD = 150; // Countdown for how often the snake changes direction
         movementTimer = movementCD; // Actual timer
     }
-    
-    // Main movement controls
+    /**
+     * Act Method for Snake
+     */
     public void act()
     {
         randomMovement();

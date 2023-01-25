@@ -7,8 +7,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * There is armour cheese, which decreases the amount of damage a player takes, attack cheese, which increases damage, 
  * heal cheese, which heals health, and speed cheese, which increases speed. 
  * 
- * @author (Clara Hong, Harishan Ganeshanathan) 
- * @version (January 20)
+ * @author Clara Hong, Harishan Ganeshanathan 
+ * @version January 20
  */
 public class Cheese extends Actor
 {

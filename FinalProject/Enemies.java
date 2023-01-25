@@ -31,7 +31,14 @@ public abstract class Enemies extends SmoothMover
     protected int damagedTimer = 0; 
     protected boolean beenAttacked = false;
     
-    // Main constructor
+    /**
+     * Constructor for Enemies
+     * 
+     * @param hp HP of enemy 
+     * @param spd Speed of enemy 
+     * @param atkDmg Attack Damage of enemy
+     * @param type Melee or Ranged enemy 
+     */
     public Enemies(int hp, int spd, double atkDmg, String type){
         super(type);
         this.hp = hp; // health
@@ -39,7 +46,9 @@ public abstract class Enemies extends SmoothMover
         this.atkDmg = atkDmg; // damage
         hpBar = new SuperStatBar(hp, hp, this, getImage().getWidth(), hpBarHeight, - getImage().getHeight() / 2 - hpBarHeight, fillColor, barColor, false, barColor, 3);
     }
-    
+    /**
+     * Added to World Method
+     */
     public void addedToWorld(World w){
         w.addObject(hpBar, getX(), getY()); // Adds health bar
     }
@@ -50,7 +59,9 @@ public abstract class Enemies extends SmoothMover
      */
     protected abstract void attack();
     
-    // Checks if player is in range and attacks. Otherwise, keep moving
+    /**
+     * Act Method for enemies
+     */
     public void act(){
         if(isInRange()){
             attack();
@@ -151,7 +162,9 @@ public abstract class Enemies extends SmoothMover
             direction = 2; // right
         }
     }
-    
+    /**
+     * Returns if the player is in range 
+     */
     protected boolean isInRange(){
         int dist = Math.abs(playerX - enemyX) + Math.abs(playerY - enemyY);
         if(dist <= range){
@@ -174,29 +187,62 @@ public abstract class Enemies extends SmoothMover
             hpBar.update(hp);
         }
     }
-    
-    
+    /**
+     * Gets enemy attack damage
+     * @return double Returns Attack Damage
+     */
     public double getAttackDamage(){
         return atkDmg; 
     }
+    /**
+     * Sets attack damage
+     * @param atkDmg New attack damage
+     */
     public void setAttackDamage(double atkDmg){
         this.atkDmg = atkDmg; 
     }
+    /**
+     * Gets HP
+     * @return double HP
+     */
     public double getHp(){
         return hp; 
     }
+    /**
+     * Death method for Enemies
+     */
     protected void death(){ // Run if hp <= 0
         getWorld().removeObject(this);
     }
+    /**
+     * Gets the X coordinate
+     * @param cellNumber Cell number of enemy 
+     * @return int Return X coordinate
+     */
     private int getXCoordinate (int cellNumber){
         return (cellNumber * TILE_SIZE);
     }    
+    /**
+     * Gets the X cell of the enemy 
+     * @param coordinate Coordinate of the enemy
+     * @return int Return X cell
+     */
     private int getXCell(int coordinate){
         return (coordinate) / TILE_SIZE;
     }
+    /**
+     * Gets the Y coordinate
+     * @param cellNumber Cell number of enemy 
+     * @return int Return Y coordinate
+     */
     private int getYCoordinate (int cellNumber){
         return (cellNumber * TILE_SIZE);
     }
+    /**
+     * Gets the Y cell of the enemy 
+     * @param coordinate Coordinate of the enemy
+     * @return int Return Y cell
+     */
     private int getYCell(int coordinate){
         return (coordinate) / TILE_SIZE;
     }

@@ -3,8 +3,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * End Screen that the player gets switched to after they die 
  * 
- * @author (Harishan Ganeshanathan) 
- * @version (January 12)
+ * @author Harishan Ganeshanathan, Marco Luong
+ * @version January 12
  */
 public class EndScreen extends World
 {
