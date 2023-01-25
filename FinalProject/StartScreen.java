@@ -20,7 +20,7 @@ public class StartScreen extends World
         super(1300, 700, 1); 
         setBackground(new GreenfootImage("StartScreen.png"));
         Theme = new GreenfootSound ("Theme.mp3");
-        Theme.setVolume(30);
+        Theme.setVolume(100);
         
         GreenfootImage background = new GreenfootImage("startButton.png");
         background.scale(background.getWidth()/8, background.getHeight()/8);

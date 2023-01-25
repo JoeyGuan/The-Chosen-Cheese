@@ -1,10 +1,14 @@
 #BlueJ class context
 comment0.target=Story
-comment0.text=\r\n\ The\ Story\ World\ is\ where\ the\ storyline\ slideshow\ for\ the\ game\ will\ play.\ \r\n\ The\ backgrounds\ will\ flip\ and\ show\ the\ sequences\ of\ the\ game's\ story.\ \r\n\ \r\n\ @author\ Clara\ Hong\r\n\ @version\ Jan\ 23\r\n
+comment0.text=\r\n\ The\ Story\ World\ is\ where\ the\ storyline\ slideshow\ for\ the\ game\ will\ play.\r\n\ The\ backgrounds\ will\ flip\ and\ show\ the\ sequences\ of\ the\ game's\ story.\r\n\r\n\ @author\ Clara\ Hong\r\n\ @version\ Jan\ 23\r\n
 comment1.params=
 comment1.target=Story()
 comment2.params=
-comment2.target=void\ act()
+comment2.target=void\ started()
 comment3.params=
-comment3.target=void\ initGraphics()
-numComments=4
+comment3.target=void\ stopped()
+comment4.params=
+comment4.target=void\ act()
+comment5.params=
+comment5.target=void\ initGraphics()
+numComments=6

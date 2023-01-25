@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Skull
-comment0.text=\n\ The\ Skull\ is\ a\ popup\ that\ will\ appear\ when\ an\ enemy\ dies.\n\ \n\ @author\ Clara\ Hong\n\ @version\ Jan\ 2023\n
+comment0.text=\r\n\ The\ Skull\ is\ a\ popup\ that\ will\ appear\ when\ an\ enemy\ dies.\r\n\ \r\n\ @author\ Clara\ Hong\r\n\ @version\ Jan\ 2023\r\n
 comment1.params=
 comment1.target=Skull()
 comment2.params=
