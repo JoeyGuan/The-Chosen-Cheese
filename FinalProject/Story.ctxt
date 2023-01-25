@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Story
-comment0.text=\n\ The\ Story\ World\ is\ where\ the\ storyline\ slideshow\ for\ the\ game\ will\ play.\n\ The\ backgrounds\ will\ flip\ and\ show\ the\ sequences\ of\ the\ game's\ story.\n\n\ @author\ Clara\ Hong\n\ @version\ Jan\ 23\n
+comment0.text=\r\n\ The\ Story\ World\ is\ where\ the\ storyline\ slideshow\ for\ the\ game\ will\ play.\r\n\ The\ backgrounds\ will\ flip\ and\ show\ the\ sequences\ of\ the\ game's\ story.\r\n\r\n\ @author\ Clara\ Hong\r\n\ @version\ Jan\ 23\r\n
 comment1.params=
 comment1.target=Story()
 comment2.params=
