@@ -28,7 +28,7 @@ public class Player extends SmoothMover
 
     //extra values
     private double maxHealth;
-    private double projectileSpeed = 5; 
+    private double projectileSpeed = 10; 
     private int meleeRadius; 
     private int meleeReset; //attack resets every .5 seconds
     private int rangeReset; 
