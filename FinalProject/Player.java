@@ -321,6 +321,7 @@ public class Player extends SmoothMover
         }
         else{
             GameWorld gw = (GameWorld) getWorld();
+            gw.stopped(); 
             Greenfoot.setWorld(new EndScreen(gw.stopTimer(), false)); 
         }
         updateHealthBar();

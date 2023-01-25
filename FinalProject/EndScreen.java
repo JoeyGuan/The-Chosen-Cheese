@@ -20,6 +20,7 @@ public class EndScreen extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1300, 700, 1);
+        
         if(win)
         {
             setBackground(new GreenfootImage("WinScreen.png"));
@@ -48,7 +49,6 @@ public class EndScreen extends World
         addObject(b,getWidth()/2,getHeight()/2 + 90);
         b.setLocation(650,300);
     }
-    
     public void act(){
         if (b.getClick()){
             Greenfoot.setWorld(new StartScreen());

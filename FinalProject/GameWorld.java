@@ -165,6 +165,7 @@ public class GameWorld extends World
             }
             else //If on the final floor, win the game
             {
+                stopped(); 
                 Greenfoot.setWorld(new EndScreen(stopTimer(), true));
             }
             goingToNextFloor = false;
