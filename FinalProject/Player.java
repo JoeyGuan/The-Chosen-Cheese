@@ -63,7 +63,6 @@ public class Player extends SmoothMover
         this.health = Double.parseDouble(values[8]); //25
         this.dashCooldown = Integer.parseInt(values[9]); //0
         this.maxHealth = Double.parseDouble(values[10]); 
-        this.level = Integer.parseInt(values[11]); //1
 
         
         
@@ -74,7 +73,7 @@ public class Player extends SmoothMover
         meleeTimer = 0; 
         attackSwitchTimer = 0;
         
-        cooldown = new SuperStatBar(120, 0, null, 180, 60, 0, Color.WHITE, Color.GREEN, false, Color.BLACK, 3);
+        cooldown = new SuperStatBar(120, 0, null, 200, 20, 0, Color.WHITE, Color.YELLOW, false, Color.BLACK, 0);
     }
 
     public void addedToWorld()
@@ -89,7 +88,7 @@ public class Player extends SmoothMover
     public void act()
     {
         GameWorld gw = (GameWorld)getWorld(); 
-        gw.addObject(cooldown, 80, 700); 
+        gw.addObject(cooldown, 300, 60); 
         moving = false; 
         if(!healthBarAdded)
         {
@@ -317,42 +316,6 @@ public class Player extends SmoothMover
         }
         updateHealthBar();
     }
-    
-    /*public void updateLevel(){
-        GameWorld gw = (GameWorld)getWorld(); 
-        if(gw.getKillCount() == 8){
-            String[] v = gw.getArrValues();
-            v[11] = Integer.toString(1); 
-            //update max health
-            v[10] = Integer.toString(Integer.parseInt(v[10]+10)); 
-            gw.setArrValues(v); 
-        }else if(gw.getKillCount() == 16){
-            String[] v = gw.getArrValues();
-            v[11] = Integer.toString(2); 
-            //update max health
-            v[10] = Integer.toString(Integer.parseInt(v[10]+10)); 
-            gw.setArrValues(v); 
-        }else if(gw.getKillCount() == 32){
-            String[] v = gw.getArrValues();
-            v[11] = Integer.toString(3); 
-            //update max health
-            v[10] = Integer.toString(Integer.parseInt(v[10]+10)); 
-            gw.setArrValues(v); 
-        }else if(gw.getKillCount() == 64){
-            String[] v = gw.getArrValues();
-            v[11] = Integer.toString(4); 
-            //update max health
-            v[10] = Integer.toString(Integer.parseInt(v[10]+10)); 
-            gw.setArrValues(v); 
-        }else if(gw.getKillCount() == 128){
-            String[] v = gw.getArrValues();
-            v[11] = Integer.toString(5); 
-            //update max health
-            v[10] = Integer.toString(Integer.parseInt(v[10]+10)); 
-            gw.setArrValues(v); 
-        }
-        
-    }*/
     /**
      * Method for updating HealthBar
      */
@@ -361,7 +324,7 @@ public class Player extends SmoothMover
         GameWorld world = (GameWorld) getWorld();
         healthBar = new SuperStatBar((int)maxHealth, (int)health, null, 200, 20, 0);
         world.removeObject(healthBar);
-        world.addObject(healthBar, 200, 30);
+        world.addObject(healthBar, 300, 30);
     }
     /**
      * Gets the direction that the player is facing 

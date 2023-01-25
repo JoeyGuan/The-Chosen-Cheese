@@ -20,15 +20,15 @@ import java.util.List;
  * Map: M
  * 
  * The controls are for your left hand to use WASD and Q, 
- * your right hand for M, and N, and one of your thumbs for SPACE.
+ * your right hand for M and N, and one of your thumbs for SPACE.
  * 
  * Key Features:
  * - Player Movement + Dashing Power
- * - Ranged + Melee Weapons
- * - Cheese Powerups
+ * - Ranged + Melee Weapons (Sword and throwable dagger)
+ * - Cheese Powerups (Instant Health, Speed Upgrade, Attack Upgrade, Armour)
  * - Ranged + Melee Enemies
  * - Obstacles
- * - UI
+ * - UI (Attack Type Indicator in the top left which changes based on attack type, health bar, dash cooldown indicator)
  * - Story
  * - Procedural Generation
  * 
@@ -76,7 +76,7 @@ public class GameWorld extends World
     private int playerY = 3;
     
     //Player stats; kept in world because the player would otherwise be reset each time you move rooms/floors
-    private String[] values = {"false", "100", "30", "30", "5.5", "4", "8", "0", "50", "0", "50", "1"}; 
+    private String[] values = {"false", "100", "30", "30", "5.5", "4", "8", "0", "50", "0", "50"}; 
 
     private int killCount = 0; 
     /**
