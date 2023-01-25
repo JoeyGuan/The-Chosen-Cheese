@@ -10,7 +10,7 @@ public class HpIcon extends UI
 {
     private GreenfootImage img = new GreenfootImage("HpIcon.png");
     public HpIcon(){
-        img.scale(40, 40); 
+        img.scale(40, 35); 
         setImage(img); 
     }
     public void act()
