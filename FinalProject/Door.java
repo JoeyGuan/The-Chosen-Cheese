@@ -31,25 +31,25 @@ public class Door extends Structures
         //Sets image based on orientation
         if(getX() == 650 && getY() == 50)//up
         {
-            GreenfootImage imageTop = new GreenfootImage("topDoor.png");
+            GreenfootImage imageTop = new GreenfootImage("BWtopDoor.png");
             imageTop.scale(sideLength, sideLength);
             setImage(imageTop);
         }
         if(getX() == 650 && getY() == 650)//down
         {
-            GreenfootImage imageBottom = new GreenfootImage("bottomDoor.png");
+            GreenfootImage imageBottom = new GreenfootImage("BWbottomDoor.png");
             imageBottom.scale(sideLength, sideLength);
             setImage(imageBottom);
         }
         if(getX() == 1250 && getY() == 350)//right
         {
-            GreenfootImage imageRight = new GreenfootImage("rightDoor.png");
+            GreenfootImage imageRight = new GreenfootImage("BWrightDoor.png");
             imageRight.scale(sideLength, sideLength);
             setImage(imageRight);
         }
         if(getX() == 50 && getY() == 350)//left
         {
-            GreenfootImage imageLeft = new GreenfootImage("leftDoor.png");
+            GreenfootImage imageLeft = new GreenfootImage("BWleftDoor.png");
             imageLeft.scale(sideLength, sideLength);
             setImage(imageLeft);
         }

@@ -137,13 +137,6 @@ public abstract class Enemies extends SmoothMover
         catch(ArrayIndexOutOfBoundsException e){
             roomLayout[enemyY - 1][enemyX - 1] = 2;
         }
-        for(int i = 0; i < roomLayout.length; i++){
-            for(int j = 0; j < roomLayout[i].length; j++){
-                System.out.print(roomLayout[i][j] + " ");
-            }
-            System.out.println();
-        }
-        
     }
     
     /** 
@@ -200,7 +193,7 @@ public abstract class Enemies extends SmoothMover
             beenAttacked = true; 
         }
         else{
-            getWorld().addObject(new Skull(), getX(), getY()); 
+            getWorld().addObject(new PopUp(new GreenfootImage("skull.png"), 75, 75, 0, new Color(0,0,0), ""), getX(), getY());
             hp = 0;
             hpBar.update(hp);
         }

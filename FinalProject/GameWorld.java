@@ -77,7 +77,7 @@ public class GameWorld extends World
     //The cell numbers that player spawns at
     private int playerX = 6;
     private int playerY = 3;
-    
+
     //Player stats; kept in world because the player would otherwise be reset each time you move rooms/floors
     private String[] values = {"false", "100", "30", "30", "5.5", "4", "8", "0", "50", "0", "50"};
 
@@ -97,13 +97,15 @@ public class GameWorld extends World
         started();
         setPaintOrder(UI.class, Player.class, Cheese.class, MeleeAttack.class, RangedProjectile.class, Structures.class);
     }
+
     public void started(){
         Theme.playLoop();
     }
-   
+
     public void stopped(){
         Theme.stop();
     }
+
     public void act()
     {
         if(!dungeonGenerated) generateDungeonFloor();
@@ -115,6 +117,37 @@ public class GameWorld extends World
                 floorDepth++;
                 totalRoomAmount = 5 + (2 * floorDepth);
 
+                if(floorDepth == 1)
+                {
+                    GreenfootImage background = new GreenfootImage("BLUEbackgroundnoDoor.png");
+                    background.scale(1300,700);
+                    setBackground(background);
+                }
+                else if(floorDepth == 2)
+                {
+                    GreenfootImage background = new GreenfootImage("GREENbackgroundnoDoor.png");
+                    background.scale(1300,700);
+                    setBackground(background);
+                }
+                else if(floorDepth == 3)
+                {
+                    GreenfootImage background = new GreenfootImage("GREYbackgroundnoDoor.png");
+                    background.scale(1300,700);
+                    setBackground(background);
+                }
+                else if(floorDepth == 4)
+                {
+                    GreenfootImage background = new GreenfootImage("MAGENTAbackgroundnoDoor.png");
+                    background.scale(1300,700);
+                    setBackground(background);
+                }
+                else if(floorDepth == 5)
+                {
+                    GreenfootImage background = new GreenfootImage("PURPLEbackgroundnoDoor.png");
+                    background.scale(1300,700);
+                    setBackground(background);
+                }
+                
                 generateDungeonFloor();
                 currentRoomX = 3;
                 currentRoomY = 3;
@@ -135,6 +168,10 @@ public class GameWorld extends World
         displayMap(); //Press M for map method
     }
 
+    /**
+     * Does all the room generation tasks that need to
+     * check if there are still enemies in the room.
+     */
     public void roomStatusCheck()
     {
         List<Door> doors = getObjects(Door.class);
