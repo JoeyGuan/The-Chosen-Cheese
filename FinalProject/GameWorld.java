@@ -9,6 +9,8 @@ import java.util.List;
  * and throwing daggers, you must fight through 5 floors of enemies in a
  * procedurally generated hotel in order to claim the legendary Chosen Cheese.
  * 
+ * NOTE: To see the whole game easily, change max floor depth to a low number, eg. 0 or 1
+ * 
  * At the end of your game, you will be scored based on the total amount of 
  * enemies you killed, and the amount of time it took for you to finish.
  * 
@@ -121,7 +123,7 @@ public class GameWorld extends World
             }
             else //If on the final floor, win the game
             {
-                Greenfoot.setWorld(new EndScreen(stopTimer()));
+                Greenfoot.setWorld(new EndScreen(stopTimer(), true));
             }
             goingToNextFloor = false;
         }
@@ -142,6 +144,11 @@ public class GameWorld extends World
             for(Door d : doors) //opens when there are none
             {
                 d.setIsOpen(true);
+            }
+            if(floorDepth == maxFloorDepth && dungeonFloor[currentRoomY][currentRoomX] == -2 && !trapdoorSpawned) // Spawns chosen cheese
+            {
+                addObject(new Cheese(4), getXCoordinate(6), getYCoordinate(3));
+                trapdoorSpawned = true;
             }
             if(dungeonFloor[currentRoomY][currentRoomX] == -2 && !trapdoorSpawned) //spawn trapdoor at boss room if all enemies are dead
             {

@@ -1,10 +1,8 @@
 #BlueJ class context
 comment0.target=AttackTypeIndicator
-comment0.text=\r\n\ AttackTypeIndicator\ is\ in\ the\ top\ left\ corner\ of\ the\ screen,\ and\ shows\ if\ the\ player\ is\ using\ Melee\ or\ Ranged\ attacks\r\n\ \r\n\ @author\ Joey\ Guan,\ Harishan\ Ganeshanathan\r\n\ @version\ January\ 21\r\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ AttackTypeIndicator\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
 comment1.target=AttackTypeIndicator()
-comment1.text=\r\n\ Constructor\ for\ AttackTypeIndicator\r\n
 comment2.params=
 comment2.target=void\ act()
-comment2.text=\r\n\ Simple\ Act\ Method\r\n
 numComments=3
