@@ -42,6 +42,8 @@ public class Player extends SmoothMover
     private int dashCooldown = 0; 
     
     private SuperStatBar cooldown; 
+    private DashIcon di; 
+    private HpIcon hi; 
     private SuperStatBar healthBar;
     //public Player(boolean ranged, int meleeRadius, int meleeSpeed, int rangeSpeed, double projectileSpeed, double speed,  double attackPower, double armour, double health)
     /**
@@ -73,6 +75,8 @@ public class Player extends SmoothMover
         meleeTimer = 0; 
         attackSwitchTimer = 0;
         
+        di = new DashIcon(); 
+        hi = new HpIcon(); 
         cooldown = new SuperStatBar(120, 0, null, 200, 20, 0, Color.WHITE, Color.YELLOW, false, Color.BLACK, 0);
     }
 
@@ -87,7 +91,9 @@ public class Player extends SmoothMover
      */
     public void act()
     {
-        GameWorld gw = (GameWorld)getWorld(); 
+        GameWorld gw = (GameWorld)getWorld();
+        gw.addObject(hi, 175, 30); 
+        gw.addObject(di, 175, 60); 
         gw.addObject(cooldown, 300, 60); 
         moving = false; 
         if(!healthBarAdded)

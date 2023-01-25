@@ -122,7 +122,6 @@ public class PlayerMelee extends MeleeAttack
                     e.setLocation(e.getX(), e.getY()+75); 
                 }
                 if(e.getHp() <= 0){
-                    w.setKillCount(w.getKillCount()+1); 
                     w.removeObject(e); 
                 }
             }

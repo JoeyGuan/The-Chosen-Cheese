@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=PlayerMelee
-comment0.text=\r\n\ Melee\ Attack\ -\ This\ is\ a\ sword\ swing,\ that\ damages\ enemies\ within\ the\ range\ of\ the\ swing.\r\n\r\n\ @author\ Harishan\ Ganeshanathan\r\n\ @version\ (January\ 17)\r\n
+comment0.text=\r\n\ Melee\ Attack\ -\ This\ is\ a\ sword\ swing,\ that\ damages\ enemies\ within\ the\ range\ of\ the\ swing.\r\n\r\n\ @author\ Harishan\ Ganeshanathan\r\n\ @version\ January\ 17\r\n
 comment1.params=attackRange\ p
 comment1.target=PlayerMelee(int,\ Player)
 comment1.text=\r\n\ Simple\ Constructor\r\n\ @param\ attackRange\ The\ range\ of\ the\ sword\ swing\r\n\ @param\ p\ The\ player\ that\ the\ sword\ swing\ belongs\ to\r\n

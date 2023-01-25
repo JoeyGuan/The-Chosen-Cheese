@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=DashIcon
+comment0.text=\r\n\ Icon\ for\ Dash\ Cooldown\ Bar\r\n\ \r\n\ @author\ Harishan\ Ganeshanathan\r\n\ @version\ January\ 24\r\n
+comment1.params=
+comment1.target=DashIcon()
+comment2.params=
+comment2.target=void\ act()
+numComments=3

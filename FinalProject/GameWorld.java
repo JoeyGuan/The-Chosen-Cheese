@@ -35,6 +35,7 @@ import java.util.List;
  * Image Credits: 
  * All characters (Player, Cat, Bird, Snake) and their appearances (walking, attacking, damaged) were drawn by Clara Hong. 
  * The Start Screen, End Screen, Story Slides, and all obstacles (vase, tableVase, bed, suitcase, cart, etc) were also drawn by Clara Hong. 
+ * DashIcon - https://commons.wikimedia.org/wiki/File:Running_icon_-_Noun_Project_17825.svg 
  * 
  * @author Joey Guan, Harishan Ganeshanathan, Marco Luong, Anthony Ung, Clara Hong
  * @version January 24, 2023
@@ -78,7 +79,6 @@ public class GameWorld extends World
     //Player stats; kept in world because the player would otherwise be reset each time you move rooms/floors
     private String[] values = {"false", "100", "30", "30", "5.5", "4", "8", "0", "50", "0", "50"}; 
 
-    private int killCount = 0; 
     /**
      * Constructor for objects of class GameWorld.
      */
@@ -602,13 +602,5 @@ public class GameWorld extends World
     public int stopTimer(){
         int sec = timer.millisElapsed() / 1000;
         return sec;
-    }
-
-    public int getKillCount(){
-        return killCount;
-    }
-
-    public void setKillCount(int kc){
-        killCount = kc; 
     }
 }

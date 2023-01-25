@@ -77,7 +77,6 @@ public class PlayerProjectile extends RangedProjectile
             double dmg = Double.parseDouble(v[4]); 
             e.takeDamage(dmg); 
             if(e.getHp()<=0){
-                w.setKillCount(w.getKillCount()+1); 
                 w.removeObject(e); 
             }
             w.removeObject(this);
