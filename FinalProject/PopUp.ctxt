@@ -9,4 +9,5 @@ comment2.target=PopUp(greenfoot.GreenfootImage,\ int,\ int,\ int,\ greenfoot.Col
 comment2.text=\n\ Constructor\ for\ custom\ image\ PopUps\ with\ a\ specified\n\ String\ of\ text\ layered\ on\ it.\n\ \n\ @param\ img\ \ \ \ \ \ \ \ A\ specified\ GreenfootImage\n\ @param\ scaleW\ \ \ \ \ Width\ of\ img\n\ @param\ scaleL\ \ \ \ \ Length\ of\ img\n\ @param\ fontSize\ \ \ Size\ of\ text\n\ @param\ c\ \ \ \ \ \ \ \ \ \ Color\ of\ text\n\ @param\ line\ \ \ \ \ \ \ Text\ that\ you\ want\ to\ show\n\ \n
 comment3.params=
 comment3.target=void\ act()
+comment3.text=\r\n\ Act\ Method\ for\ PopUp\r\n
 numComments=4

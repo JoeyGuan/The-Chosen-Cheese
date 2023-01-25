@@ -1,19 +1,35 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class EnemyProjectile here.
+ * Projectile for ranged enemy.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Marco Luong
  */
 public class EnemyProjectile extends RangedProjectile
 {
     private Enemies e; 
-    private int pX, pY;
-    public EnemyProjectile(double speed, int pX, int pY, Enemies e){
+    private int pX, pY, projectileSize = 25;
+    /**
+     * Main constructor.
+     * 
+     * @param buffed Projectile with an enlarged size
+     * @param pX Player x coordinate
+     * @param pY Player Y coordinate
+     * @param e The enemy that shot the projectile
+     */
+    public EnemyProjectile(double speed, boolean buffed, int pX, int pY, Enemies e){
         super(speed);
         setImage("BirdProjectile.png");
-        getImage().scale(25, 25);
+        
+        if(buffed){ // Enlarged projectile
+            projectileSize *= 2;
+            getImage().scale(projectileSize, projectileSize);
+            projectileSize /= 2;
+        }
+        else{
+            getImage().scale(projectileSize, projectileSize);
+        }
+        
         this.e = e;
         this.pX = pX;
         this.pY = pY;
@@ -22,21 +38,18 @@ public class EnemyProjectile extends RangedProjectile
     public void addedToWorld(World w){
         turnTowards(pX, pY);        
     }
-    /**
-     * Act - do whatever the EnemyProjectile wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    
+    // Moves in direction of the player
     public void act()
     {
-        // Add your action code here.
         move(speed);
-        //if the arrow hits the end of the world, it removes itself
+        //if the projectily hits a wall or door, it removes itself
         if(getOneIntersectingObject(Player.class)!=null){
             Player p = (Player)getOneIntersectingObject(Player.class);
             p.takeDamage(e.getAttackDamage()); 
             getWorld().removeObject(this);
         }
-        else if(this.getX() > getWorld().getWidth() -5 || this.getX()<5 || this.getY() < 5 || this.getY() > 695){ 
+        else if(this.isTouching(Door.class)||this.isTouching(Wall.class)){ 
             getWorld().removeObject(this);
         }
     }

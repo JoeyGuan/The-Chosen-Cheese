@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class StartScreen here.
+ * Starting Screen for the Game
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Anthony Ung, Clara Hong 
+ * @version January 18
  */
 public class StartScreen extends World
 {

@@ -6,8 +6,8 @@ import greenfoot.GreenfootImage;
 /**
  * Melee Attack - This is a sword swing, that damages enemies within the range of the swing.
  *
- * @author (Harishan Ganeshanathan)
- * @version (January 17)
+ * @author Harishan Ganeshanathan
+ * @version January 17
  */
 public class PlayerMelee extends MeleeAttack
 {
@@ -122,7 +122,8 @@ public class PlayerMelee extends MeleeAttack
                     e.setLocation(e.getX(), e.getY()+75); 
                 }
                 if(e.getHp() <= 0){
-                    getWorld().removeObject(e); 
+                    w.setKillCount(w.getKillCount()+1); 
+                    w.removeObject(e); 
                 }
             }
             p.setAttackStatus(false);

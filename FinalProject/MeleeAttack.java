@@ -2,10 +2,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import greenfoot.GreenfootImage;
 
 /**
- * Write a description of class MeleeAttack here.
+ * Melee parent class for organization
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Marco Luong, Harishan Ganeshanathan
  */
 public abstract class MeleeAttack extends Attack
 {
@@ -17,8 +16,11 @@ public abstract class MeleeAttack extends Attack
     protected int animationOffset; 
     protected boolean animated;
     
-
-    
+    /**
+     * Main cosntructor
+     *
+     * @param attackRange How far the melee checks for contact
+     */
     public MeleeAttack(int attackRange){
         this.attackRange = attackRange; 
     }

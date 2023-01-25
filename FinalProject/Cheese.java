@@ -7,8 +7,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * There is armour cheese, which decreases the amount of damage a player takes, attack cheese, which increases damage, 
  * heal cheese, which heals health, and speed cheese, which increases speed. 
  * 
- * @author (Clara Hong, Harishan Ganeshanathan) 
- * @version (January 20)
+ * @author Clara Hong, Harishan Ganeshanathan 
+ * @version January 20
  */
 public class Cheese extends Actor
 {
@@ -84,15 +84,18 @@ public class Cheese extends Actor
             if(this.isTouching(Player.class)){
                 GameWorld w = (GameWorld)getWorld(); 
                 String[] v = w.getArrValues(); 
-                if((Double.parseDouble(v[8])+3)<=16){
-                    v[8] = Double.toString(Double.parseDouble(v[8])+3); 
+                int maxHp = Integer.parseInt(v[10]); 
+                if((Double.parseDouble(v[8])+3)<=maxHp){
+                    double x = Double.parseDouble(v[8])+3; 
+                    v[8] = Double.toString(x); 
                     w.setArrValues(v); 
-                    System.out.println(v[8]);
-                }else if(Double.parseDouble(v[8])+3==16){
-                    v[8] = Double.toString(16); 
-                    w.setArrValues(v); 
+                    Player player = w.getObjects(Player.class).get(0);
+                    player.setHealth(x); 
                 }
+                System.out.println(v[8]);
                 w.markCheeseMap();
+                
+                
                 
                 Color color = new Color(0, 255, 0);
                 w.addObject(new PopUp("+Health", color), getX(), getY());
@@ -103,9 +106,14 @@ public class Cheese extends Actor
         {
             if(this.isTouching(Player.class)){
                 GameWorld w = (GameWorld)getWorld(); 
-                String[] v = w.getArrValues(); 
-                v[5] = Double.toString(Double.parseDouble(v[5])+0.5); 
-                w.setArrValues(v);
+                String[] v = w.getArrValues();
+                if((Double.parseDouble(v[5])+0.5)<=8){
+                    v[5] = Double.toString(Double.parseDouble(v[5])+0.5); 
+                    w.setArrValues(v);
+                }else if((Double.parseDouble(v[5])+0.5 == 8)){
+                    v[5] = Double.toString(8);
+                    w.setArrValues(v); 
+                }
                 
                 w.markCheeseMap();
                 

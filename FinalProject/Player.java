@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * The main player can move around, attack and switch their attack type
+ * The main player can move around, dash, attack and switch their attack type
  * 
- * @author (Harishan Ganeshanathan, Anthony Ung, Joey Guan) 
- * @version (January 22th, 2023)
+ * @author Harishan Ganeshanathan, Anthony Ung, Joey Guan
+ * @version January 22th, 2023
  */
 public class Player extends SmoothMover
 {
@@ -14,20 +14,25 @@ public class Player extends SmoothMover
     private boolean attacked;
     private boolean isAttacking; 
     private boolean attackSwitched = false;
+    private boolean healthBarAdded = false;
     private int attackSwitchTimer; 
     private int rangeTimer; 
     private int meleeTimer; 
-
+    
     //upgradable stats
     private double speed;
     private double projectilePower;
     private double attackPower; 
     private double armour; //damage reduction variable
     private double health;
+
+    //extra values
+    private double maxHealth;
     private double projectileSpeed = 5; 
     private int meleeRadius; 
     private int meleeReset; //attack resets every .5 seconds
     private int rangeReset; 
+    private int level; 
     
     //dash variables 
     private boolean isDashing = false; 
@@ -36,8 +41,8 @@ public class Player extends SmoothMover
     private int dashTimer = 0; 
     private int dashCooldown = 0; 
     
-    private SuperStatBar cooldown;  
-
+    private SuperStatBar cooldown; 
+    private SuperStatBar healthBar;
     //public Player(boolean ranged, int meleeRadius, int meleeSpeed, int rangeSpeed, double projectileSpeed, double speed,  double attackPower, double armour, double health)
     /**
      * Simple Constructor for Player to set values through parsing a String into integers, booleans and/or doubles
@@ -52,21 +57,31 @@ public class Player extends SmoothMover
         this.meleeReset = Integer.parseInt(values[2]); //30
         this.rangeReset = Integer.parseInt(values[3]); //30
         this.projectilePower = Double.parseDouble(values[4]); //5
-        this.speed = Double.parseDouble(values[5]); //5
+        this.speed = Double.parseDouble(values[5]); //3
         this.attackPower = Double.parseDouble(values[6]); //8 
         this.armour = Double.parseDouble(values[7]); //0
         this.health = Double.parseDouble(values[8]); //25
         this.dashCooldown = Integer.parseInt(values[9]); //0
+        this.maxHealth = Double.parseDouble(values[10]); 
+        this.level = Integer.parseInt(values[11]); //1
 
+        
+        
+        
         attacked = false;
         isAttacking = false;
         rangeTimer = 0;
         meleeTimer = 0; 
         attackSwitchTimer = 0;
         
-        cooldown = new SuperStatBar(90, 0, null, 180, 60, 0, Color.WHITE, Color.GREEN, false, Color.BLACK, 3);
+        cooldown = new SuperStatBar(120, 0, null, 180, 60, 0, Color.WHITE, Color.GREEN, false, Color.BLACK, 3);
     }
 
+    public void addedToWorld()
+    {
+        healthBarAdded = false;
+    }
+    
     /**
      * Act - do whatever the Player wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -76,6 +91,11 @@ public class Player extends SmoothMover
         GameWorld gw = (GameWorld)getWorld(); 
         gw.addObject(cooldown, 80, 700); 
         moving = false; 
+        if(!healthBarAdded)
+        {
+            updateHealthBar();
+            healthBarAdded = true;
+        }
         if(dashReady){
             if(Greenfoot.isKeyDown("N")){
                 isDashing = true;
@@ -118,14 +138,14 @@ public class Player extends SmoothMover
                 }
             }
             dashTimer++;
-            if(dashTimer == 15){
+            if(dashTimer == 8){
                 dashTimer = 0;
                 isDashing = false;
                 dashReady = false;
                 dashed = false; 
             }
         }
-        if(dashCooldown == 90){
+        if(dashCooldown == 120){
             dashReady = true;
             dashCooldown = 0; 
             String[] v = gw.getArrValues(); 
@@ -169,6 +189,7 @@ public class Player extends SmoothMover
         cooldown.update(Integer.parseInt(v[9]));  
         actCounter++; 
     }
+    
     /**
      * Method for player movement - Note that players cannot move when melee attacking
      */
@@ -221,7 +242,9 @@ public class Player extends SmoothMover
             }
         }
     }
-
+    /**
+     * Attack method for Player
+     */
     public void attack(){
         if(Greenfoot.isKeyDown("SPACE"))//attack
         {
@@ -289,8 +312,56 @@ public class Player extends SmoothMover
             }
         }
         else{
-            Greenfoot.setWorld(new EndScreen()); 
+            GameWorld gw = (GameWorld) getWorld();
+            Greenfoot.setWorld(new EndScreen(gw.stopTimer())); 
         }
+        updateHealthBar();
+    }
+    
+    /*public void updateLevel(){
+        GameWorld gw = (GameWorld)getWorld(); 
+        if(gw.getKillCount() == 8){
+            String[] v = gw.getArrValues();
+            v[11] = Integer.toString(1); 
+            //update max health
+            v[10] = Integer.toString(Integer.parseInt(v[10]+10)); 
+            gw.setArrValues(v); 
+        }else if(gw.getKillCount() == 16){
+            String[] v = gw.getArrValues();
+            v[11] = Integer.toString(2); 
+            //update max health
+            v[10] = Integer.toString(Integer.parseInt(v[10]+10)); 
+            gw.setArrValues(v); 
+        }else if(gw.getKillCount() == 32){
+            String[] v = gw.getArrValues();
+            v[11] = Integer.toString(3); 
+            //update max health
+            v[10] = Integer.toString(Integer.parseInt(v[10]+10)); 
+            gw.setArrValues(v); 
+        }else if(gw.getKillCount() == 64){
+            String[] v = gw.getArrValues();
+            v[11] = Integer.toString(4); 
+            //update max health
+            v[10] = Integer.toString(Integer.parseInt(v[10]+10)); 
+            gw.setArrValues(v); 
+        }else if(gw.getKillCount() == 128){
+            String[] v = gw.getArrValues();
+            v[11] = Integer.toString(5); 
+            //update max health
+            v[10] = Integer.toString(Integer.parseInt(v[10]+10)); 
+            gw.setArrValues(v); 
+        }
+        
+    }*/
+    /**
+     * Method for updating HealthBar
+     */
+    public void updateHealthBar()
+    {
+        GameWorld world = (GameWorld) getWorld();
+        healthBar = new SuperStatBar((int)maxHealth, (int)health, null, 200, 20, 0);
+        world.removeObject(healthBar);
+        world.addObject(healthBar, 200, 30);
     }
     /**
      * Gets the direction that the player is facing 
@@ -305,5 +376,12 @@ public class Player extends SmoothMover
      */
     public void setAttackStatus(boolean b){
         isAttacking = b; 
+    }
+    /**
+     * Sets the health of the player - useful for updating health after picking up heal cheeses
+     * @param health New health of player. 
+     */
+    public void setHealth(double health){
+        health = health; 
     }
 }

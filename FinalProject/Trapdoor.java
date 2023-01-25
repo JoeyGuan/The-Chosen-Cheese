@@ -1,32 +1,29 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Once the player defeats the boss in the boss room, a trapdoor will appear and the player can move down to the next floor
+ * Gateway between Floors that open up once a player defeats all the enemies in the room 
  * 
- * @author (Joey Guan) 
- * @version (January 16)
+ * @author Joey Guan
+ * @version January 11
  */
 public class Trapdoor extends Structures
-{   
-    /**
-     * Simple Constructor for Trapdoor
-     */
-    public void Trapdoor()
-    {
-        
+{
+    
+    private GreenfootImage img = new GreenfootImage("TrapDoor.png");
+    public Trapdoor(){
+        img.scale(75,75);
+        setImage(img); 
     }
     /**
-     * Act - do whatever the Trapdoor wants to do. This method is called whenever
+     * Act - do whatever the TrapDoor wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
     {
-        GameWorld w = (GameWorld) getWorld();
-        
-        if(!getIntersectingObjects(Player.class).isEmpty())
-        {
+        GameWorld w = (GameWorld)getWorld();
+        if(!getIntersectingObjects(Player.class).isEmpty()){
             w.setGoingToNextFloor(true);
-            w.setDoneSpawning(false);
+            w.setDoneSpawning(false); 
         }
     }
 }

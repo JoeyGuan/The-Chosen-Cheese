@@ -31,7 +31,14 @@ public abstract class Enemies extends SmoothMover
     protected int damagedTimer = 0; 
     protected boolean beenAttacked = false;
     
-    // Main constructor
+    /**
+     * Constructor for Enemies
+     * 
+     * @param hp HP of enemy 
+     * @param spd Speed of enemy 
+     * @param atkDmg Attack Damage of enemy
+     * @param type Melee or Ranged enemy 
+     */
     public Enemies(int hp, int spd, double atkDmg, String type){
         super(type);
         this.hp = hp; // health
@@ -39,14 +46,22 @@ public abstract class Enemies extends SmoothMover
         this.atkDmg = atkDmg; // damage
         hpBar = new SuperStatBar(hp, hp, this, getImage().getWidth(), hpBarHeight, - getImage().getHeight() / 2 - hpBarHeight, fillColor, barColor, false, barColor, 3);
     }
-    
+    /**
+     * Added to World Method
+     */
     public void addedToWorld(World w){
         w.addObject(hpBar, getX(), getY()); // Adds health bar
     }
     
+    /**
+     * Main attack method for the enemies. 
+     * Attacks will differ between types of enemies.
+     */
     protected abstract void attack();
     
-    // Checks if player is in range and attacks. Otherwise, keep moving
+    /**
+     * Act Method for enemies
+     */
     public void act(){
         if(isInRange()){
             attack();
@@ -59,9 +74,10 @@ public abstract class Enemies extends SmoothMover
         setRotation(0);
     }
     
-    /** Look at each room as a 12x7 grid
+    /** 
+     * Look at each room as a 12x7 grid
      * Each grid space will have a value:
-     * - Walls/Obstacles will have a value of 
+     * - Walls/Walls will have a value of 
      * - The player's location will be at a value of 100
      * - The grid value will decrease as it goes further from the player
      * i.e. 98 99  98
@@ -76,7 +92,6 @@ public abstract class Enemies extends SmoothMover
         roomLayout[playerY][playerX] = 100;
         
         for(int i = 0; i < NUM_TILES_Y; i++){
-            roomLayout[i][0] = 1;
             for(int j = 1; j < NUM_TILES_X - 1; j++){
                 if(i == 0 || i == NUM_TILES_Y - 1){
                     roomLayout[i][j] = 1;
@@ -85,16 +100,23 @@ public abstract class Enemies extends SmoothMover
                     roomLayout[i][j] = 100 - (Math.abs(i - playerY) + Math.abs(j - playerX));
                 }
             }
-            roomLayout[i][NUM_TILES_X - 1] = 1;
         }
         
-        /* When obstacles are implemented
-        ArrayList<Obstacle> obstacles = (ArrayList) w.getObjects(Obstacle.class);
-        for(Obstacle o: obstacles){
-            obstacleX = getXCell(o.getX()), obstacleY = getYCell(o.getY());
-            roomLayout[obstacleY][obstacleX] = 1;
+        ArrayList<Wall> walls = (ArrayList) w.getObjects(Wall.class);
+        for(Wall wl: walls){
+            int wallX = getXCell(wl.getX()), wallY = getYCell(wl.getY());
+            try{
+                roomLayout[wallY][wallX] = 1;
+            }
+            catch(ArrayIndexOutOfBoundsException e){
+                if(wallY == NUM_TILES_Y){
+                    roomLayout[wallY - 1][wallX] = 1;
+                }
+                else if(wallX == NUM_TILES_X){
+                    roomLayout[wallY][wallX - 1] = 1;
+                }
+            }
         }
-        */
         
         enemyX = getXCell(getX());
         enemyY = getYCell(getY());
@@ -140,7 +162,9 @@ public abstract class Enemies extends SmoothMover
             direction = 2; // right
         }
     }
-    
+    /**
+     * Returns if the player is in range 
+     */
     protected boolean isInRange(){
         int dist = Math.abs(playerX - enemyX) + Math.abs(playerY - enemyY);
         if(dist <= range){
@@ -148,6 +172,9 @@ public abstract class Enemies extends SmoothMover
         }return false;
     }
     
+    /**
+     * Method for player to deal dmg to enemies
+     */
     public void takeDamage(double dmg){
         if(hp - dmg > 0){
             hp -= dmg;
@@ -160,29 +187,62 @@ public abstract class Enemies extends SmoothMover
             hpBar.update(hp);
         }
     }
-    
-    
+    /**
+     * Gets enemy attack damage
+     * @return double Returns Attack Damage
+     */
     public double getAttackDamage(){
         return atkDmg; 
     }
+    /**
+     * Sets attack damage
+     * @param atkDmg New attack damage
+     */
     public void setAttackDamage(double atkDmg){
         this.atkDmg = atkDmg; 
     }
+    /**
+     * Gets HP
+     * @return double HP
+     */
     public double getHp(){
         return hp; 
     }
-    protected void death(){
+    /**
+     * Death method for Enemies
+     */
+    protected void death(){ // Run if hp <= 0
         getWorld().removeObject(this);
     }
+    /**
+     * Gets the X coordinate
+     * @param cellNumber Cell number of enemy 
+     * @return int Return X coordinate
+     */
     private int getXCoordinate (int cellNumber){
         return (cellNumber * TILE_SIZE);
     }    
+    /**
+     * Gets the X cell of the enemy 
+     * @param coordinate Coordinate of the enemy
+     * @return int Return X cell
+     */
     private int getXCell(int coordinate){
         return (coordinate) / TILE_SIZE;
     }
+    /**
+     * Gets the Y coordinate
+     * @param cellNumber Cell number of enemy 
+     * @return int Return Y coordinate
+     */
     private int getYCoordinate (int cellNumber){
         return (cellNumber * TILE_SIZE);
     }
+    /**
+     * Gets the Y cell of the enemy 
+     * @param coordinate Coordinate of the enemy
+     * @return int Return Y cell
+     */
     private int getYCell(int coordinate){
         return (coordinate) / TILE_SIZE;
     }

@@ -2,7 +2,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * A short-ranged enemy that will track the player and swipe/scratch in front 
- * of itself to deal damage.
+ * of itself to deal damage. After a short cooldown, the melee will increase its
+ * range to prepare for a 'lunge'. Lunging will propel the enemy in the player's 
+ * direction once in range of detection, dealing damage if colliding with them.
  * 
  * @author Marco Luong, Harishan Ganeshanathan
  */
@@ -12,10 +14,15 @@ public class MeleeEnemy extends Enemies
     private int meleeRadius = 50;
     
     // Lunge attack variables
-    private int lungeCD, lungeTimer;
-    private boolean spdUp = false;
-    
-    // Main constructor
+    private int lungeCD, lungeTimer, lungeAngle;
+    private boolean lunging = false, lunged = false;
+    /**
+     * Constructor for Melee Enemies
+     * 
+     * @param hp HP of enemy 
+     * @param spd Speed of enemy 
+     * @param atkDmg Attack Damage of enemy
+     */
     public MeleeEnemy(int hp, int spd, double atkDmg){
         super(hp, spd, atkDmg, "Cat");
         range = 0;
@@ -30,11 +37,6 @@ public class MeleeEnemy extends Enemies
     // needing to be in range of the player.
     public void act()
     {
-        // If lunge is ready, increase range of player detection
-        if(lungeTimer <= 0 && !spdUp){
-            range = 3;
-        }
-        
         if(beenAttacked){
             if(direction == 1){
                 setImage("CatRDamage.png"); 
@@ -59,36 +61,65 @@ public class MeleeEnemy extends Enemies
             animate(direction - 1);
         }
         
-        trackPlayer();
+        if(!lunging){
+            trackPlayer();
+            lungeTimer--; 
+        }
+        else{
+            lunge();
+        }
         super.act();
-        atkTimer--;
-        lungeTimer--;        
+        
+        if(lungeTimer <= 0){
+            range = 3;
+        }
+        atkTimer--;       
     }
-    
-    // Adds an image in front of the enemy to check if the player has been hit.
+    /**
+     * Attack Method for Melee Enemies
+     */
     public void attack(){
         GameWorld gw = (GameWorld)getWorld();        
-        if(atkTimer<=0 && range == 0){ // Only attack if in normal range
+        if(atkTimer<=0){ // Only attack if in normal range
             moving = false;
             EnemyMelee em = new EnemyMelee(meleeRadius, this); 
             gw.addObject(em, this.getX(), this.getY());
-            
-            // resetting variables
-            attacking = false;
             atkTimer = atkCD;
-            
-            if(spdUp){ // Reset speeds if attack was a lunge attack
-                spdUp = false;
-                spd /= 3;
-                lungeTimer = lungeCD;
-            }
         }
         
-        if(!spdUp && lungeTimer <= 0){ // Increase the movement speed for a split second
+        if(range == 3 && !lunging){ // Checks if melee enemy is ready to lunge; Prepares variables
+            Player p = gw.getObjects(Player.class).get(0);
+            lunging = true;
             attacking = true;
-            spdUp = true;
+            moving = true;
             spd *= 3;
+            turnTowards(p.getX(), p.getY());
+            lungeAngle = getRotation();;
+        }
+    }
+    
+    /**
+     * Special attack for melee. Increases movement speed and lets the enemy charge 
+     * in one direction until a wall is met. Reset to previous settings after action done.
+     */
+    private void lunge(){
+        setRotation(lungeAngle);
+        move(spd);
+        
+        if(isTouching(Player.class) && !lunged){
+            Player p = (Player)getOneIntersectingObject(Player.class);
+            lunged = true;
+            p.takeDamage(atkDmg);
+            atkTimer = atkCD;
+        }
+        else if(isTouching(Wall.class) || isTouching(Door.class)){ // If hitting a wall
+            lunging = false;
+            lunged = false;
+            attacking = false;
+            lungeTimer = lungeCD;
+            spd /= 3;
             range = 0;
+            trackPlayer();
         }
     }
 }

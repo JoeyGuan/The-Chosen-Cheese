@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Instructions here.
+ * Screen that displays the controls for the player
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author (Anthony Ung) 
+ * @version (January 19)
  */
 public class Instructions extends World
 {
