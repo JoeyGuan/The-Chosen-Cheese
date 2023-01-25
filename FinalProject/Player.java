@@ -93,7 +93,7 @@ public class Player extends SmoothMover
     {
         GameWorld gw = (GameWorld)getWorld();
         gw.addObject(hi, 175, 30); 
-        gw.addObject(di, 175, 60); 
+        gw.addObject(di, 175, 65); 
         gw.addObject(cooldown, 300, 60); 
         moving = false; 
         if(!healthBarAdded)
