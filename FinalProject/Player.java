@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * The main player can move around, attack and switch their attack type
+ * The main player can move around, dash, attack and switch their attack type
  * 
- * @author (Harishan Ganeshanathan, Anthony Ung, Joey Guan) 
- * @version (January 22th, 2023)
+ * @author Harishan Ganeshanathan, Anthony Ung, Joey Guan
+ * @version January 22th, 2023
  */
 public class Player extends SmoothMover
 {
@@ -242,7 +242,9 @@ public class Player extends SmoothMover
             }
         }
     }
-
+    /**
+     * Attack method for Player
+     */
     public void attack(){
         if(Greenfoot.isKeyDown("SPACE"))//attack
         {
@@ -315,7 +317,8 @@ public class Player extends SmoothMover
         }
         updateHealthBar();
     }
-    public void updateLevel(){
+    
+    /*public void updateLevel(){
         GameWorld gw = (GameWorld)getWorld(); 
         if(gw.getKillCount() == 8){
             String[] v = gw.getArrValues();
@@ -349,8 +352,10 @@ public class Player extends SmoothMover
             gw.setArrValues(v); 
         }
         
-    }
-
+    }*/
+    /**
+     * Method for updating HealthBar
+     */
     public void updateHealthBar()
     {
         GameWorld world = (GameWorld) getWorld();

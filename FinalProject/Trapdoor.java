@@ -1,22 +1,23 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class TrapDoor here.
+ * Gateway between Floors that open up once a player defeats all the enemies in the room 
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Joey Guan
+ * @version January 11
  */
 public class Trapdoor extends Structures
 {
-    /**
-     * Act - do whatever the TrapDoor wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    
     private GreenfootImage img = new GreenfootImage("TrapDoor.png");
     public Trapdoor(){
         img.scale(75,75);
         setImage(img); 
     }
+    /**
+     * Act - do whatever the TrapDoor wants to do. This method is called whenever
+     * the 'Act' or 'Run' button gets pressed in the environment.
+     */
     public void act()
     {
         GameWorld w = (GameWorld)getWorld();
