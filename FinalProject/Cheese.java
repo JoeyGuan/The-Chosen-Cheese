@@ -55,7 +55,6 @@ public class Cheese extends Actor
                 GameWorld w = (GameWorld)getWorld(); 
                 String[] v = w.getArrValues(); 
                 v[7] = Double.toString(Double.parseDouble(v[7])+0.5);
-                System.out.println("armour added: "+ v[7]); 
                 w.setArrValues(v); 
 
                 w.markCheeseMap();
@@ -102,7 +101,6 @@ public class Cheese extends Actor
                     player.setHealth(maxHp); 
                     player.updateHealthBar();
                 }
-                System.out.println(v[8]);
                 w.markCheeseMap();
 
                 Color color = new Color(0, 255, 0);
