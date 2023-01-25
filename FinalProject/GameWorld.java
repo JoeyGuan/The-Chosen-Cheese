@@ -250,8 +250,7 @@ public class GameWorld extends World
         //Clear Screen
         removeObjects(getObjects(Actor.class));
         //Adding UI elements
-        addObject(new AttackTypeIndicator(), 100, 100);
-        
+        addObject(new AttackTypeIndicator(), 50, 50);
         //Adds room layout
         int roomType = dungeonFloor[currentRoomY][currentRoomX];
         switch (roomType)

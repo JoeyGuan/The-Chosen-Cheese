@@ -12,68 +12,29 @@ public class Story extends World
     private GreenfootImage[] slides = new GreenfootImage[7]; 
     private int actCounter = 0; 
     private int currentSlide = 0; 
-    private GreenfootSound story;
-    private Button b;
+    
     public Story()
     {    
-
+        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1300, 700, 1); 
-        initGraphics();   
-        story = new GreenfootSound ("story.mp3");
-        story.setVolume(30);
-        started();
-        
-        GreenfootImage normal = new GreenfootImage("skipButton.png");
-        GreenfootImage hover = new GreenfootImage("skipButtonHover.png");
-        normal.scale(normal.getWidth()/6, normal.getHeight()/6);
-        hover.scale(hover.getWidth()/6, hover.getHeight()/6);
-        
-        b = new Button(normal, hover);
-
-        addObject(b,getWidth()/4,getHeight()/4 + 100);
-        b.setLocation(1200,100);
-    }
-    
-        public void started(){
-        story.playLoop();
-    }
-    
-    public void stopped(){
-        story.stop();
+        initGraphics();         
     }
     
     //every 200 acts, the image will change 
     public void act() {
-        if (actCounter % 200 == 0 ){
+        if (actCounter % 200 == 0) {
             if (currentSlide == slides.length) {
-                Greenfoot.setWorld(new Instructions());
-                stopped();
-            } else {
-                setBackground(slides[currentSlide]); 
-                currentSlide++; 
-            }
-        }
-        if (b.getClick()){
-            actCounter = 0;
-            if (currentSlide == slides.length) {
-                Greenfoot.setWorld(new Instructions());
-                stopped();
+                Greenfoot.setWorld(new Instructions()); 
             } else {
                 setBackground(slides[currentSlide]); 
                 currentSlide++; 
             }
         }
         actCounter++; 
-        /**
         if(Greenfoot.isKeyDown("SPACE")) // left
         {
             Greenfoot.setWorld(new Instructions());
         } 
-            {
-                Greenfoot.setWorld(new Instructions());
-                stopped();
-            }
-        **/
     }
     
     //fill an array with the pictures used as the slides
