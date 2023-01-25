@@ -45,7 +45,7 @@ import java.util.List;
  * 
  * 
  * Sound Credits: 
- * Slash sound is from mixkit - "Dagger Woosh" - https://mixkit.co/free-sound-effects/sword/
+ * Slash sound is from pixabay - "Knife slice" - https://pixabay.com/sound-effects/knife-slice-41231/
  * Munching sound is from pixabay by Maugusto sfx : https://pixabay.com/sound-effects/eatingsfxwav-14588/
  * 
  * @author Joey Guan, Harishan Ganeshanathan, Marco Luong, Anthony Ung, Clara Hong

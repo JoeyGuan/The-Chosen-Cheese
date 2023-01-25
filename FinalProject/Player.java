@@ -46,7 +46,7 @@ public class Player extends SmoothMover
     private HpIcon hi; 
     private SuperStatBar healthBar;
     
-    private GreenfootSound slash = new GreenfootSound("slash.wav"); 
+    private GreenfootSound slash = new GreenfootSound("slash.mp3"); 
     
     //public Player(boolean ranged, int meleeRadius, int meleeSpeed, int rangeSpeed, double projectileSpeed, double speed,  double attackPower, double armour, double health)
     /**
@@ -69,7 +69,7 @@ public class Player extends SmoothMover
         this.dashCooldown = Integer.parseInt(values[9]); //0
         this.maxHealth = Double.parseDouble(values[10]); 
 
-        slash.setVolume(50); 
+        slash.setVolume(30); 
         
         
         attacked = false;

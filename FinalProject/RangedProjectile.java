@@ -16,7 +16,6 @@ public class RangedProjectile extends Attack
      * @param speed Speed of which the projectile travels at
      */
     public RangedProjectile(double speed){
-        this.setImage("button-blue.png");
         this.getImage().scale(25,25);
         this.speed = speed;
     }
