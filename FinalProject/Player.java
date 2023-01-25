@@ -14,16 +14,18 @@ public class Player extends SmoothMover
     private boolean attacked;
     private boolean isAttacking; 
     private boolean attackSwitched = false;
+    private boolean healthBarAdded = false;
     private int attackSwitchTimer; 
     private int rangeTimer; 
     private int meleeTimer; 
-
+    
     //upgradable stats
     private double speed;
     private double projectilePower;
     private double attackPower; 
     private double armour; //damage reduction variable
     private double health;
+    private double maxHealth;
     private double projectileSpeed = 5; 
     private int meleeRadius; 
     private int meleeReset; //attack resets every .5 seconds
@@ -36,8 +38,8 @@ public class Player extends SmoothMover
     private int dashTimer = 0; 
     private int dashCooldown = 0; 
     
-    private SuperStatBar cooldown;  
-
+    private SuperStatBar cooldown; 
+    private SuperStatBar healthBar;
     //public Player(boolean ranged, int meleeRadius, int meleeSpeed, int rangeSpeed, double projectileSpeed, double speed,  double attackPower, double armour, double health)
     /**
      * Simple Constructor for Player to set values through parsing a String into integers, booleans and/or doubles
@@ -57,7 +59,9 @@ public class Player extends SmoothMover
         this.armour = Double.parseDouble(values[7]); //0
         this.health = Double.parseDouble(values[8]); //25
         this.dashCooldown = Integer.parseInt(values[9]); //0
-
+        this.maxHealth = Double.parseDouble(values[10]); 
+        
+        
         attacked = false;
         isAttacking = false;
         rangeTimer = 0;
@@ -67,6 +71,11 @@ public class Player extends SmoothMover
         cooldown = new SuperStatBar(120, 0, null, 180, 60, 0, Color.WHITE, Color.GREEN, false, Color.BLACK, 3);
     }
 
+    public void addedToWorld()
+    {
+        healthBarAdded = false;
+    }
+    
     /**
      * Act - do whatever the Player wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -76,6 +85,11 @@ public class Player extends SmoothMover
         GameWorld gw = (GameWorld)getWorld(); 
         gw.addObject(cooldown, 80, 700); 
         moving = false; 
+        if(!healthBarAdded)
+        {
+            updateHealthBar();
+            healthBarAdded = true;
+        }
         if(dashReady){
             if(Greenfoot.isKeyDown("N")){
                 isDashing = true;
@@ -169,6 +183,7 @@ public class Player extends SmoothMover
         cooldown.update(Integer.parseInt(v[9]));  
         actCounter++; 
     }
+    
     /**
      * Method for player movement - Note that players cannot move when melee attacking
      */
@@ -292,7 +307,17 @@ public class Player extends SmoothMover
             GameWorld gw = (GameWorld) getWorld();
             Greenfoot.setWorld(new EndScreen(gw.stopTimer())); 
         }
+        updateHealthBar();
     }
+
+    public void updateHealthBar()
+    {
+        GameWorld world = (GameWorld) getWorld();
+        healthBar = new SuperStatBar((int)maxHealth, (int)health, null, 200, 20, 0);
+        world.removeObject(healthBar);
+        world.addObject(healthBar, 200, 30);
+    }
+    
     /**
      * Gets the direction that the player is facing 
      * @return int Returns the direction as an int value: 1 = left, 2 = right, 3 = up, 4 = down

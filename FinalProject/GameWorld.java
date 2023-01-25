@@ -41,7 +41,7 @@ public class GameWorld extends World
     private int playerX = 6;
     private int playerY = 3;
     
-    private String[] values = {"false", "100", "30", "30", "5.5", "3", "8", "0", "50", "0"}; 
+    private String[] values = {"false", "100", "30", "30", "5.5", "4", "8", "0", "50", "0", "50"}; 
     
     /**
      * Constructor for objects of class MyWorld.
@@ -65,7 +65,7 @@ public class GameWorld extends World
             if(floorDepth != maxFloorDepth)
             {
                 floorDepth++;
-                totalRoomAmount = 5 + (3 * floorDepth);
+                totalRoomAmount = 5 + (2 * floorDepth);
 
                 generateDungeonFloor();
                 currentRoomX = 3;
@@ -204,7 +204,6 @@ public class GameWorld extends World
         removeObjects(getObjects(Actor.class));
         //Adding UI elements
         addObject(new AttackTypeIndicator(), 50, 50);
-        
         //Adds room layout
         int roomType = dungeonFloor[currentRoomY][currentRoomX];
         switch (roomType)
