@@ -7,7 +7,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class RangedProjectile extends Attack
 {
-    protected double speed = 0;
+    protected double speed = 10;
     protected int direction;
     
     /**
