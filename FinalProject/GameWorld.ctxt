@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=GameWorld
-comment0.text=\n\ Write\ a\ description\ of\ class\ MyWorld\ here.\n\ \n\ @author\ Joey\ Guan,\ Harishan\ Ganeshanathan,\ Marco\ Luong,\ Anthony\ Ung,\ Clara\ Hong\n\ @version\ January\ 19,\ 2023\n
+comment0.text=\n\ Write\ a\ description\ of\ class\ MyWorld\ here.\n\ \n\ Image\ Credits\:\ \n\ All\ characters\ (Player,\ Cat,\ Bird,\ Snake)\ and\ their\ appearances\ (walking,\ attacking,\ damaged)\ were\ drawn\ by\ Clara\ Hong.\ \n\ The\ Start\ Screen,\ End\ Screen,\ Story\ Slides,\ and\ all\ obstacles\ (vase,\ tableVase,\ bed,\ suitcase,\ cart,\ etc)\ were\ also\ drawn\ by\ Clara\ Hong.\ \n\ \n\ @author\ Joey\ Guan,\ Harishan\ Ganeshanathan,\ Marco\ Luong,\ Anthony\ Ung,\ Clara\ Hong\n\ @version\ January\ 19,\ 2023\n
 comment1.params=
 comment1.target=GameWorld()
 comment1.text=\n\ Constructor\ for\ objects\ of\ class\ MyWorld.\n\ \n

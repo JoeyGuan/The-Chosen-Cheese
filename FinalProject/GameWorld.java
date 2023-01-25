@@ -5,6 +5,10 @@ import java.util.List;
 /**
  * Write a description of class MyWorld here.
  * 
+ * Image Credits: 
+ * All characters (Player, Cat, Bird, Snake) and their appearances (walking, attacking, damaged) were drawn by Clara Hong. 
+ * The Start Screen, End Screen, Story Slides, and all obstacles (vase, tableVase, bed, suitcase, cart, etc) were also drawn by Clara Hong. 
+ * 
  * @author Joey Guan, Harishan Ganeshanathan, Marco Luong, Anthony Ung, Clara Hong
  * @version January 19, 2023
  */
