@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * AttackTypeIndicator is in the top left corner of the screen, and shows if the player is using Melee or Ranged attacks
  * 
- * @author Joey Guan, Harishan Ganeshanathan
+ * @author Joey Guan, Harishan Ganeshanathan, Anthony Ung
  * @version January 21
  */
 public class AttackTypeIndicator extends UI

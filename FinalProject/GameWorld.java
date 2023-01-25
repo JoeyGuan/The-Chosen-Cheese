@@ -36,12 +36,20 @@ import java.util.List;
  * 
  * Image Credits: 
  * All characters (Player, Cat, Bird, Snake) and their appearances (walking, attacking, damaged) were drawn by Clara Hong. 
- * The Start Screen, End Screen, Story Slides, and all obstacles (vase, tableVase, bed, suitcase, cart, etc) were also drawn by Clara Hong. 
+ * The Start Screen, End Screen, Story Slides, and all obstacles (vase, tableVase, bed, suitcase, cart, etc) were also drawn by Clara Hong.
  * DashIcon - https://commons.wikimedia.org/wiki/File:Running_icon_-_Noun_Project_17825.svg 
+ * All Buttons / UI Elements were designed by Anthony Ung
+ * ALL Weapons and their RESPECTIVE animation designed and animated by Anthony Ung
+ * Title png designed by Anthony Ung
+ * Instructions Screen designed By Anthony Ung
+ * Game Backgrounds + Doors / Trapdoors designed by Anthony Ung
+ * Wing Icon - https://tenor.com/view/angel-wings-pretty-8bit-cute-gif-18012222
+ * 
  * 
  * Sound credits: 
  * Main Music (start screen and game world): https://www.youtube.com/watch?v=OWXuChSmpjw&t=304s&ab_channel=ElmostritoOO7 
  * Story Music: https://www.youtube.com/watch?v=FitRzyV2jw8&ab_channel=WaveJam
+ * Instruction Music: https://www.youtube.com/watch?v=0gi5-mEVEc4
  * 
  * 
  * Sound Credits: 

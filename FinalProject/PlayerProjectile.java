@@ -14,7 +14,7 @@ public class PlayerProjectile extends RangedProjectile
     private int imageIndex =0; 
     public PlayerProjectile(double speed, int facing, Player p){
         super(speed);
-        this.setImage("button-blue.png");
+        
         this.getImage().scale(25,25);
         //1 is left, 2 is right, 3 is up, 4 is down
         this.direction = facing; 

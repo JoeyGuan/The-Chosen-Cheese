@@ -6,7 +6,7 @@ import greenfoot.GreenfootImage;
 /**
  * Melee Attack - This is a sword swing, that damages enemies within the range of the swing.
  *
- * @author Harishan Ganeshanathan
+ * @author Harishan Ganeshanathan & Anthony Ung
  * @version January 17
  */
 public class PlayerMelee extends MeleeAttack

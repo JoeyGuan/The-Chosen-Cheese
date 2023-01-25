@@ -9,6 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Instructions extends World
 {
     private Button b;
+    GreenfootSound Theme;
     /**
      * Constructor for objects of class Instructions.
      * 
@@ -20,6 +21,11 @@ public class Instructions extends World
         bg.scale(1300,700);
         
         setBackground(bg);
+        
+        
+        Theme = new GreenfootSound ("instructions.mp3");
+        Theme.setVolume(30);
+        started();
 
         
         GreenfootImage normal = new GreenfootImage("nextButton.png");
@@ -32,9 +38,18 @@ public class Instructions extends World
         b.setLocation(1125,625); 
     }
     
+    public void started(){
+        Theme.playLoop();
+    }
+   
+    public void stopped(){
+        Theme.stop();
+    }
+    
     public void act(){
         if (b.getClick()){
             Greenfoot.setWorld(new GameWorld());
+            stopped();
         }
     }
 }
