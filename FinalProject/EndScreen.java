@@ -16,11 +16,18 @@ public class EndScreen extends World
      * Constructor for objects of class EndScreen.
      * 
      */
-    public EndScreen(int time)
+    public EndScreen(int time, boolean win)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1300, 700, 1); 
-        setBackground(new GreenfootImage("LoseScreen.png")); 
+        super(1300, 700, 1);
+        if(win)
+        {
+            setBackground(new GreenfootImage("WinScreen.png"));
+        }
+        else
+        {
+            setBackground(new GreenfootImage("LoseScreen.png")); 
+        }
         
         GreenfootImage background = new GreenfootImage("playAgainButton.png");
         background.scale(background.getWidth()/8, background.getHeight()/8);

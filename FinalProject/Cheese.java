@@ -37,8 +37,13 @@ public class Cheese extends Actor
         {
             setImage("PurpleCheese.png");
         }
+        else if(type == 4)
+        {
+            setImage("RainbowCheese.png");
+        }
         getImage().scale(50,50);
     }
+
     /**
      * Act Method - responsible for the actions of each type of cheese
      */
@@ -54,10 +59,8 @@ public class Cheese extends Actor
                     System.out.println("armour added: "+ v[7]); 
                     w.setArrValues(v); 
                 }
-                
-                
+
                 w.markCheeseMap();
-                
                 Color color = new Color(220, 220, 220);
                 w.addObject(new PopUp("+Armor", color), getX(), getY());
                 getWorld().removeObject(this); 
@@ -71,9 +74,9 @@ public class Cheese extends Actor
                 v[6] = Double.toString(Double.parseDouble(v[6])+2); 
                 v[4] = Double.toString(Double.parseDouble(v[4])+2); 
                 w.setArrValues(v); 
-                
+
                 w.markCheeseMap();
-                
+
                 Color color = new Color(255, 0, 0);
                 w.addObject(new PopUp("+Attack", color), getX(), getY());
                 getWorld().removeObject(this); 
@@ -103,7 +106,7 @@ public class Cheese extends Actor
                 }
                 System.out.println(v[8]);
                 w.markCheeseMap();
-                
+
                 Color color = new Color(0, 255, 0);
                 w.addObject(new PopUp("+Health", color), getX(), getY());
                 getWorld().removeObject(this); 
@@ -121,12 +124,20 @@ public class Cheese extends Actor
                     v[5] = Double.toString(8);
                     w.setArrValues(v); 
                 }
-                
+
                 w.markCheeseMap();
-                
+
                 Color color = new Color(120, 0, 200);
                 w.addObject(new PopUp("+Speed", color), getX(), getY());
                 getWorld().removeObject(this); 
+            }
+        }
+        else if(cheeseType == 4)
+        {
+            GameWorld w = (GameWorld)getWorld();
+            if(!getIntersectingObjects(Player.class).isEmpty()){
+                w.setGoingToNextFloor(true);
+                w.setDoneSpawning(false); 
             }
         }
     }
