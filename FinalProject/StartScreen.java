@@ -29,9 +29,16 @@ public class StartScreen extends World
         addObject(b,getWidth()/2,getHeight()/2 + 100);
         b.setLocation(840,450);
     }
-    
+    public void started(){
+        Theme.playLoop();
+    }
+   
+    public void stopped(){
+        Theme.stop();
+    }
     public void act(){
         if (b.getClick()){
+            Theme.stop(); 
             Greenfoot.setWorld(new Story());
         }
     }
