@@ -122,7 +122,6 @@ public class PlayerMelee extends MeleeAttack
                     e.setLocation(e.getX(), e.getY()+75); 
                 }
                 if(e.getHp() <= 0){
-                    w.addObject(new PopUp(new GreenfootImage("skull.png"), 75, 75, 0, new Color(0,0,0), ""), e.getX(), e.getY());
                     w.removeObject(e); 
                 }
             }

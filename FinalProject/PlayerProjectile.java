@@ -77,7 +77,6 @@ public class PlayerProjectile extends RangedProjectile
             double dmg = Double.parseDouble(v[4]); 
             e.takeDamage(dmg); 
             if(e.getHp()<=0){
-                w.addObject(new PopUp(new GreenfootImage("skull.png"), 75, 75, 0, new Color(0,0,0), ""), e.getX(), e.getY());
                 w.removeObject(e); 
             }
             w.removeObject(this);

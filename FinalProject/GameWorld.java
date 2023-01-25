@@ -287,17 +287,6 @@ public class GameWorld extends World
         dungeonFloor[farthestY][farthestX] = -2;
 
         dungeonGenerated = true;
-
-        //Prints out floor for testing purposes
-        for(int i = 0; i < dungeonFloor.length; i++)
-        {
-            for(int j = 0; j < dungeonFloor[0].length; j++)
-            {
-                System.out.print(dungeonFloor[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
     }
 
     /**
