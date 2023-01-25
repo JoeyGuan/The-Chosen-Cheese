@@ -12,6 +12,7 @@ public class Story extends World
     private GreenfootImage[] slides = new GreenfootImage[7]; 
     private int actCounter = 0; 
     private int currentSlide = 0; 
+    //private Button b = new Button(); 
     
     public Story()
     {    
@@ -47,7 +48,7 @@ public class Story extends World
                 Greenfoot.setWorld(new Instructions());
                 stopped();
             }
-        **/
+        
     }
     
     //fill an array with the pictures used as the slides
