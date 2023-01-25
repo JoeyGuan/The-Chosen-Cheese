@@ -79,7 +79,7 @@ public class GameWorld extends World
     private int playerY = 3;
     
     //Player stats; kept in world because the player would otherwise be reset each time you move rooms/floors
-    private String[] values = {"false", "100", "30", "30", "5.5", "4", "8", "0", "50", "0", "50"}; 
+    private String[] values = {"false", "100", "30", "30", "5.5", "4", "8", "0", "50", "0", "50"};
 
     private GreenfootSound Theme; 
     /**

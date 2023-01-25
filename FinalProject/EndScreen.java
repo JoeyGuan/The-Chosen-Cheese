@@ -36,8 +36,8 @@ public class EndScreen extends World
         if (UserInfo.isStorageAvailable()) {
             player = UserInfo.getMyInfo();
             if (score > player.getScore()) {
-                 //player.setScore(score);
-                 //player.store();  // write back to server
+                 player.setScore(score);
+                 player.store();  // write back to server
             }
         }
         

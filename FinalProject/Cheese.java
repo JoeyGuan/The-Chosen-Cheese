@@ -54,7 +54,8 @@ public class Cheese extends Actor
             if(this.isTouching(Player.class)){
                 GameWorld w = (GameWorld)getWorld(); 
                 String[] v = w.getArrValues(); 
-                if(!(Double.parseDouble(v[7])>=2.5)){
+                Enemies e = w.getObjects(Enemies.class).get(0);
+                if(!(Double.parseDouble(v[7])>=e.getAttackDamage())){
                     v[7] = Double.toString(Double.parseDouble(v[7])+0.5);
                     System.out.println("armour added: "+ v[7]); 
                     w.setArrValues(v); 
@@ -98,10 +99,10 @@ public class Cheese extends Actor
                 }
                 else
                 {
-                    v[8] = Double.toString(50.0); 
+                    v[8] = Double.toString(maxHp); 
                     w.setArrValues(v); 
                     Player player = w.getObjects(Player.class).get(0);
-                    player.setHealth(50.0); 
+                    player.setHealth(maxHp); 
                     player.updateHealthBar();
                 }
                 System.out.println(v[8]);

@@ -307,7 +307,7 @@ public class Player extends SmoothMover
      */
     public void takeDamage(double atkDmg){
         System.out.println("health: "+health); 
-        if(this.health - atkDmg>0){
+        if(this.health - (atkDmg-armour)>0){
             if(armour<atkDmg){
                 GameWorld w = (GameWorld)getWorld();
                 String[] v = w.getArrValues(); 
